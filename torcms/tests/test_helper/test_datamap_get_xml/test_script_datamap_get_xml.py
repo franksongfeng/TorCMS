@@ -1,6 +1,6 @@
-'''
+"""
 通过Data中相关图层名称获取url，并通过url获取xml数据
-'''
+"""
 
 import json
 import sys
@@ -16,10 +16,10 @@ except:
     # sys.exit()
 
 
-@pytest.mark.skip(reason="跳过测试函数的测试case")
+@pytest.mark.skip(reason='跳过测试函数的测试case')
 def test_get_xml():
     # maplayers = sys.argv[1]
-    maplayers = "q_ht_geomor_geomor_mn1011"
+    maplayers = 'q_ht_geomor_geomor_mn1011'
     yaml_file = Path(__file__).parent / 'mapproxy.yaml'
     with open(yaml_file, encoding='utf-8') as file:
         content = file.read()
@@ -35,8 +35,8 @@ def test_get_xml():
                     result = wms.getServiceXML()
 
                     result = str(result)[2:-1]
-                    result2 = "".join(json.dumps(result).split("\\n"))
-                    result3 = "".join(json.dumps(result2).split("\\"))
+                    result2 = ''.join(json.dumps(result).split('\\n'))
+                    result3 = ''.join(json.dumps(result2).split('\\'))
                     print(result3[2:-2])
                 except:
-                    print("err")
+                    print('err')

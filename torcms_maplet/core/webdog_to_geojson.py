@@ -101,7 +101,7 @@ class Webdog:
             properties = layer.get('properties') or {}
             feature_type = None
 
-            if layer_type == "marker":
+            if layer_type == 'marker':
                 if isinstance(coord[0], list):
                     feature_type = 'MultiPoint'
                 else:
@@ -136,7 +136,7 @@ class Webdog:
             }
             features.append(feature)
 
-        geojson = {"type": "FeatureCollection", "features": features}
+        geojson = {'type': 'FeatureCollection', 'features': features}
 
         if dumps:
             return json.dumps(geojson)

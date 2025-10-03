@@ -1,6 +1,6 @@
-'''
+"""
 Entry for the application.
-'''
+"""
 
 import sys
 
@@ -12,7 +12,7 @@ from config import SITE_CFG
 PORT = SITE_CFG['PORT']
 APP = tornado.web.Application(handlers=APP_URLS, **SETTINGS)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     if len(sys.argv) > 1:
         PORT = sys.argv[1]
     app = APP

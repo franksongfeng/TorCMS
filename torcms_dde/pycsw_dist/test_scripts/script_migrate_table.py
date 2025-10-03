@@ -5,9 +5,9 @@ from torcms_dde.model.ext import Records
 
 
 def run_init_tables(*args):
-    '''
+    """
     Run to init tables.
-    '''
+    """
 
     try:
         create_table(Records)

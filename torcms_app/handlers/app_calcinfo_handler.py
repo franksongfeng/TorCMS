@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 对App中计算的数值进行处理
-'''
+"""
+
 import json
 
 from torcms.core.base_handler import BaseHandler

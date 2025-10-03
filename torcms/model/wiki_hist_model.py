@@ -10,9 +10,9 @@ from torcms.model.core_tab import TabWikiHist
 class MWikiHist:
     @staticmethod
     def get_last(postid):
-        '''
+        """
         Get the last wiki in history.
-        '''
+        """
         recs = (
             TabWikiHist.select()
             .where(TabWikiHist.wiki_id == postid)
@@ -23,9 +23,9 @@ class MWikiHist:
 
     @staticmethod
     def delete(uid):
-        '''
+        """
         Delete by uid
-        '''
+        """
         return MHelper.delete(TabWikiHist, uid)
 
     @staticmethod

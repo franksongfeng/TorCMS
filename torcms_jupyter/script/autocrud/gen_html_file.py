@@ -1,9 +1,9 @@
-'''
+"""
 Generate HTML for add, edit, view
 
 The type of the control inclusing `select`, text`, `digits`, ``date`, `number`, `email`, `url`.
 The last 5 types is defined as in JQuery Validation.
-'''
+"""
 
 import os
 
@@ -19,7 +19,7 @@ OUT_DIR = os.path.join(os.getcwd(), CRUD_PATH)
 HTML_DICS = gen_html_dic()
 
 SWITCH_DICS, KIND_DICS = gen_array_crud_tag()
-legend_html = ['''<legend>{{ _('Extra Metadata fields') }}</legend>''']
+legend_html = ["""<legend>{{ _('Extra Metadata fields') }}</legend>"""]
 
 
 def minify(the_str):
@@ -27,11 +27,11 @@ def minify(the_str):
 
 
 def __get_view_tmpl(tag_key):
-    '''
+    """
     根据分类uid的4位编码来找模板。如果4位的存在，则使用4位的；不然找其父类；再不然则使用通用模板
     只有View需要，edit, list使用通用模板
     :return String.
-    '''
+    """
     the_view_file_4 = './templates/tmpl_{0}/tpl_view_{1}.html'.format(
         KIND_DICS['kind_' + tag_key.split('_')[-1]], tag_key.split('_')[1]
     )
@@ -63,38 +63,36 @@ def generate_html_files(*args):
 
 
 def __gen_select_filter(bl_str):
-    '''
+    """
     Convert to html.
     :return String.
-    '''
+    """
     bianliang = HTML_DICS[bl_str]
     # bianliang = eval('html_vars.' + bl_str)
-    html_out = '''<li class="list-group-item">
+    html_out = """<li class="list-group-item">
     <div class="row"><div class="col-sm-3">{{{{_('{0}')}}}}</div><div class="col-sm-9">
      <span class="label label-default"  name='{1}' onclick='change(this);' value=''>{{{{_('All')}}}}</span>
-    '''.format(
-        bianliang['zh'], '_'.join(bl_str.split('_')[1:])
-    )
+    """.format(bianliang['zh'], '_'.join(bl_str.split('_')[1:]))
 
     tmp_dic = bianliang['dic']
     for key in tmp_dic.keys():
-        tmp_str = '''
+        tmp_str = """
         <span  class="label label-default" name='{0}' onclick='change(this);' value='{1}'>
-        {{{{_('{2}')}}}}</span>'''.format(
+        {{{{_('{2}')}}}}</span>""".format(
             '_'.join(bl_str.split('_')[1:]), key, tmp_dic[key]
         )
         html_out += tmp_str
-    html_out += '''</div></div></li>'''
+    html_out += """</div></div></li>"""
     return html_out
 
 
 def __write_edit_tmpl(tag_key, tag_list):
-    '''
+    """
     Generate the HTML file for editing.
     :param tag_key: key of the tags.
     :param tag_list: list of the tags.
     :return: None
-    '''
+    """
     edit_file = os.path.join(OUT_DIR, 'edit', 'edit_' + tag_key.split('_')[1] + '.html')
     edit_widget_arr = []
     edit_widget_arr_meta = []
@@ -135,12 +133,12 @@ def __write_edit_tmpl(tag_key, tag_list):
 
 
 def __write_view_tmpl(tag_key, tag_list):
-    '''
+    """
     Generate the HTML file for viewing.
     :param tag_key: key of the tags.
     :param tag_list: list of the tags.
     :return: None
-    '''
+    """
     view_file = os.path.join(OUT_DIR, 'view', 'view_' + tag_key.split('_')[1] + '.html')
     view_widget_arr = []
     view_widget_arr_meta = []
@@ -165,9 +163,9 @@ def __write_view_tmpl(tag_key, tag_list):
         # The admin information should be hidden for user.
         if sig.startswith('_'):
             tmpl = (
-                '''{% if userinfo and userinfo.extinfo.get('_per_assign_role', 0) == 1 %}'''
+                """{% if userinfo and userinfo.extinfo.get('_per_assign_role', 0) == 1 %}"""
                 + tmpl
-                + '''{% end %}'''
+                + """{% end %}"""
             )
         view_widget_arr.append(tmpl)
 
@@ -188,12 +186,12 @@ def __write_view_tmpl(tag_key, tag_list):
 
 
 def __write_add_tmpl(tag_key, tag_list):
-    '''
+    """
     Generate the HTML file for adding.
     :param tag_key: key of the tags.
     :param tag_list: list of the tags.
     :return: None
-    '''
+    """
     add_file = os.path.join(OUT_DIR, 'add', 'add_' + tag_key.split('_')[1] + '.html')
     add_widget_arr = []
     add_widget_arr_meta = []
@@ -235,9 +233,9 @@ def __write_add_tmpl(tag_key, tag_list):
 
 
 def __write_filter_tmpl(html_tpl):
-    '''
+    """
     doing for directory.
-    '''
+    """
     out_dir = os.path.join(os.getcwd(), CRUD_PATH, 'list')
     if os.path.exists(out_dir):
         pass
@@ -270,9 +268,9 @@ def __write_filter_tmpl(html_tpl):
 
 
 def __write_list_tmpl(html_tpl):
-    '''
+    """
     doing for directory.
-    '''
+    """
     out_dir = os.path.join(os.getcwd(), CRUD_PATH, 'infolist')
     if os.path.exists(out_dir):
         pass

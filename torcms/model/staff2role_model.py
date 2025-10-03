@@ -10,16 +10,16 @@ from torcms.model.core_tab import TabMember, TabRole, TabRole2Permission, TabSta
 class MStaff2Role:
     @staticmethod
     def query_all():
-        '''
+        """
         Return some of the records. Not all.
-        '''
+        """
         return TabStaff2Role.select()
 
     @staticmethod
     def query_by_staff(staff_id):
-        '''
+        """
         Query records by staff.
-        '''
+        """
         return TabStaff2Role.select().where(TabStaff2Role.staff == staff_id)
 
     @staticmethod
@@ -41,9 +41,9 @@ class MStaff2Role:
 
     @staticmethod
     def query_permissions(staff_id):
-        '''
+        """
         Query records by staff.
-        '''
+        """
         # return TabStaff2Role.select().where(TabStaff2Role.staff == staff_id)
 
         # query = (User
@@ -67,9 +67,9 @@ class MStaff2Role:
 
     @staticmethod
     def check_permissions(staff_id, action):
-        '''
+        """
         Query records by staff.
-        '''
+        """
         # return TabStaff2Role.select().where(TabStaff2Role.staff == staff_id)
 
         # query = (User
@@ -95,16 +95,16 @@ class MStaff2Role:
 
     @staticmethod
     def query_by_role(role_id):
-        '''
+        """
         Query records by role.
-        '''
+        """
         return TabStaff2Role.select().where(TabStaff2Role.role == role_id)
 
     @staticmethod
     def remove_relation(staff_id, role_id):
-        '''
+        """
         Delete the record of Staff 2 Role.
-        '''
+        """
         entry = TabStaff2Role.delete().where(
             (TabStaff2Role.role == role_id) & (TabStaff2Role.staff == staff_id)
         )

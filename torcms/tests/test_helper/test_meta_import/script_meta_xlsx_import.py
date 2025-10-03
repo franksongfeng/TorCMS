@@ -1,8 +1,8 @@
 # -*- coding: utf-8
 
-'''
+"""
 Import metadata which ID extracted from XLSX.
-'''
+"""
 
 import os
 import pathlib
@@ -16,9 +16,9 @@ from torcms.model.post_model import MPost
 
 
 def update_category(uid, postdata, kwargs):
-    '''
+    """
     Update the category of the post.
-    '''
+    """
     catid = (
         kwargs['catid']
         if ('catid' in kwargs and MCategory.get_by_uid(kwargs['catid']))

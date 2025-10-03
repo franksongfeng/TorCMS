@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 define the Core Modules of TorCMS.
-'''
+"""
 
 from torcms_dde.modules import meta_modules
 

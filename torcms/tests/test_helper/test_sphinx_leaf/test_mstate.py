@@ -26,7 +26,7 @@ class TestFoo:
 
         self.uid = tools.get_uu4d()
 
-        self.fake = Faker(locale="zh_CN")
+        self.fake = Faker(locale='zh_CN')
 
         self.ws_dir = Path('./xx_rst')
         if self.ws_dir.exists():
@@ -115,4 +115,4 @@ class TestFoo:
         self.ch_dir.rmdir()
         print('x' * 40)
         # self.ws_dir.rmdir()
-        print("function teardown .. ")
+        print('function teardown .. ')

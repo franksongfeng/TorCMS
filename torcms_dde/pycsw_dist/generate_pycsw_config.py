@@ -90,10 +90,10 @@ def chuli_run():
             )
             fo.write('\n')
             fo.write(
-                f'''. ~/usr/vpy_csw/bin/activate \\
+                f""". ~/usr/vpy_csw/bin/activate \\
     && export PYCSW_CONFIG={wfile.resolve()} \\
     && cd {wfile.parent.resolve()} \\
-    && python3 ./pycsw/wsgi_flask.py'''
+    && python3 ./pycsw/wsgi_flask.py"""
             )
     for wfile in [pycsw_cfg_svr]:
         with open(f'xx_run_{wfile.stem}.sh', 'w') as fo:
@@ -102,10 +102,10 @@ def chuli_run():
             )
             fo.write('\n')
             fo.write(
-                f'''. ~/usr/vpy_csw/bin/activate \\
+                f""". ~/usr/vpy_csw/bin/activate \\
     && export PYCSW_CONFIG={wfile.resolve()} \\
     && cd {wfile.parent.resolve()} \\
-    && python3 ./pycsw/wsgi.py'''
+    && python3 ./pycsw/wsgi.py"""
             )
 
 
@@ -139,10 +139,10 @@ def chuli_init():
     init_file = 'xx_run_init.sh'
     with open(init_file, 'w') as fo:
         fo.write(
-            '''
+            """
 . ~/usr/vpy_csw/bin/activate && cd zz_pycsw_drr && pycsw-admin.py setup-db -c default_svr.cfg
 . ~/usr/vpy_csw/bin/activate && cd zz_pycsw_wdc && pycsw-admin.py setup-db -c default_wdc.cfg            
-            '''
+            """
         )
 
 

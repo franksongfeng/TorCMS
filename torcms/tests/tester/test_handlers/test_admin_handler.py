@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 AdminHandler
-'''
+"""
 
 import sys
 
@@ -14,19 +14,19 @@ from server import APP
 
 
 class TestSomeHandler(AsyncHTTPSTestCase):
-    '''
+    """
     Test
-    '''
+    """
 
     def get_app(self):
-        '''
+        """
         Test
-        '''
+        """
         return APP
 
     def test_index(self):
-        '''
+        """
         Test index.
-        '''
+        """
         response = self.fetch('/admin/')
         self.assertEqual(response.code, 200)

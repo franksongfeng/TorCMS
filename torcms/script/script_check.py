@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-'''
+"""
 检查的脚本
-'''
+"""
 
 import time
 
@@ -16,7 +16,7 @@ from torcms.model.category_model import MCategory
 from torcms.model.post2catalog_model import MPost2Catalog
 from torcms.model.post_model import MPost
 
-HTML_TMPL = '''<!doctype html><html><head><title></title>
+HTML_TMPL = """<!doctype html><html><head><title></title>
 <script src="https://www.osgeo.cn/_f2elib/jquery/jquery-3.6.min.js"></script>
 <script src="https://www.osgeo.cn/_f2elib/bootstrap-3.4/js/bootstrap.min.js"></script>
 <script src="https://www.osgeo.cn/_f2elib/jquery-validate_1.15.0/jquery.validate.min.js"></script>
@@ -43,9 +43,9 @@ HTML_TMPL = '''<!doctype html><html><head><title></title>
 </div>
 
 </body></html>
-'''
+"""
 
-DT_STR = '''<dt>{idx} : {url0} </dt>
+DT_STR = """<dt>{idx} : {url0} </dt>
 <dd>{code}</dd>
 <dd>
 <a href="{edit_link}" target="_blank">
@@ -58,13 +58,13 @@ DT_STR = '''<dt>{idx} : {url0} </dt>
 </a>
 </dd>
 <hr />
-'''
+"""
 
 
 def check200():
-    '''
+    """
     对可以通过 WEB 访问的 URL 进行检查
-    '''
+    """
     print('Checking HTTP 200 error: ')
 
     tstr = ''
@@ -107,16 +107,16 @@ def check200():
 
     time_local = time.localtime(timestamp())
     with open(
-        'xx_err_200_{d}.html'.format(d=str(time.strftime("%Y_%m_%d", time_local))), 'w'
+        'xx_err_200_{d}.html'.format(d=str(time.strftime('%Y_%m_%d', time_local))), 'w'
     ) as fileo:
         fileo.write(HTML_TMPL.format(cnt=tstr))
     print('Checking 200 finished.')
 
 
 def check_kind():
-    '''
+    """
     对 post 与 对应类型的 kind 进行检查
-    '''
+    """
     for kindv in post_cfg.keys():
         for rec_cat in MCategory.query_all(kind=kindv):
             catid = rec_cat.uid
@@ -130,9 +130,9 @@ def check_kind():
 
 
 def check_tag():
-    '''
+    """
     Checking the post of error tags.
-    '''
+    """
     print('Checking tag error: ')
     tstr = ''
     idx = 1
@@ -188,7 +188,7 @@ def check_tag():
 
     time_local = time.localtime(timestamp())
     with open(
-        'xx_err_tag_{d}.html'.format(d=str(time.strftime("%Y_%m_%d", time_local))), 'w'
+        'xx_err_tag_{d}.html'.format(d=str(time.strftime('%Y_%m_%d', time_local))), 'w'
     ) as fileo:
         fileo.write(HTML_TMPL.format(cnt=tstr))
     print('Checking 200 finished.')

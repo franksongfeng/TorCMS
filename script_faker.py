@@ -1,6 +1,6 @@
-'''
+"""
 Use faker to generate test data in database.
-'''
+"""
 
 import os
 import pathlib
@@ -18,7 +18,7 @@ from torcms.model.category_model import MCategory
 from torcms.model.post_model import MPost
 from torcms.model.wiki_model import MWiki
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "administor.settings")
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'administor.settings')
 django.setup()
 from datetime import datetime
 
@@ -36,9 +36,9 @@ rest_regs = [
 
 
 def update_label(post_id, post_data):
-    '''
+    """
     Update the label when updating.
-    '''
+    """
     current_tag_infos = MPost2Label.get_by_uid(post_id).objects()
     if 'tags' in post_data:
         pass
@@ -196,11 +196,11 @@ def do_for_page(cat_id, ch_path, filename, idx):
 def get_page_meta(catid, the_file, idx):
     print(the_file.name)
     File = open(str(the_file.resolve()))
-    Soup = bs4.BeautifulSoup(File.read(), features="html.parser")
+    Soup = bs4.BeautifulSoup(File.read(), features='html.parser')
     title = Soup.select('title')
     content = Soup.select('.body')[0]
     conz = ''
-    for a in content.find_all(["h1", "p"]):
+    for a in content.find_all(['h1', 'p']):
         conz += str(a)
 
     pp_data = {}
@@ -214,7 +214,7 @@ def get_page_meta(catid, the_file, idx):
 
 def get_meta(catid, sig, the_file, idx):
     File = open(str(the_file.resolve()))
-    Soup = bs4.BeautifulSoup(File.read(), features="html.parser")
+    Soup = bs4.BeautifulSoup(File.read(), features='html.parser')
     title = Soup.select('h1')[0].getText()
     content = Soup.select('.body')[0]
     uu, vv = split_text(inws, content)
@@ -250,9 +250,9 @@ def get_catname(ch_path, filename):
         print(x.name)
 
         File = open(str(x.resolve()))
-        Soup = bs4.BeautifulSoup(File.read(), features="html.parser")
+        Soup = bs4.BeautifulSoup(File.read(), features='html.parser')
         content = Soup.select('.body')[0]
-        title = content.find_all("h1")[0].get_text()
+        title = content.find_all('h1')[0].get_text()
         return title
 
 
@@ -264,7 +264,7 @@ def bianli(inws):
 
     # 对新插入的文章，重新进行编号。 因为只是相对序号，所以取了最大值后，再依序后排。
     max_order = max(recs_arr)
-    print("-" * 50)
+    print('-' * 50)
     print(max(recs_arr))
 
     for wroot, wdirs, wfiles in os.walk(inws):

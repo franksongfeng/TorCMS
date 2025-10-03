@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Basic for handler
-'''
+"""
 
 import socket
 import time
@@ -18,15 +18,15 @@ from torcms.model.user_model import MUser
 
 
 class BaseHandler(tornado.web.RequestHandler):
-    '''
+    """
     The base class for handlers.
     继承RequestHandler，并添加了一些自定义的函数，方便使用。
-    '''
+    """
 
     def initialize(self, **kwargs):
-        '''
+        """
         Tornado 的初始化方法
-        '''
+        """
         _ = kwargs
         super().initialize()
         if self.get_current_user():
@@ -45,18 +45,18 @@ class BaseHandler(tornado.web.RequestHandler):
         self.is_j = False  # True, if json would be returned.
 
     def get_request_arguments(self):
-        '''
+        """
         Get all the arguments from request. Only get the first argument by default.
-        '''
+        """
         para_dict = {}
         for key in self.request.arguments:
             para_dict[key] = self.get_arguments(key)[0]
         return para_dict
 
     def fetch_post_data(self):
-        '''
+        """
         fetch post accessed data. post_data, and ext_dic.
-        '''
+        """
         post_data = {}
         ext_dic = {}
         for key in self.request.arguments:
@@ -73,26 +73,26 @@ class BaseHandler(tornado.web.RequestHandler):
         return (post_data, ext_dic)
 
     def ext_post_data(self, **kwargs):
-        '''
+        """
         The additional information.  for add(), or update().
-        '''
+        """
         _ = kwargs
         return {}
 
     # pylint: disable=R0201
     def parse_url(self, url_str):
-        '''
+        """
         split the url_str to array.
         :param url_str: the request url.
         :return: the array of request url.
-        '''
+        """
         url_str = url_str.strip()
         return url_str.split('/') if url_str else []
 
     def check_post_role(self):
-        '''
+        """
         check the user role for docs.
-        '''
+        """
         priv_dic = {'ADD': False, 'EDIT': False, 'DELETE': False, 'ADMIN': False}
         if self.userinfo:
             if self.userinfo.role[1] > '0':
@@ -106,15 +106,15 @@ class BaseHandler(tornado.web.RequestHandler):
         return priv_dic
 
     def get_current_user(self):
-        '''
+        """
         the current user.
-        '''
-        return self.get_secure_cookie("user")
+        """
+        return self.get_secure_cookie('user')
 
     def get_user_locale(self):
-        '''
+        """
         Override the function, to control the UI language.
-        '''
+        """
         locale_id = self.get_cookie('ulocale')
         if locale_id:
             return tornado.locale.get(locale_id)
@@ -132,15 +132,15 @@ class BaseHandler(tornado.web.RequestHandler):
     #     return tornado.locale.get('en_US')
 
     def is_admin(self):
-        '''
+        """
         if is admin
-        '''
+        """
         return self.check_post_role()['ADMIN']
 
     def editable(self):
-        '''
+        """
         if is editable
-        '''
+        """
         return self.check_post_role()['EDIT']
 
     def data_received(self, chunk):
@@ -148,9 +148,9 @@ class BaseHandler(tornado.web.RequestHandler):
 
     @run_on_executor
     def cele_gen_whoosh(self):
-        '''
+        """
         Generat whoosh database.
-        '''
+        """
         kind_arr = []
         for key, value in post_cfg.items():
             kind_arr.append(key)
@@ -180,16 +180,16 @@ class BaseHandler(tornado.web.RequestHandler):
         response = requests.get(f'https://www.ip.cn/api/index?ip&type=0').json()
 
         location_data = {
-            "ip": ip_address,
-            "address": response.get("address"),
+            'ip': ip_address,
+            'address': response.get('address'),
         }
 
         return location_data
 
     def show404(self, kwd=None):
-        '''
+        """
         Show 404 Page.
-        '''
+        """
         if kwd:
             pass
         else:

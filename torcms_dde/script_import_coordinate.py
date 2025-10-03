@@ -63,7 +63,7 @@ def get_url():
         sig = row[2].value
         if sig != '网址':
             url = row[2].value
-            print("*" * 50)
+            print('*' * 50)
             print(i, url)
             ip = get_ip(url)
             i = i + 1

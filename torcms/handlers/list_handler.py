@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Accessing via category.
-'''
+"""
 
 import json
 import os
@@ -15,7 +15,7 @@ from torcms.model.post2catalog_model import MPost2Catalog
 
 
 class ListHandler(BaseHandler):
-    '''
+    """
     Category access.
     If order is True,  list by order. Just like Book.
     Else, list via the `category`.
@@ -23,7 +23,7 @@ class ListHandler(BaseHandler):
 
     分类访问
     如果order = True,列表可以进行排序操作。
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -54,11 +54,11 @@ class ListHandler(BaseHandler):
             self.render('misc/html/404.html', kwd=kwd, userinfo=self.userinfo)
 
     def ajax_list_catalog(self, catid):
-        '''
+        """
         Get posts of certain catid. In Json.
 
         根据分类ID（catid）获取 该分类下 post 的相关信息，返回Json格式
-        '''
+        """
         out_arr = {}
         for catinfo in MPost2Catalog.query_postinfo_by_cat(catid):
             out_arr[catinfo.uid] = catinfo.title
@@ -66,42 +66,42 @@ class ListHandler(BaseHandler):
         json.dump(out_arr, self)
 
     def ajax_subcat_arr(self, pid):
-        '''
+        """
         Get the sub category.
         ToDo: The menu should display by order. Error fond in DRR.
 
         根据父类ID（pid）获取子类，返回Json格式
-        '''
+        """
         out_arr = {}
         for catinfo in MCategory.query_sub_cat(pid):
             out_arr[catinfo.uid] = catinfo.name
         json.dump(out_arr, self)
 
     def ajax_kindcat_arr(self, kind_sig):
-        '''
+        """
         Get the sub category.
 
         根据kind值（kind_sig）获取相应分类，返回Json格式
-        '''
+        """
         out_arr = {}
         for catinfo in MCategory.query_kind_cat(kind_sig):
             out_arr[catinfo.uid] = catinfo.name
         json.dump(out_arr, self)
 
     def list_catalog(self, cat_slug, cur_p='', **kwargs):
-        '''
+        """
         listing the posts via category
 
         根据分类（cat_slug）显示分类列表
-        '''
+        """
         post_data = self.get_request_arguments()
         tag = post_data.get('tag', '')
         order = post_data.get('order', False)
 
         def get_pager_idx():
-            '''
+            """
             Get the pager index.
-            '''
+            """
 
             current_page_number = 1
             if cur_p == '':
@@ -171,10 +171,10 @@ class ListHandler(BaseHandler):
 
 
 class TagListHandler(BaseHandler):
-    '''
+    """
     List the infos by the slug of the catalog.
     via: `/tag/cat_slug`
-    '''
+    """
 
     def get(self, *args, **kwargs):
         self.redirect('/list/{0}'.format(args[0]))

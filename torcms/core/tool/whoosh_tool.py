@@ -60,20 +60,20 @@ def singleton(cls, *args, **kwargs):
 
 @singleton
 class YunSearch:
-    '''
+    """
     For searching in whoosh database.
-    '''
+    """
 
     def __init__(self):
-        self.whbase = open_dir("database/whoosh")
-        self.parser = QueryParser("content", schema=self.whbase.schema)
+        self.whbase = open_dir('database/whoosh')
+        self.parser = QueryParser('content', schema=self.whbase.schema)
 
     def get_all_num(self, keyword, catid=''):
         queryit = self.parser.parse(keyword)
         if catid == '':
             pass
         else:
-            queryit = And([Term("catid", catid), queryit])
+            queryit = And([Term('catid', catid), queryit])
 
         results = self.whbase.searcher().search(queryit)
         return len(results)
@@ -92,7 +92,7 @@ class YunSearch:
         if catid == '':
             pass
         else:
-            queryit = And([Term("catid", catid), queryit])
+            queryit = And([Term('catid', catid), queryit])
         try:
             queryres = self.whbase.searcher().search(
                 queryit, limit=page_index * doc_per_page
@@ -103,9 +103,9 @@ class YunSearch:
 
 
 def do_for_document(rand=True, kind='', _=None):
-    '''
+    """
     生成whoosh，根据配置文件中类别。
-    '''
+    """
 
     if rand:
         recs = MPost.query_random(num=10, kind=kind)
@@ -179,10 +179,10 @@ def do_for_page(rand=True, _=''):
 
 
 def gen_whoosh_database(kind_arr):
-    '''
+    """
     kind_arr, define the `type` except Post, Page, Wiki
     post_type, define the templates for different kind.
-    '''
+    """
     for switch in [True, False]:
         # do_for_post(rand=switch)
         do_for_document(rand=switch, kind='1')
@@ -193,9 +193,9 @@ def gen_whoosh_database(kind_arr):
 
 
 def run():
-    '''
+    """
     Run it.
-    '''
+    """
     kind_arr = []
     for key, value in post_cfg.items():
         kind_arr.append(key)

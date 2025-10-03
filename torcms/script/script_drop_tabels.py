@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 删除所有的表。
-'''
+"""
 
 from torcms.model.core_tab import (
     TabCollect,
@@ -34,9 +34,9 @@ from torcms.model.process_model import *
 
 
 def drop_the_table(table_name):
-    '''
+    """
     Drop a table.
-    '''
+    """
     try:
         table_name.drop_table()
     except Exception as err:
@@ -44,9 +44,9 @@ def drop_the_table(table_name):
 
 
 def run_drop_tables(_):
-    '''
+    """
     Running the script.
-    '''
+    """
     print('--')
 
     drop_the_table(TabTag)

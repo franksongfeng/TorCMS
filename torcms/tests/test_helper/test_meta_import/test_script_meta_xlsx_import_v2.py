@@ -1,6 +1,6 @@
-'''
+"""
 Import metadata of pycsw schema.
-'''
+"""
 
 import os
 import pathlib
@@ -29,9 +29,9 @@ def chuli_meta(sig, metafile):
 
 
 def get_meta(catid, sig):
-    '''
+    """
     Get metadata of dataset via ID.
-    '''
+    """
     meta_base = './static/dataset_list'
     if os.path.exists(meta_base):
         pass

@@ -7,37 +7,37 @@
 import nltk
 from nltk import data
 
-data.path.append("./nltk_data/packages")
+data.path.append('./nltk_data/packages')
 import jieba.analyse
 from gensim import corpora, models, similarities
 from nltk.tokenize import word_tokenize
 
 # 缩水版的courses，实际数据的格式应该为 课程名\t课程简介\t课程详情，并已去除html等干扰因素
 courses = [
-    u'中华人民共和国在线地图（1:1200万）',
-    u'中华人民共和国在线地图',
-    u'中国供水能力（1:2100万）在线地图',
-    u'中国互联网分布在线地图',
-    u'中国解放区分布（1949年）在线历史地图',
-    u'中国地级市管县级市（截至1999年底）在线历史地图',
-    u'中国直辖市、地级市管县分布（截至1999年底）在线历史地图',
-    u'中国地市合并分布（截至1999年底）在线历史地图',
-    u'中华人民共和国在线地图',
-    u'The Dynamic Earth: A Course for Educators',
-    u'Tiny Wings\tYou have always dreamed of flying - but your wings are tiny. Luckily the world is full of beautiful hills. Use the hills as jumps - slide down, flap your wings and fly! At least for a moment - until this annoying gravity brings you back down to earth. But the next hill is waiting for you already. Watch out for the night and fly as fast as you can. ',
-    u'Angry Birds Free',
-    u'没有\它很相似',
-    u'没有\t它很相似',
-    u'没有\t他很相似',
-    u'没有\t他不很相似',
-    u'没有',
-    u'可以没有',
-    u'也没有',
-    u'有没有也不管',
-    u'Angry Birds Stella',
-    u'Flappy Wings - FREE\tFly into freedom!A parody of the #1 smash hit game!',
-    u'没有一个',
-    u'没有一个2',
+    '中华人民共和国在线地图（1:1200万）',
+    '中华人民共和国在线地图',
+    '中国供水能力（1:2100万）在线地图',
+    '中国互联网分布在线地图',
+    '中国解放区分布（1949年）在线历史地图',
+    '中国地级市管县级市（截至1999年底）在线历史地图',
+    '中国直辖市、地级市管县分布（截至1999年底）在线历史地图',
+    '中国地市合并分布（截至1999年底）在线历史地图',
+    '中华人民共和国在线地图',
+    'The Dynamic Earth: A Course for Educators',
+    'Tiny Wings\tYou have always dreamed of flying - but your wings are tiny. Luckily the world is full of beautiful hills. Use the hills as jumps - slide down, flap your wings and fly! At least for a moment - until this annoying gravity brings you back down to earth. But the next hill is waiting for you already. Watch out for the night and fly as fast as you can. ',
+    'Angry Birds Free',
+    '没有\它很相似',
+    '没有\t它很相似',
+    '没有\t他很相似',
+    '没有\t他不很相似',
+    '没有',
+    '可以没有',
+    '也没有',
+    '有没有也不管',
+    'Angry Birds Stella',
+    'Flappy Wings - FREE\tFly into freedom!A parody of the #1 smash hit game!',
+    '没有一个',
+    '没有一个2',
 ]
 
 # 只是为了最后的查看方便
@@ -145,7 +145,7 @@ def train_by_lsi(lib_texts):
 (index, dictionary, lsi) = train_by_lsi(lib_texts)
 
 # 要处理的对象登场
-target_courses = [u'中华人民共和国在线地图（1:3500万）']
+target_courses = ['中华人民共和国在线地图（1:3500万）']
 target_text = pre_process_cn(target_courses, low_freq_filter=False)
 
 """

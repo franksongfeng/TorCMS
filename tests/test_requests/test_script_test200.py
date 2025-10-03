@@ -1,6 +1,6 @@
-'''
+"""
 需要启动服务以进行测试
-'''
+"""
 
 import os
 import time
@@ -15,7 +15,7 @@ from torcms.model.wiki_model import MWiki
 
 
 def test_200():
-    html_tmpl = '''
+    html_tmpl = """
     <!doctype html>
     <html>
     <head>
@@ -27,13 +27,13 @@ def test_200():
     </dl>
     </body>
     </html>
-    '''
+    """
 
-    dt_str = '''
+    dt_str = """
     <dt>{title}</dt>
     <dd>{uid}</dd>
     <dd><a href="{edit_link}">{edit_link}</a></dd>
-    '''
+    """
 
     tstr = ''
 
@@ -69,7 +69,7 @@ def test_200():
     timeit = timestamp()
     time_local = time.localtime(timeit)
     path = Path(__file__).parent / 'xx_posts_x200_{date0}.html'.format(
-        date0=str(time.strftime("%Y_%m_%d", time_local))
+        date0=str(time.strftime('%Y_%m_%d', time_local))
     )
     with open(path, 'w') as fo:
         fo.write(html_tmpl.format(cnt=tstr))

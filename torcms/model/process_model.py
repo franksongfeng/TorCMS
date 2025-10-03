@@ -1,7 +1,7 @@
-'''
+"""
 审核流程，参考：
 https://segmentfault.com/a/1190000019161083
-'''
+"""
 
 import peewee
 from peewee import JOIN
@@ -13,9 +13,9 @@ from torcms.model.core_tab import TabMember, TabPermission, TabPost, TabRole
 
 
 class TabProcess(BaseModel):
-    '''
+    """
     流程
-    '''
+    """
 
     uid = peewee.CharField(
         null=False,
@@ -188,9 +188,9 @@ class MTransitionAction:
 
     @staticmethod
     def get_by_uid(uid):
-        '''
+        """
         Get a link by ID.
-        '''
+        """
         return TabTransitionAction.select().where(TabTransitionAction.uid == uid)
 
     @staticmethod
@@ -283,16 +283,16 @@ class MProcess:
 
     @staticmethod
     def get_by_name(name):
-        '''
+        """
         Get a link by name.
-        '''
+        """
         return TabProcess.select().where(TabProcess.name == name)
 
     @staticmethod
     def get_by_uid(uid):
-        '''
+        """
         Get a link by ID.
-        '''
+        """
         return TabProcess.select().where(TabProcess.uid == uid)
 
     @staticmethod
@@ -305,17 +305,17 @@ class MProcess:
 
     @staticmethod
     def get_counts():
-        '''
+        """
         The count in table.
-        '''
+        """
         # adding ``None`` to hide ``No value for argument 'database' in method call``
         return MHelper.get_counts(TabProcess)
 
     @staticmethod
     def update(uid, post_data):
-        '''
+        """
         Updat the link.
-        '''
+        """
         raw_rec = TabProcess.get(TabProcess.uid == uid)
         entry = TabProcess.update(name=post_data.get('name', raw_rec.name)).where(
             TabProcess.uid == uid
@@ -378,9 +378,9 @@ class MTransition:
 
     @staticmethod
     def get_by_uid(uid):
-        '''
+        """
         Get a link by ID.
-        '''
+        """
         return TabTransition.select().where(TabTransition.uid == uid)
 
     @staticmethod
@@ -499,9 +499,9 @@ class MTransition:
 
     @staticmethod
     def delete(uid):
-        '''
+        """
         Delete by uid
-        '''
+        """
         return MHelper.delete(TabTransition, uid)
 
     @staticmethod
@@ -510,9 +510,9 @@ class MTransition:
 
     @staticmethod
     def get_counts():
-        '''
+        """
         The count in table.
-        '''
+        """
         return MHelper.get_counts(TabTransition)
 
 
@@ -682,9 +682,9 @@ class MRequest:
 
     @staticmethod
     def delete(uid):
-        '''
+        """
         Delete by uid
-        '''
+        """
         return MHelper.delete(TabRequest, uid)
 
     @staticmethod
@@ -742,9 +742,9 @@ class MPermissionAction:
 
     @staticmethod
     def remove_relation(act_id, per_id):
-        '''
+        """
         Delete the record of Role 2 Permission.
-        '''
+        """
         entry = TabPermissionAction.delete().where(
             (TabPermissionAction.action == act_id)
             & (TabPermissionAction.permission == per_id)
@@ -782,9 +782,9 @@ class MAction:
 
     @staticmethod
     def update(uid, post_data):
-        '''
+        """
         Updat the link.
-        '''
+        """
         raw_rec = TabAction.get(TabAction.uid == uid)
         entry = TabAction.update(
             process=post_data.get('process', raw_rec.process),
@@ -810,9 +810,9 @@ class MAction:
 
     @staticmethod
     def update_process(process, uid):
-        '''
+        """
         Updat the link.
-        '''
+        """
 
         entry = TabAction.update(process=process).where(TabAction.uid == uid)
         try:
@@ -860,83 +860,83 @@ class MAction:
 
     @staticmethod
     def get_counts():
-        '''
+        """
         The count in table.
-        '''
+        """
 
         return MHelper.get_counts(TabAction)
 
     @staticmethod
     def query_all_parger(current_page_num, perPage):
-        '''
+        """
         Return some of the records. Not all.
-        '''
+        """
         return MHelper.query_all_parger(TabAction, current_page_num, perPage)
 
     @staticmethod
     def delete(uid):
-        '''
+        """
         Delete by uid
-        '''
+        """
         return MHelper.delete(TabAction, uid)
 
 
 class MState:
-    '''
+    """
     For friends links.
-    '''
+    """
 
     @staticmethod
     def get_counts():
-        '''
+        """
         The count in table.
-        '''
+        """
 
         return MHelper.get_counts(TabState)
 
     @staticmethod
     def query_all_parger(current_page_num, perPage):
-        '''
+        """
         Return some of the records. Not all.
-        '''
+        """
         return MHelper.query_all_parger(TabState, current_page_num, perPage)
 
     @staticmethod
     def query_by_pro_id(pro_id):
-        '''
+        """
         Get a link by ID.
-        '''
+        """
         return TabState.select().where(TabState.process == pro_id)
 
     @staticmethod
     def get_by_pro_statename(pro_id, name):
-        '''
+        """
         Get a link by ID.
-        '''
+        """
         return TabState.select().where(
             (TabState.process == pro_id) & (TabState.name == name)
         )
 
     @staticmethod
     def get_by_uid(uid):
-        '''
+        """
         Get a link by ID.
-        '''
+        """
         return TabState.select().where(TabState.uid == uid)
 
     @staticmethod
     def get_by_name(state_name):
-        '''
+        """
         Get a link by ID.
-        '''
+        """
         res = TabState.select().where(TabState.name == state_name)
         return res
 
     @staticmethod
     def get_by_state_type(state_type):
-        '''
+        """
         Get a link by ID.
-        '''
+        """
         res = TabState.select().where(TabState.state_type == state_type)
         if res.count() > 0:
             return res.get()
@@ -945,23 +945,23 @@ class MState:
 
     @staticmethod
     def query_all():
-        '''
+        """
         Get a link by ID.
-        '''
+        """
         return TabState.select()
 
     @staticmethod
     def delete(uid):
-        '''
+        """
         Delete by uid
-        '''
+        """
         return MHelper.delete(TabState, uid)
 
     @staticmethod
     def update(uid, post_data):
-        '''
+        """
         Updat the link.
-        '''
+        """
         raw_rec = TabState.get(TabState.uid == uid)
         entry = TabState.update(
             process=post_data.get('process', raw_rec.process),
@@ -978,9 +978,9 @@ class MState:
 
     @staticmethod
     def update_process(uid, post_data):
-        '''
+        """
         Updat the link.
-        '''
+        """
         raw_rec = TabState.get(TabState.uid == uid)
         entry = TabState.update(
             process=post_data.get('process', raw_rec.process),
@@ -994,9 +994,9 @@ class MState:
 
     @staticmethod
     def create(post_data):
-        '''
+        """
         Add record in permission.
-        '''
+        """
 
         try:
             uid = tools.get_uuid()

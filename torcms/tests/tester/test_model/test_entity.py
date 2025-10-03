@@ -87,7 +87,7 @@ class TestMEntity:
         assert tf == None
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tt = MEntity.get_by_uid(self.uid)
         if tt:
             MEntity.delete(tt.uid)

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 List infors of the User.
-'''
+"""
 
 import tornado.web
 
@@ -10,9 +10,9 @@ from torcms.model.post_model import MPost
 
 
 class UserListHandler(BaseHandler):
-    '''
+    """
     List infors of the User.
-    '''
+    """
 
     def initialize(self):
         super().initialize()
@@ -34,17 +34,17 @@ class UserListHandler(BaseHandler):
             self.find()
 
     def list_app(self):
-        '''
+        """
         List the apps.
-        '''
+        """
         kwd = {'pager': '', 'title': ''}
         self.render('user/info_list/list_app.html', kwd=kwd, userinfo=self.userinfo)
 
     @tornado.web.authenticated
     def user_most(self):
-        '''
+        """
         User most used.
-        '''
+        """
         kwd = {
             'pager': '',
             'title': '',
@@ -58,9 +58,9 @@ class UserListHandler(BaseHandler):
 
     @tornado.web.authenticated
     def user_recent(self):
-        '''
+        """
         User used recently.
-        '''
+        """
         kwd = {'pager': '', 'title': ''}
         self.render(
             'user/info_list/user_recent.html',
@@ -70,19 +70,19 @@ class UserListHandler(BaseHandler):
         )
 
     def to_find(self):
-        '''
+        """
         Todo: the name should be changed.
         list the infors.
-        '''
+        """
         kwd = {'pager': ''}
         self.render(
             'user/info_list/most.html', topmenu='', userinfo=self.userinfo, kwd=kwd
         )
 
     def list_recent(self):
-        '''
+        """
         List the recent.
-        '''
+        """
         recs = MPost.query_recent(20)
         kwd = {
             'pager': '',
@@ -97,9 +97,9 @@ class UserListHandler(BaseHandler):
         )
 
     def find(self):
-        '''
+        """
         find the infors.
-        '''
+        """
         keyword = self.get_argument('keyword', default='').strip()
 
         if keyword:

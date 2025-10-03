@@ -1,7 +1,8 @@
 # -*- encoding:utf-8 -*-
-'''
+"""
 自动生成根据公式计算的APP
-'''
+"""
+
 import os
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -16,13 +17,13 @@ else:
 def gen_app(list_sig):
     all_list = all_app[list_sig]
     file_tmpl = ''.join(open(os.path.join(dir_path, 'tmpl.html')).readlines())
-    tmpl = '''<div class="form-group">
+    tmpl = """<div class="form-group">
                 <label class="col-sm-2 control-label" for="{1}">{0}</label>
                 <div class="col-sm-10">
                 <select class="form-control" id="{1}" name="{1}" onchange='change("{1}")'>
                     {2}
-                </select></div></div>'''
-    tmpl_op = '''<option value="{0}">{1}</option>'''
+                </select></div></div>"""
+    tmpl_op = """<option value="{0}">{1}</option>"""
 
     all_str = ''
     for alist in all_list:

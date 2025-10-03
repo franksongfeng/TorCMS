@@ -36,21 +36,21 @@ class TestMtransition:
         self.process_id = self.init_process()
         self.init_data()
         self.init_transition()
-        self.fake = Faker(locale="zh_CN")
+        self.fake = Faker(locale='zh_CN')
 
     def init_process(self):
-        '''
+        """
         创建流程TabProcess
-        '''
+        """
 
         process_name = 'test数据审核' + self.uid
         process_id = self.mprocess.create(process_name)
         return process_id
 
     def init_data(self):
-        '''
+        """
         初始化状态，动作
-        '''
+        """
 
         # 创建状态TabState
 
@@ -120,7 +120,7 @@ class TestMtransition:
         for act in action_datas:
             act_uid = self.maction.create(self.process_id, act)
             action_uids.append(act_uid)
-            print("*" * 50)
+            print('*' * 50)
             print(act['role'])
             if act_uid:
                 self.mper_action.create(act['role'], act_uid)
@@ -128,9 +128,9 @@ class TestMtransition:
         assert action_uids
 
     def init_transition(self):
-        '''
+        """
         转换Tabtransition
-        '''
+        """
 
         deny = 'deny_' + self.process_id
         cancel = 'cancel_' + self.process_id
@@ -262,7 +262,7 @@ class TestMtransition:
         assert TF
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
 
         process_id = self.process_id
 

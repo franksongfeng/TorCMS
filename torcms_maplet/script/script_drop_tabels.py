@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-'''
+"""
 initialize table.s
-'''
+"""
 
 from torcms_maplet.model.map_tab import MabGson, MabLayout, MabPost2Gson
 

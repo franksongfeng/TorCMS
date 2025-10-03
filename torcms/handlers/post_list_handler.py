@@ -1,6 +1,6 @@
-'''
+"""
 listing the posts, simply.
-'''
+"""
 
 from config import CMS_CFG
 from torcms.core import tools
@@ -10,9 +10,9 @@ from torcms.model.post_model import MPost
 
 
 class PostListHandler(BaseHandler):
-    '''
+    """
     listing the posts, simply.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -40,9 +40,9 @@ class PostListHandler(BaseHandler):
         dict_get.get(url_str, fun404)()
 
     def recent(self, with_catalog=True, with_date=True):
-        '''
+        """
         List posts that recent edited.
-        '''
+        """
         kwd = {
             'pager': '',
             'title': 'Recent posts.',
@@ -60,9 +60,9 @@ class PostListHandler(BaseHandler):
         )
 
     def errcat(self):
-        '''
+        """
         List the posts to be modified.
-        '''
+        """
         post_recs = MPost.query_random(limit=1000)
         outrecs = []
         errrecs = []
@@ -93,9 +93,9 @@ class PostListHandler(BaseHandler):
         )
 
     def refresh(self):
-        '''
+        """
         List the post of dated.
-        '''
+        """
         kwd = {
             'pager': '',
             'title': '',

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 Generating sitemap.
-'''
+"""
+
 import os
 
 from config import SITE_CFG, post_cfg
@@ -10,10 +11,10 @@ from torcms.model.wiki_model import MWiki
 
 
 def gen_post_map(file_name, ext_url=''):
-    '''
+    """
     Generate the urls for posts.
     :return: None
-    '''
+    """
     with open(file_name, 'a') as fout:
         for kind_key in post_cfg.keys():
             recent_posts = MPost.query_all(kind=kind_key, limit=1000000)
@@ -28,10 +29,10 @@ def gen_post_map(file_name, ext_url=''):
 
 
 def gen_wiki_map(file_name, ext_url=''):
-    '''
+    """
     Generate the urls for wiki.
     :return: None
-    '''
+    """
 
     # for wiki.
     wiki_recs = MWiki.query_all(limit=10000, kind='1')
@@ -56,9 +57,9 @@ def gen_wiki_map(file_name, ext_url=''):
 
 
 def run_sitemap():
-    '''
+    """
     Generate the sitemap file.
-    '''
+    """
     site_map_file = 'static/xx_sitemap.txt'
     if os.path.exists(site_map_file):
         os.remove(site_map_file)
@@ -68,9 +69,9 @@ def run_sitemap():
 
 
 def run_editmap():
-    '''
+    """
     Generate the urls file for editing.
-    '''
+    """
     edit_map_file = 'xx_editmap.txt'
     if os.path.exists(edit_map_file):
         os.remove(edit_map_file)

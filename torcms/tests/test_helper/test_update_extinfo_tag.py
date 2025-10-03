@@ -7,7 +7,7 @@ from torcms.model.post_model import MPost
 
 def test_updata_extinfo_tag():
     for key in post_cfg.keys():
-        print("*" * 50)
+        print('*' * 50)
         print(key)
 
         recs = MPost.query_all(kind=key, limit=999999)

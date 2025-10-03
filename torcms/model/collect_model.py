@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Model for collection.
-'''
+"""
+
 import time
 
 from config import CMS_CFG
@@ -10,15 +11,15 @@ from torcms.model.core_tab import TabCollect, TabPost
 
 
 class MCollect:
-    '''
+    """
     Model for collection.
-    '''
+    """
 
     @staticmethod
     def query_recent(user_id, num=10):
-        '''
+        """
         Collection of recent.
-        '''
+        """
         return (
             TabCollect.select(
                 TabCollect,
@@ -38,9 +39,9 @@ class MCollect:
 
     @staticmethod
     def get_by_signature(user_id, app_id):
-        '''
+        """
         Get the collection.
-        '''
+        """
         try:
             return TabCollect.get(
                 (TabCollect.user_id == user_id) & (TabCollect.post_id == app_id)
@@ -51,9 +52,9 @@ class MCollect:
 
     @staticmethod
     def count_of_user(user_id):
-        '''
+        """
         Get the cound of views.
-        '''
+        """
         return (
             TabCollect.select(
                 TabCollect,
@@ -85,9 +86,9 @@ class MCollect:
 
     @staticmethod
     def add_or_update(user_id, app_id):
-        '''
+        """
         Add the collection or update.
-        '''
+        """
 
         rec = MCollect.get_by_signature(user_id, app_id)
 
@@ -106,9 +107,9 @@ class MCollect:
 
     @staticmethod
     def remove_collect(user_id, app_id):
-        '''
+        """
         Cancel collection
-        '''
+        """
 
         rec = MCollect.get_by_signature(user_id, app_id)
 

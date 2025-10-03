@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 导出数据
-'''
+"""
+
 import json
 
 from torcms.core.base_handler import BaseHandler
@@ -15,8 +16,8 @@ class JsonHandler(BaseHandler):
         super(JsonHandler, self).initialize()
 
     def get(self, *args, **kwargs):
-        self.set_header("Access-Control-Allow-Origin", '*')
-        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Headers', 'x-requested-with')
         self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
 
         url_str = args[0]

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Rating for post.
-'''
+"""
 
 import peewee
 
@@ -10,9 +10,9 @@ from torcms.model.core_tab import TabRating
 
 
 class MRating:
-    '''
+    """
     Rating for post.
-    '''
+    """
 
     @staticmethod
     def query_by_post(postid, limit=20):
@@ -33,9 +33,9 @@ class MRating:
 
     @staticmethod
     def get_rating(postid, userid):
-        '''
+        """
         Get the rating of certain post and user.
-        '''
+        """
         try:
             recs = TabRating.select().where(
                 (TabRating.post_id == postid) & (TabRating.user_id == userid)
@@ -50,10 +50,10 @@ class MRating:
 
     @staticmethod
     def update(postid, userid, rating):
-        '''
+        """
         Update the rating of certain post and user.
         The record will be created if no record exists.
-        '''
+        """
         rating_recs = TabRating.select().where(
             (TabRating.post_id == postid) & (TabRating.user_id == userid)
         )
@@ -64,17 +64,17 @@ class MRating:
 
     @staticmethod
     def __update_rating(uid, rating):
-        '''
+        """
         Update rating.
-        '''
+        """
         entry = TabRating.update(rating=rating).where(TabRating.uid == uid)
         entry.execute()
 
     @staticmethod
     def __insert_data(postid, userid, rating):
-        '''
+        """
         Inert new record.
-        '''
+        """
         uid = tools.get_uuid()
         TabRating.create(
             uid=uid,

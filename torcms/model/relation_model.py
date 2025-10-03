@@ -11,9 +11,9 @@ from torcms.model.post2catalog_model import MPost2Catalog as MInfor2Catalog
 class MCorrelation:
     @staticmethod
     def add_relation(postid, relid, kind, order):
-        '''
+        """
         Adding relation between two posts.
-        '''
+        """
         uid = tools.get_uuid()
         entry = TabCorrelation.create(
             uid=uid,
@@ -65,9 +65,9 @@ class MCorrelation:
 
     @staticmethod
     def get_app_relations(app_id, num=10, kind=1):
-        '''
+        """
         The the related infors.
-        '''
+        """
 
         recs = (
             TabCorrelation.select()
@@ -82,9 +82,9 @@ class MCorrelation:
 class MRelation:
     @staticmethod
     def add_relation(app_f, app_t, weight=1):
-        '''
+        """
         Adding relation between two posts.
-        '''
+        """
         recs = TabRel.select().where(
             (TabRel.post_f_id == app_f) & (TabRel.post_t_id == app_t)
         )
@@ -127,10 +127,10 @@ class MRelation:
 
     @staticmethod
     def get_app_relations(app_id, num=20, kind='1'):
-        '''
+        """
         The the related infors.
         如有标签按标签推荐，如无标签按分类推荐
-        '''
+        """
 
         tag_info = filter(
             lambda x: not x.tag_name.startswith('_'),

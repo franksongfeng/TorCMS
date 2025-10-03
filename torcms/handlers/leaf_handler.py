@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 access via: /leaf/
             vs: /post/
 The basic leaf handler.
 The list of the posts should be ordered under leaf list.
-'''
+"""
 
 import tornado.web
 
@@ -16,9 +16,9 @@ from .post_handler import PostHandler
 
 
 class LeafHandler(PostHandler):
-    '''
+    """
     The basic HTML Page handler.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -53,7 +53,7 @@ class LeafHandler(PostHandler):
     @tornado.web.authenticated
     @privilege.permission(action='can_edit')
     def update_order(self, uid, order):
-        '''
+        """
         update the order of the posts.
-        '''
+        """
         MPost.update_order(uid, order)

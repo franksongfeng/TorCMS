@@ -322,7 +322,7 @@ def parse(
     if disable_entities:
         try:
             # Attempt to disable DTD in Jython's expat parser (Xerces-J).
-            feature = "http://apache.org/xml/features/disallow-doctype-decl"
+            feature = 'http://apache.org/xml/features/disallow-doctype-decl'
             parser._reader.setFeature(feature, True)
         except AttributeError:
             # For CPython / expat parser.

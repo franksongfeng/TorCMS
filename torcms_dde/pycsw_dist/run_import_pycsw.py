@@ -1,6 +1,6 @@
-'''
+"""
 从 Records 表中同步数据到 TabPost .
-'''
+"""
 
 from pprint import pprint
 
@@ -77,9 +77,9 @@ PYCSW_DB_FIELD = [
 
 
 def insert_into_tabpost(catid, rec):
-    '''
+    """
     在 TabPost 中创建或更新数据
-    '''
+    """
 
     gson = ''
     if rec[39]:
@@ -159,12 +159,12 @@ def insert_into_tabpost(catid, rec):
     sig = rec[0]
 
     if sig.startswith('drrmd'):
-        dde_dict["tag_data_source"] = "2"
+        dde_dict['tag_data_source'] = '2'
         drr_rec = None
     elif sig.startswith('drrks'):
         drr_sig = sig.split('-')[-1]
         drr_rec = MPost.get_by_uid(drr_sig)
-        dde_dict["tag_data_source"] = "1"
+        dde_dict['tag_data_source'] = '1'
 
     inrec = TabPost.select().where(TabPost.uid == sig)
 
@@ -242,9 +242,9 @@ def insert_into_tabpost(catid, rec):
 
 
 def fetch_pycsw():
-    '''
+    """
     获取 pycsw 中的记录，并进行处理。
-    '''
+    """
     conn = psycopg2.connect(
         database=DB_CFG['db'],
         user=DB_CFG['db'],
@@ -254,7 +254,7 @@ def fetch_pycsw():
     )
 
     cur = conn.cursor()
-    cmd = "SELECT {} from Records_drr".format(','.join(PYCSW_DB_FIELD)).strip(',')
+    cmd = 'SELECT {} from Records_drr'.format(','.join(PYCSW_DB_FIELD)).strip(',')
     # print(cmd)
     cur.execute(cmd)
     rows = cur.fetchall()

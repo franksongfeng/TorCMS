@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 Testing for map app.
-'''
+"""
+
 import sys
 
 sys.path.append('')
@@ -20,9 +21,9 @@ from torcms.model.post_model import MPost
 
 
 class Test_App:
-    '''
+    """
     Testing for map app.
-    '''
+    """
 
     def setup_method(self):
         self.title = '哈哈sdfsdf'
@@ -33,7 +34,7 @@ class Test_App:
         print('setup 方法执行于本类中每条用例之前')
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tt = MPost.get_by_uid(self.uid)
         if tt:
             MPost.delete(tt.uid)

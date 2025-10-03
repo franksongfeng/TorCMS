@@ -22,7 +22,7 @@ tmpl = open('./tmpl.xml').read()
 
 # print(tmpl)
 
-tmpl_0 = '''<?xml version="1.0" encoding="UTF-8"?>
+tmpl_0 = """<?xml version="1.0" encoding="UTF-8"?>
 <csw:Record
 	xmlns:csw="http://www.opengis.net/cat/csw/2.0.2"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -31,11 +31,11 @@ tmpl_0 = '''<?xml version="1.0" encoding="UTF-8"?>
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	xsi:schemaLocation="http://www.opengis.net/cat/csw/2.0.2/record.xsd">
-'''
+"""
 
-tmpl_9 = '''
+tmpl_9 = """
 </csw:Record>
-'''
+"""
 
 tp_creator = '<dc:creator>{}</dc:creator>'
 tp_contributor = '<dc:contributor>{}</dc:contributor>'

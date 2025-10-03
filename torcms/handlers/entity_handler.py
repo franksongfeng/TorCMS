@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Hander for entiey, such as files or URL.
-'''
+"""
+
 import json
 import os
 import uuid
@@ -26,25 +27,25 @@ ALLOWED_EXTENSIONS_PDF = ['pdf', 'doc', 'docx', 'zip', 'rar', 'ppt', '7z', 'xlsx
 
 
 def allowed_file(filename):
-    '''
+    """
     Allowed files
-    '''
+    """
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 def allowed_file_pdf(filename):
-    '''
+    """
     Allowed PDF files
-    '''
+    """
     return (
         '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS_PDF
     )
 
 
 class EntityHandler(BaseHandler):
-    '''
+    """
     Hander for entiey, such as files or URL.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -79,9 +80,9 @@ class EntityHandler(BaseHandler):
     @tornado.web.authenticated
     @privilege.permission(action='assign_role')
     def list(self, cur_p=''):
-        '''
+        """
         Lists of the entities.
-        '''
+        """
 
         current_page_number = 1
         if cur_p == '':
@@ -113,9 +114,9 @@ class EntityHandler(BaseHandler):
 
     @tornado.web.authenticated
     def down(self, down_uid):
-        '''
+        """
         Download the entity by UID.
-        '''
+        """
         post_data = {}
         for key in self.request.arguments:
             post_data[key] = self.get_arguments(key)[0]
@@ -159,9 +160,9 @@ class EntityHandler(BaseHandler):
     @privilege.permission(action='can_add')
     @tornado.web.authenticated
     def to_add(self):
-        '''
+        """
         To add the entity.
-        '''
+        """
         kwd = {'pager': '', 'err_info': ''}
         self.render(
             'misc/entity/entity_add.html',
@@ -173,9 +174,9 @@ class EntityHandler(BaseHandler):
     @privilege.permission(action='can_add')
     @tornado.web.authenticated
     def add_entity(self):
-        '''
+        """
         Add the entity. All the information got from the post data.
-        '''
+        """
         post_data = self.get_request_arguments()
 
         if 'kind' in post_data:
@@ -193,11 +194,11 @@ class EntityHandler(BaseHandler):
     @privilege.permission(action='can_add')
     @tornado.web.authenticated
     def add_pic(self, post_data):
-        '''
+        """
         Adding the picture.
-        '''
+        """
         img_entity = self.request.files['file'][0]
-        filename = img_entity["filename"]
+        filename = img_entity['filename']
 
         if filename and allowed_file(filename):
             pass
@@ -222,8 +223,8 @@ class EntityHandler(BaseHandler):
             pass
         else:
             os.makedirs(outpath)
-        with open(os.path.join(outpath, outfilename), "wb") as fileout:
-            fileout.write(img_entity["body"])
+        with open(os.path.join(outpath, outfilename), 'wb') as fileout:
+            fileout.write(img_entity['body'])
         path_save = os.path.join(signature[:2], outfilename)
         sig_save = os.path.join(signature[:2], signature)
 
@@ -262,13 +263,13 @@ class EntityHandler(BaseHandler):
     @privilege.permission(action='can_add')
     @tornado.web.authenticated
     def add_pdf(self, post_data):
-        '''
+        """
         Adding the pdf file.
-        '''
+        """
 
         img_entity = self.request.files['file'][0]
         img_desc = post_data['desc']
-        filename = img_entity["filename"]
+        filename = img_entity['filename']
 
         if filename and allowed_file_pdf(filename):
             pass
@@ -293,8 +294,8 @@ class EntityHandler(BaseHandler):
             pass
         else:
             os.makedirs(outpath)
-        with open(os.path.join(outpath, outfilename), "wb") as fout:
-            fout.write(img_entity["body"])
+        with open(os.path.join(outpath, outfilename), 'wb') as fout:
+            fout.write(img_entity['body'])
 
         sig_save = os.path.join(signature[:2], signature)
         path_save = os.path.join(signature[:2], outfilename)
@@ -316,9 +317,9 @@ class EntityHandler(BaseHandler):
     @privilege.permission(action='can_add')
     @tornado.web.authenticated
     def add_url(self, post_data):
-        '''
+        """
         Adding the URL as entity.
-        '''
+        """
         img_desc = post_data['desc']
         img_path = post_data['file1']
         cur_uid = tools.get_uudd(4)
@@ -356,9 +357,9 @@ class EntityHandler(BaseHandler):
 
 
 class EntityAjaxHandler(EntityHandler):
-    '''
+    """
     Hander for entiey, such as files or URL.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()

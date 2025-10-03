@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 All other static pages.
-'''
+"""
 
 import os
 
@@ -9,9 +9,9 @@ from torcms.core.base_handler import BaseHandler
 
 
 class StaticHandler(BaseHandler):
-    '''
+    """
     All other static pages.
-    '''
+    """
 
     def initialize(self):
         super().initialize()

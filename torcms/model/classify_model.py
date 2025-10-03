@@ -1,16 +1,16 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Model for classify.
-'''
+"""
 
 from config import CMS_CFG
 from torcms.model.core_tab import TabPost, TabPost2Tag, TabTag
 
 
 class MClassify:
-    '''
+    """
     Model for classify.
-    '''
+    """
 
     def __init__(self):
         super().__init__()
@@ -19,7 +19,7 @@ class MClassify:
     def query_pager_by_classify(current_page_num=1):
         recs = (
             TabTag.select()
-            .where(TabTag.uid.endswith("00"))
+            .where(TabTag.uid.endswith('00'))
             .order_by(TabTag.uid)
             .paginate(current_page_num, CMS_CFG['list_num'])
         )
@@ -28,12 +28,12 @@ class MClassify:
 
     @staticmethod
     def count_of_certain():
-        recs = TabTag.select().where(TabTag.uid.endswith("00"))
+        recs = TabTag.select().where(TabTag.uid.endswith('00'))
         return recs.count()
 
     @staticmethod
     def query_pager_by_classify_all():
-        recs = TabTag.select().where(TabTag.uid.endswith("00")).order_by(TabTag.uid)
+        recs = TabTag.select().where(TabTag.uid.endswith('00')).order_by(TabTag.uid)
         return recs
 
     @staticmethod

@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 App计算的扩展处理
-'''
+"""
+
 import os
 
 from torcms.handlers.post_handler import PostHandler
@@ -10,9 +11,9 @@ from torcms_app.model.ext_model import MCalcInfo
 
 
 class YuansuanHandler(PostHandler):
-    '''
+    """
     App计算的扩展处理
-    '''
+    """
 
     def initialize(self, **kwargs):
         super(YuansuanHandler, self).initialize()
@@ -24,11 +25,11 @@ class YuansuanHandler(PostHandler):
             self.kind = 's'
 
     def _redirect(self, url_arr):
-        '''
+        """
         Redirection.
         :param url_arr:
         :return:
-        '''
+        """
         direct_dic = {
             'recent': '/post_list/recent',
             'refresh': '/post_list/_refresh',
@@ -100,10 +101,10 @@ class YuansuanHandler(PostHandler):
         if os.path.exists('templates/jshtml/{0}.html'.format(html_path)):
             pass
         else:
-            '''
+            """
             如果正常找不到，则在模板文件夹下面进行搜索。
             这个比较费时间
-            '''
+            """
             html_path = ''
             getit = False
             for wroot, wdirs, wfiles in os.walk('./templates/jshtml'):
@@ -129,11 +130,11 @@ class YuansuanHandler(PostHandler):
         return 'jshtml/{0}.html'.format(html_path)
 
     def ext_view_kwd(self, info_rec):
-        '''
+        """
         The additional information.
         :param info_rec:
         :return: directory.
-        '''
+        """
 
         app_hist_recs = None
         if self.userinfo:

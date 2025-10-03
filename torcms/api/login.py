@@ -18,7 +18,7 @@ from torcms.model.user_model import MUser
 
 
 def check_regist_info(post_data):
-    '''
+    """
     check data for user regist.
     Return the status code dict.
 
@@ -30,7 +30,7 @@ def check_regist_info(post_data):
     The seconde char of 'code' stands for different status.
     '1' for invalide
     '2' for already exists.
-    '''
+    """
     user_create_status = {'success': False, 'code': '00'}
 
     if not tools.check_username_valid(post_data['user_name']):
@@ -54,9 +54,9 @@ JWT_TOKEN_ALGORITHM = 'HS256'  # HASH算法
 
 
 class UserApi(BaseHandler):
-    '''
+    """
     Handler for user.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -83,9 +83,9 @@ class UserApi(BaseHandler):
             pass
 
     def post(self, *args, **kwargs):
-        '''
+        """
         用户操作。
-        '''
+        """
         _ = kwargs
         url_str = args[0]
         url_arr = self.parse_url(url_str)
@@ -98,7 +98,7 @@ class UserApi(BaseHandler):
             # 修改用户角色
             self.user_edit_role()
         elif url_arr[0] == '_delete':
-            self.delete_user(url_arr[1]),
+            (self.delete_user(url_arr[1]),)
 
         elif url_arr[0] == 'batch_edit':
             self.batch_edit()
@@ -109,9 +109,9 @@ class UserApi(BaseHandler):
 
     @privilege.permission(action='assign_role')
     def user_edit_role(self):
-        '''
+        """
         Modify user infomation.
-        '''
+        """
 
         post_data = json.loads(self.request.body)
         user_id = post_data['uid']
@@ -144,7 +144,7 @@ class UserApi(BaseHandler):
                     MUser.remove_extinfo(user_id, f'_per_{per.permission}')
 
         for index, idx_catid in enumerate(the_roles_arr):
-            roles = idx_catid.split(",")
+            roles = idx_catid.split(',')
 
             MStaff2Role.add_or_update(user_id, roles[-1])
             pers = MRole2Permission.query_by_role(roles[-1])
@@ -156,7 +156,7 @@ class UserApi(BaseHandler):
         out_dic = MUser.update_extinfo(user_id, extinfo)
 
         if not out_dic['success']:
-            user_edit_role = {"ok": False, "status": 404, "msg": "更新失败"}
+            user_edit_role = {'ok': False, 'status': 404, 'msg': '更新失败'}
             return json.dump(user_edit_role, self, ensure_ascii=False)
 
         if self.userinfo.uid == user_id:
@@ -168,13 +168,13 @@ class UserApi(BaseHandler):
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def batch_edit(self):
-        '''
+        """
         Update the link.
-        '''
+        """
 
         post_data = json.loads(self.request.body)
 
-        ids = post_data.get("ids", "").split(",")
+        ids = post_data.get('ids', '').split(',')
         for uid in ids:
             user_id = uid
             userinfo = MUser.get_by_uid(user_id)
@@ -207,7 +207,7 @@ class UserApi(BaseHandler):
                         MUser.remove_extinfo(user_id, f'_per_{per.permission}')
 
             for index, idx_catid in enumerate(the_roles_arr):
-                roles = idx_catid.split(",")
+                roles = idx_catid.split(',')
                 for role in roles:
                     MStaff2Role.add_or_update(user_id, role)
                     pers = MRole2Permission.query_by_role(role)
@@ -219,7 +219,7 @@ class UserApi(BaseHandler):
             out_dic = MUser.update_extinfo(user_id, extinfo)
 
             if not out_dic['success']:
-                user_edit_role = {"ok": False, "status": 404, "msg": "更新失败"}
+                user_edit_role = {'ok': False, 'status': 404, 'msg': '更新失败'}
                 continue
 
             if self.userinfo.uid == user_id:
@@ -229,25 +229,25 @@ class UserApi(BaseHandler):
         return json.dump(user_edit_role, self, ensure_ascii=False)
 
     def register(self):
-        '''
+        """
         user regist.
-        '''
+        """
         post_data = json.loads(self.request.body)
 
         user_check_status = check_regist_info(post_data)
 
         if not user_check_status['success']:
             if user_check_status['code'] == '12':
-                msg = "用户名已存在"
+                msg = '用户名已存在'
             elif user_check_status['code'] == '22':
-                msg = "邮箱已存在"
+                msg = '邮箱已存在'
             elif user_check_status['code'] == '21':
-                msg = "请输入正确的邮箱地址"
+                msg = '请输入正确的邮箱地址'
             elif user_check_status['code'] == '41':
-                msg = "密码6-19位，需包含大小写字母"
+                msg = '密码6-19位，需包含大小写字母'
             else:
                 msg = '注册失败'
-            user_check_status = {"ok": False, "status": 404, "msg": msg}
+            user_check_status = {'ok': False, 'status': 404, 'msg': msg}
             return json.dump(user_check_status, self, ensure_ascii=False)
 
         user_create_status = MUser.create_user(post_data)
@@ -267,7 +267,7 @@ class UserApi(BaseHandler):
                 the_roles_arr.append(post_data[key])
 
             for index, idx_catid in enumerate(the_roles_arr):
-                roles = idx_catid.split(",")
+                roles = idx_catid.split(',')
                 for role in roles:
                     MStaff2Role.add_or_update(user_create_status['uid'], role)
                     pers = MRole2Permission.query_by_role(role)
@@ -278,50 +278,50 @@ class UserApi(BaseHandler):
 
             MUser.update_extinfo(user_create_status['uid'], extinfo)
 
-            user_create_status = {"ok": True, "status": 0, "msg": "注册成功"}
+            user_create_status = {'ok': True, 'status': 0, 'msg': '注册成功'}
             logger.info('user_register_status: {0}'.format(user_create_status))
             return json.dump(user_create_status, self, ensure_ascii=False)
 
     @tornado.web.authenticated
     def __logout__(self):
-        '''
+        """
         user logout.
-        '''
+        """
 
         self.clear_all_cookies()
         self.set_secure_cookie(
-            "user",
+            'user',
             '',
         )
 
         print('log out')
 
-        output = {"ok": True, "status": 0, "msg": "注销登录成功"}
+        output = {'ok': True, 'status': 0, 'msg': '注销登录成功'}
         self.redirect('/')
 
     @tornado.web.authenticated
     def __vue_logout__(self):
-        '''
+        """
         user logout.
-        '''
+        """
 
         self.clear_all_cookies()
         print('aa')
         self.set_secure_cookie(
-            "user",
+            'user',
             '',
         )
 
         print('log out')
 
-        output = {"ok": True, "status": 0, "msg": "注销登录成功"}
+        output = {'ok': True, 'status': 0, 'msg': '注销登录成功'}
         return json.dump(output, self, ensure_ascii=False)
 
     @tornado.web.authenticated
     def __to_find__(self, cur_p=''):
-        '''
+        """
         to find the user
-        '''
+        """
         post_data = json.loads(self.request.body)
         type = post_data.get('type', '')
         current_page_number = 1
@@ -370,7 +370,7 @@ class UserApi(BaseHandler):
             'user_name': user_name,
             'exp': int(time.time()) + JWT_TOKEN_EXPIRE_SECONDS,
         }
-        print("generate data:", data)
+        print('generate data:', data)
         try:
             jwtToken = jwt.encode(
                 data, JWT_TOKEN_SECRET_SALT, algorithm=JWT_TOKEN_ALGORITHM
@@ -394,11 +394,11 @@ class UserApi(BaseHandler):
                 token, JWT_TOKEN_SECRET_SALT, algorithms=[JWT_TOKEN_ALGORITHM]
             )
 
-            print("data:", data)
-            print("payload:", payload)
+            print('data:', data)
+            print('payload:', payload)
             exp = int(payload.pop('exp'))
-            print("exp:", exp)
-            print("time.time():", time.time())
+            print('exp:', exp)
+            print('time.time():', time.time())
             if time.time() > exp:
                 print('已失效')
 
@@ -429,7 +429,7 @@ class UserApi(BaseHandler):
                     'user_pers': cur_user_per,
                     'user_roles': cur_user_role,
                 }
-                print("验证成功:", payload)
+                print('验证成功:', payload)
                 return json.dump(
                     {
                         'code': 0,
@@ -440,7 +440,7 @@ class UserApi(BaseHandler):
                     self,
                 )
             else:
-                print("验证失败:", payload)
+                print('验证失败:', payload)
                 return json.dump({'code': 1, 'state': False, 'info': 'expired'}, self)
 
         except jwt.exceptions.ExpiredSignatureError as ex:
@@ -456,9 +456,9 @@ class UserApi(BaseHandler):
             )
 
     def login(self):
-        '''
+        """
         user login.
-        '''
+        """
         data = json.loads(self.request.body)
 
         u_name = data['user_name']
@@ -482,11 +482,11 @@ class UserApi(BaseHandler):
                 elif userinfo.extinfo.get('_per_assign_role', 0) == 1:
                     pass
                 else:
-                    kwd = {"ok": False, "status": 404, "msg": "没有权限"}
+                    kwd = {'ok': False, 'status': 404, 'msg': '没有权限'}
                     return json.dump(kwd, self, ensure_ascii=False)
 
             self.set_secure_cookie(
-                "user",
+                'user',
                 u_name,
                 expires_days=None,
                 expires=time.time() + 60 * CMS_CFG.get('expires_minutes', 15),
@@ -494,8 +494,8 @@ class UserApi(BaseHandler):
 
             now = datetime.now()
             self.set_secure_cookie(
-                "amisToken",
-                datetime.strftime(now, "%Y-%m-%d %H:%M:%S"),
+                'amisToken',
+                datetime.strftime(now, '%Y-%m-%d %H:%M:%S'),
                 expires_days=None,
                 expires=time.time() + 60 * CMS_CFG.get('expires_minutes', 15),
             )
@@ -532,16 +532,16 @@ class UserApi(BaseHandler):
             return json.dump({'data': user_login_status, 'status': 0}, self)
         else:
             user_login_status = {
-                "ok": False,
-                "status": 404,
-                "msg": "帐号或密码错误，登录失败",
+                'ok': False,
+                'status': 404,
+                'msg': '帐号或密码错误，登录失败',
             }
             return json.dump(user_login_status, self, ensure_ascii=False)
 
     def __user_list__(self):
-        '''
+        """
         find by keyword.
-        '''
+        """
 
         post_data = self.request.arguments  # {'page': [b'1'], 'perPage': [b'10']}
 
@@ -553,9 +553,9 @@ class UserApi(BaseHandler):
             find_name = ''
 
         def get_pager_idx():
-            '''
+            """
             Get the pager index.
-            '''
+            """
 
             current_page_number = 1
             if page == '':
@@ -595,10 +595,10 @@ class UserApi(BaseHandler):
             }
             dics.append(dic)
         out_dict = {
-            "ok": True,
-            "status": 0,
-            "msg": "ok",
-            'data': {"count": counts, "rows": dics},
+            'ok': True,
+            'status': 0,
+            'msg': 'ok',
+            'data': {'count': counts, 'rows': dics},
         }
 
         return json.dump(out_dict, self, ensure_ascii=False)
@@ -639,36 +639,36 @@ class UserApi(BaseHandler):
 
     @privilege.permission(action='assign_role')
     def delete_user(self, user_id):
-        '''
+        """
         delete user by ID.
-        '''
+        """
         del_recs = MStaff2Role.query_by_staff(user_id)
         for del_rec in del_recs:
             MStaff2Role.remove_relation(del_rec.staff, del_rec.role)
 
         if MUser.delete(user_id):
-            output = {"ok": True, "status": 0, "msg": "删除用户成功"}
+            output = {'ok': True, 'status': 0, 'msg': '删除用户成功'}
         else:
-            output = {"ok": False, "status": 404, "msg": "删除用户失败"}
+            output = {'ok': False, 'status': 404, 'msg': '删除用户失败'}
 
         return json.dump(output, self, ensure_ascii=False)
 
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def batch_delete(self, del_id):
-        '''
+        """
         Delete a link by id.
-        '''
+        """
 
-        del_uids = del_id.split(",")
+        del_uids = del_id.split(',')
         for user_id in del_uids:
             del_recs = MStaff2Role.query_by_staff(user_id)
             for del_rec in del_recs:
                 MStaff2Role.remove_relation(del_rec.staff, del_rec.role)
 
             if MUser.delete(user_id):
-                output = {"ok": True, "status": 0, "msg": "删除用户成功"}
+                output = {'ok': True, 'status': 0, 'msg': '删除用户成功'}
             else:
-                output = {"ok": False, "status": 404, "msg": "删除用户失败"}
+                output = {'ok': False, 'status': 404, 'msg': '删除用户失败'}
 
         return json.dump(output, self, ensure_ascii=False)

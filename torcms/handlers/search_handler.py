@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 For full text searching.
-'''
+"""
 
 import json
 
@@ -13,9 +13,9 @@ from torcms.model.category_model import MCategory
 
 
 def gen_pager_bootstrap_url(cat_slug, page_num, current):
-    '''
+    """
     pager for searching results.
-    '''
+    """
     pager = ''
     if page_num == 1 or page_num == 0:
         pager = ''
@@ -25,15 +25,11 @@ def gen_pager_bootstrap_url(cat_slug, page_num, current):
         pager = '<ul class="pagination">'
 
         if current > 1:
-            pager_home = '''<li class="{0}" name='fenye' onclick='change(this);'>
-                <a href="{1}/{2}">首页</a></li>'''.format(
-                '', cat_slug, 1
-            )
+            pager_home = """<li class="{0}" name='fenye' onclick='change(this);'>
+                <a href="{1}/{2}">首页</a></li>""".format('', cat_slug, 1)
 
-            pager_pre = ''' <li class="{0}" name='fenye' onclick='change(this);'>
-                <a href="{1}/{2}">上一页</a></li>'''.format(
-                '', cat_slug, current - 1
-            )
+            pager_pre = """ <li class="{0}" name='fenye' onclick='change(this);'>
+                <a href="{1}/{2}">上一页</a></li>""".format('', cat_slug, current - 1)
         if current > 5:
             cur_num = current - 4
         else:
@@ -51,23 +47,19 @@ def gen_pager_bootstrap_url(cat_slug, page_num, current):
             else:
                 checkstr = ''
 
-            tmp_str_df = '''<li class="{0}" name='fenye' onclick='change(this);'>
-                  <a href="{1}/{2}">{2}</a></li>'''.format(
-                checkstr, cat_slug, num
-            )
+            tmp_str_df = """<li class="{0}" name='fenye' onclick='change(this);'>
+                  <a href="{1}/{2}">{2}</a></li>""".format(checkstr, cat_slug, num)
 
             pager_mid += tmp_str_df
         if current < page_num:
-            pager_next = '''
+            pager_next = """
                   <li class="{0}" name='fenye' onclick='change(this);'
-                  ><a href="{1}/{2}">下一页</a></li>'''.format(
+                  ><a href="{1}/{2}">下一页</a></li>""".format(
                 '', cat_slug, current + 1
             )
-            pager_last = '''
+            pager_last = """
                   <li class="{0}" name='fenye' onclick='change(this);'
-                 ><a href="{1}/{2}">末页</a></li>'''.format(
-                '', cat_slug, page_num
-            )
+                 ><a href="{1}/{2}">末页</a></li>""".format('', cat_slug, page_num)
 
         pager += pager_home + pager_pre + pager_mid + pager_next + pager_last
         pager += '</ul>'
@@ -78,9 +70,9 @@ def gen_pager_bootstrap_url(cat_slug, page_num, current):
 
 
 class SearchHandler(BaseHandler):
-    '''
+    """
     For full text searching.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -134,9 +126,9 @@ class SearchHandler(BaseHandler):
             self.redirect('/search/{0}/{1}/1'.format(catid, keyword))
 
     def search_cat(self, keyword, p_index=1, catid='', format='html'):
-        '''
+        """
         Searching according the kind.
-        '''
+        """
         if catid:
             catid = 'sid' + catid
         logger.info('-' * 20)

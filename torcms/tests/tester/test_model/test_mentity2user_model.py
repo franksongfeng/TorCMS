@@ -131,7 +131,7 @@ class TestMEntity2User:
         assert aa + 1 <= bb
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         self.uu.delete_by_user_name(self.username)
         self.ee.delete(self.e_uid)
         self.M2U.delete_by_uid(self.e_uid)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8
-'''
+"""
 Genereting catetory.
-'''
+"""
 
 from torcms.model.process_model import (
     MAction,
@@ -16,9 +16,9 @@ from torcms.model.process_model import (
 
 
 def run_gen_process():
-    '''
+    """
     Initialize audit process related data
-    '''
+    """
 
     process_name = '数据审核'
     recs = MProcess.get_by_name('数据审核')
@@ -36,9 +36,9 @@ def run_gen_process():
 
 
 def test_state(process_id):
-    '''
+    """
     创建状态TabState
-    '''
+    """
     state_dic = {}
     state_datas = [
         {
@@ -78,9 +78,9 @@ def test_state(process_id):
 
 
 def test_action(process_id):
-    '''
+    """
     创建动作TabAction
-    '''
+    """
 
     action_datas = [
         {
@@ -113,16 +113,16 @@ def test_action(process_id):
     for act in action_datas:
         act_uid = MAction.create(process_id, act)
         action_uids.append(act_uid)
-        print("*" * 50)
+        print('*' * 50)
         print(act['role'])
         if act_uid:
             MPermissionAction.create(act['role'], act_uid)
 
 
 def test_trans(process_id, state_dic):
-    '''
+    """
     转换Tabtransition
-    '''
+    """
     if process_id:
         deny = 'deny_' + process_id
         cancel = 'cancel_' + process_id

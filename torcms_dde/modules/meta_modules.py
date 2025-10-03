@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 Define the metadata module for TorCMS.
-'''
+"""
+
 import tornado.web
 
 import config
@@ -22,9 +23,9 @@ class Upload_excel(tornado.web.UIModule):
 
 # 一二三級分類
 class MetaCategory(tornado.web.UIModule):
-    '''
+    """
     The catalog of the post.
-    '''
+    """
 
     def render(self, uid_with_str, **kwargs):
         curinfo = MCategory.get_by_uid(uid_with_str)

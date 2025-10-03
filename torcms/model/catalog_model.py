@@ -1,25 +1,25 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Model for Posts.
-'''
+"""
 
 from torcms.model.category_model import MCategory
 from torcms.model.core_tab import TabPost, TabPost2Tag, TabTag
 
 
 class MCatalog:
-    '''
+    """
     Model for catalog list.
-    '''
+    """
 
     def __init__(self):
         super().__init__()
 
     @staticmethod
     def query_by_slug(slug):
-        '''
+        """
         查询全部章节
-        '''
+        """
         cat_rec = MCategory.get_by_slug(slug)
         if cat_rec:
             cat_id = cat_rec.uid
@@ -42,9 +42,9 @@ class MCatalog:
 
     @staticmethod
     def query_all():
-        '''
+        """
         查询大类记录
-        '''
+        """
 
         recs = TabTag.select().where(TabTag.uid.endswith('00')).order_by(TabTag.uid)
         return recs

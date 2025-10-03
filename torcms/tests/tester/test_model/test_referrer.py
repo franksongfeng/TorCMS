@@ -61,6 +61,6 @@ class TestMReferrer:
         assert b.userip == self.userip
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         MReferrer.delete(self.uid)
         self.uid = ''

@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 Used for Map.
-'''
+"""
 
 import peewee
 from playhouse.postgres_ext import JSONField
@@ -11,9 +11,9 @@ from torcms.core.base_model import BaseModel
 
 
 class MabGson(BaseModel):
-    '''
+    """
     For GeoJson storage.
-    '''
+    """
 
     uid = peewee.CharField(
         null=False,
@@ -39,9 +39,9 @@ class MabGson(BaseModel):
 
 
 class MabPost2Gson(BaseModel):
-    '''
+    """
     relatio between Post2Json.
-    '''
+    """
 
     uid = peewee.CharField(
         null=False,
@@ -66,9 +66,9 @@ class MabPost2Gson(BaseModel):
 
 
 class MabLayout(BaseModel):
-    '''
+    """
     For Map layout.
-    '''
+    """
 
     uid = peewee.CharField(
         null=False,

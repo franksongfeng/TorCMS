@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Page ( with unique slug) handler.
-'''
+"""
 
 import json
 import re
@@ -23,9 +23,9 @@ from torcms.model.wiki_model import MWiki
 
 
 class PageHandler(BaseHandler):
-    '''
+    """
     Page ( with unique slug) handler.
-    '''
+    """
 
     executor = ThreadPoolExecutor(2)
 
@@ -64,9 +64,9 @@ class PageHandler(BaseHandler):
             self.render('misc/html/404.html', userinfo=self.userinfo, kwd={})
 
     def view_or_add(self, slug):
-        '''
+        """
         When access with the slug, It will add the page if there is no record in database.
-        '''
+        """
         rec_page = MWiki.get_by_uid(slug)
 
         if rec_page:
@@ -80,9 +80,9 @@ class PageHandler(BaseHandler):
     @tornado.web.authenticated
     @privilege.permission(action='assign_role')
     def to_add(self, citiao):
-        '''
+        """
         To Add page.
-        '''
+        """
         if re.match('^[a-zA-Z][a-zA-Z0-9_]{3,19}', citiao) is not None:
             kwd = {
                 'cats': MCategory.query_all(),
@@ -93,9 +93,9 @@ class PageHandler(BaseHandler):
         else:
             logger.info(' ' * 4 + 'Slug contains special characters')
             kwd = {
-                'info': '''Slug contains special characters,
+                'info': """Slug contains special characters,
                 Slug must be a combination of letters or
-                alphanumeric or alphanumeric underscores (letters).''',
+                alphanumeric or alphanumeric underscores (letters).""",
                 'link': '/',
             }
             self.render('misc/html/404.html', kwd=kwd, userinfo=self.userinfo)
@@ -103,9 +103,9 @@ class PageHandler(BaseHandler):
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def __could_edit(self, slug):
-        '''
+        """
         Test if the user could edit the page.
-        '''
+        """
         page_rec = MWiki.get_by_uid(slug)
         if not page_rec:
             return False
@@ -118,9 +118,9 @@ class PageHandler(BaseHandler):
     @tornado.web.authenticated
     @privilege.permission(action='assign_role')
     def update(self, slug):
-        '''
+        """
         Update the page.
-        '''
+        """
 
         post_data = self.get_request_arguments()
 
@@ -143,9 +143,9 @@ class PageHandler(BaseHandler):
     @tornado.web.authenticated
     @privilege.permission(action='assign_role')
     def to_modify(self, uid):
-        '''
+        """
         Try to modify the page.
-        '''
+        """
 
         kwd = {
             'pager': '',
@@ -159,9 +159,9 @@ class PageHandler(BaseHandler):
         )
 
     def view(self, rec):
-        '''
+        """
         View the page.
-        '''
+        """
         kwd = {
             'pager': '',
         }
@@ -186,9 +186,9 @@ class PageHandler(BaseHandler):
     @tornado.web.authenticated
     @privilege.permission(action='assign_role')
     def list(self):
-        '''
+        """
         View the list of the pages.
-        '''
+        """
         kwd = {
             'pager': '',
             'title': '单页列表',
@@ -206,9 +206,9 @@ class PageHandler(BaseHandler):
     @tornado.web.authenticated
     @privilege.permission(action='assign_role')
     def add_page(self, slug):
-        '''
+        """
         Add new page.
-        '''
+        """
 
         post_data = self.get_request_arguments()
 

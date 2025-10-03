@@ -1,8 +1,8 @@
 # -*- coding: utf-8
 
-'''
+"""
 导入faker模拟数据信息
-'''
+"""
 
 from faker import Faker
 
@@ -15,9 +15,9 @@ from torcms.model.post_model import MPost
 
 
 def update_category(uid, postdata, kwargs):
-    '''
+    """
     Update the category of the post.
-    '''
+    """
     catid = (
         kwargs['catid']
         if ('catid' in kwargs and MCategory.get_by_uid(kwargs['catid']))
@@ -72,9 +72,9 @@ def update_category(uid, postdata, kwargs):
 
 
 def update_label(signature, post_data):
-    '''
+    """
     Update the label .
-    '''
+    """
     current_tag_infos = MPost2Label.get_by_uid(signature).objects()
     if 'tags' in post_data:
         pass

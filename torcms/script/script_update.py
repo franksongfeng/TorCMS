@@ -1,4 +1,4 @@
-'''
+"""
 2021-01-01: ToDo, 更新时应该不必遍历所有的 post_id.
 
 用 SQLite 中的访问日志，更新PostgreSQL.
@@ -10,7 +10,7 @@
     UPDATE tabpost SET access_1d=(SELECT count(*) FROM
         tabaccess WHERE (tabaccess.post_id = tabpost.uid)
         and (tabaccess.uid >= {}));'.format(ts1d)
-'''
+"""
 
 import shutil
 import sqlite3
@@ -64,9 +64,9 @@ from .script_sitemap import run_editmap, run_sitemap
 
 
 def update_view_count():
-    '''
+    """
     这种方式太慢了。
-    '''
+    """
 
     raw_db = './database/log_access.db'
 

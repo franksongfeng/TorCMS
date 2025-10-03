@@ -26,11 +26,11 @@ class TestMPost:
         self.tag_id = '2342'
         self.post_id2 = '89898'
         self.slug = 'huio'
-        self.fake = Faker(locale="zh_CN")
+        self.fake = Faker(locale='zh_CN')
         self.add_message()
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
 
         self.mpost.delete(self.uid)
         MCategory.delete(self.tag_id)
@@ -62,7 +62,7 @@ class TestMPost:
         assert raw_count + 1 == new_count
 
     def test_insert_2(self):
-        '''Wiki insert: Test invalid title'''
+        """Wiki insert: Test invalid title"""
 
         post_data = {
             'title': '',
@@ -144,7 +144,7 @@ class TestMPost:
         assert ss.title == post_data['title']
 
     def test_get_by_title2(self):
-        '''Test Wiki title with SPACE'''
+        """Test Wiki title with SPACE"""
 
         post_data = {
             'title': '  ' + self.post_title + '  ',
@@ -210,11 +210,11 @@ class TestMPost:
         assert TF
 
     def test_query_dated(self):
-        '''
+        """
         ToDo: 测试有问题。
         数据库不断增长超过2000，会出错。
         另：这个测试没有意义。
-        '''
+        """
         pass
         # qq = self.mpost.query_dated(num=2000)
 

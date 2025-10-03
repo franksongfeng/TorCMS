@@ -32,10 +32,10 @@ rest_regs = [
 
 
 def update_category(uid, post_data):
-    '''
+    """
     Update the category of the post.
     :param uid:  The ID of the post. Extra info would get by requests.
-    '''
+    """
 
     # deprecated
     # catid = kwargs['catid'] if MCategory.get_by_uid(kwargs.get('catid')) else None
@@ -95,9 +95,9 @@ def update_category(uid, post_data):
 
 
 def update_label(signature, post_data):
-    '''
+    """
     Update the label when updating.
-    '''
+    """
     current_tag_infos = MPost2Label.get_by_uid(signature).objects()
     if 'tags' in post_data:
         pass
@@ -184,9 +184,9 @@ class JupyterHandler(PostHandler):
             self.show404()
 
     def fetch_post_data(self):
-        '''
+        """
         fetch post accessed data. post_data, and ext_dic.
-        '''
+        """
         post_data = {}
         ext_dic = {}
         ii = 1
@@ -213,9 +213,9 @@ class JupyterHandler(PostHandler):
     # @tornado.web.asynchronous
     @tornado.gen.coroutine
     def add(self, **kwargs):
-        '''
+        """
         in infor.
-        '''
+        """
 
         post_data, ext_dic = self.fetch_post_data()
 
@@ -262,9 +262,9 @@ class JupyterHandler(PostHandler):
     @privilege.permission(action='can_edit')
     @tornado.gen.coroutine
     def update(self, uid):
-        '''
+        """
         in infor.
-        '''
+        """
 
         post_data, ext_dic = self.fetch_post_data()
         if 'gcat0' in post_data:
@@ -303,15 +303,15 @@ class JupyterHandler(PostHandler):
 
     @tornado.web.authenticated
     def upload_jupyter(self):
-        '''
+        """
         Adding the pdf file.
-        '''
+        """
 
         post_data = self.get_request_arguments()
 
         img_entity = self.request.files['file'][0]
-        img_desc = img_entity["filename"]
-        filename = img_entity["filename"]
+        img_desc = img_entity['filename']
+        filename = img_entity['filename']
 
         if filename and self.allowed_file_pdf(filename):
             pass
@@ -338,8 +338,8 @@ class JupyterHandler(PostHandler):
             pass
         else:
             os.makedirs(outpath)
-        with open(os.path.join(outpath, outfilename), "wb") as fout:
-            fout.write(img_entity["body"])
+        with open(os.path.join(outpath, outfilename), 'wb') as fout:
+            fout.write(img_entity['body'])
 
         sig_save = os.path.join(signature[:2], signature)
         path_save = os.path.join(signature[:2], outfilename)
@@ -368,7 +368,7 @@ class JupyterHandler(PostHandler):
 
         html_file = '/tmp/xx.html'
         # File = open(str(the_file.resolve()))
-        Soup = bs4.BeautifulSoup(open(html_file).read(), features="html.parser")
+        Soup = bs4.BeautifulSoup(open(html_file).read(), features='html.parser')
         title = Soup.select('h1')[0].getText()
         content = Soup.select('.jp-Notebook')
         print('========1111')
@@ -408,7 +408,7 @@ class JupyterHandler(PostHandler):
 
     @tornado.web.authenticated
     def split_text(self, in_text):
-        '''
+        """
         根据正则表达式，找到特殊的字符串。
         对原始字符串进行切分。
         返回切分的结果，以及用来切分的特殊字符串。def get_docker_name(the_str):
@@ -416,7 +416,7 @@ class JupyterHandler(PostHandler):
         tt = regobj.search(the_str)
         print(tt)
 
-        '''
+        """
 
         # in_text = in_text.replace('{', '{{').replace('}', '}}')
 
@@ -439,9 +439,9 @@ class JupyterHandler(PostHandler):
         return out_text_arr, out_reg_arr
 
     def allowed_file_pdf(self, filename):
-        '''
+        """
         Allowed xlsx files
-        '''
+        """
         ALLOWED_EXTENSIONS_PDF = ['ipynb']
         return (
             '.' in filename

@@ -1,8 +1,8 @@
-'''
+"""
 Handler for `valid==0`.
 
 ToDo: fix it.
-'''
+"""
 
 import tornado.web
 
@@ -27,14 +27,14 @@ class NullifyInfoHandler(BaseHandler):
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def list(self, _, **kwargs):
-        '''
+        """
         List the replies.
-        '''
+        """
 
         def get_pager_idx():
-            '''
+            """
             Get the pager index.
-            '''
+            """
             cur_p = kwargs.get('cur_p')
             current_page_number = 1
             if cur_p == '':

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 History handler for wiki, and page.
-'''
+"""
 
 import tornado.escape
 import tornado.web
@@ -17,9 +17,9 @@ from .post_history_handler import EditHistoryHander
 
 
 class WikiHistoryHandler(EditHistoryHander):
-    '''
+    """
     History handler for wiki, and page.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -28,9 +28,9 @@ class WikiHistoryHandler(EditHistoryHander):
     @privilege.permission(action='can_role')
     @tornado.web.authenticated
     def update(self, uid):
-        '''
+        """
         Update the post via ID.
-        '''
+        """
 
         post_data = self.get_request_arguments()
         post_data['user_name'] = self.userinfo.user_name if self.userinfo else ''
@@ -51,9 +51,9 @@ class WikiHistoryHandler(EditHistoryHander):
     @privilege.permission(action='can_role')
     @tornado.web.authenticated
     def to_edit(self, postid):
-        '''
+        """
         Try to edit the Post.
-        '''
+        """
 
         kwd = {}
         self.render(
@@ -66,9 +66,9 @@ class WikiHistoryHandler(EditHistoryHander):
     @privilege.permission(action='can_role')
     @tornado.web.authenticated
     def delete(self, uid):
-        '''
+        """
         Delete the history of certain ID.
-        '''
+        """
 
         histinfo = MWikiHist.get_by_uid(uid)
         if histinfo:
@@ -81,9 +81,9 @@ class WikiHistoryHandler(EditHistoryHander):
         self.redirect('/wiki_man/view/{0}'.format(postinfo.uid))
 
     def view(self, uid):
-        '''
+        """
         View the wiki with hisotical infos.
-        '''
+        """
         postinfo = MWiki.get_by_uid(uid)
         if postinfo:
             pass
@@ -131,9 +131,9 @@ class WikiHistoryHandler(EditHistoryHander):
     @privilege.permission(action='can_role')
     @tornado.web.authenticated
     def restore(self, hist_uid):
-        '''
+        """
         Restore by ID
-        '''
+        """
 
         histinfo = MWikiHist.get_by_uid(hist_uid)
         if histinfo:

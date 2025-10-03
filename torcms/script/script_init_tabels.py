@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 initialize table.s
-'''
+"""
 
 from playhouse import migrate
 from playhouse.postgres_ext import BinaryJSONField
@@ -47,9 +47,9 @@ from torcms.model.process_model import (
 
 
 def create_table(the_table):
-    '''
+    """
     Create a certain table.
-    '''
+    """
     try:
         the_table.create_table()
     except Exception as err:
@@ -57,9 +57,9 @@ def create_table(the_table):
 
 
 def run_init_tables(*args):
-    '''
+    """
     Run to init tables.
-    '''
+    """
     print('--')
     print('Create tables ...')
     create_table(TabPost)
@@ -102,20 +102,20 @@ def run_init_tables(*args):
 
 
 def run_migrate(*args):
-    '''
+    """
     for database schema migration.
     Memo for Usage:
         migrate.migrate(torcms_migrator.rename_table('e_layout', 'mablayout'))
         migrate.migrate(torcms_migrator.drop_column('tabtag', 'role_mask'))
-    '''
+    """
 
     try:
         conn = config.DB_CON
         cur = conn.cursor()
         cur.execute(
-            '''alter table tabmember alter column user_name type character varying(255)'''
+            """alter table tabmember alter column user_name type character varying(255)"""
         )
-        print("    Table TabMember altered successfully")
+        print('    Table TabMember altered successfully')
         conn.commit()
     except Exception as err:
         print(repr(err))
@@ -125,9 +125,9 @@ def run_migrate(*args):
         conn = config.DB_CON
         cur = conn.cursor()
         cur.execute(
-            '''alter table tablink alter column link type character varying(255)'''
+            """alter table tablink alter column link type character varying(255)"""
         )
-        print("    Table tablink altered successfully")
+        print('    Table tablink altered successfully')
         conn.commit()
     except Exception as err:
         print(repr(err))
@@ -137,9 +137,9 @@ def run_migrate(*args):
         conn = config.DB_CON
         cur = conn.cursor()
         cur.execute(
-            '''alter table tabpost alter column user_name type character varying(255)'''
+            """alter table tabpost alter column user_name type character varying(255)"""
         )
-        print("    Table TabPost altered successfully")
+        print('    Table TabPost altered successfully')
         conn.commit()
     except Exception as err:
         print(repr(err))
@@ -148,9 +148,9 @@ def run_migrate(*args):
         conn = config.DB_CON
         cur = conn.cursor()
         cur.execute(
-            '''alter table tabwiki alter column user_name type character varying(255)'''
+            """alter table tabwiki alter column user_name type character varying(255)"""
         )
-        print("    Table TabWiki altered successfully")
+        print('    Table TabWiki altered successfully')
         conn.commit()
     except Exception as err:
         print(repr(err))

@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 For the evaluation of the posts.
-'''
+"""
+
 import json
 
 import tornado.web
@@ -11,9 +12,9 @@ from torcms.model.evaluation_model import MEvaluation
 
 
 class EvaluationHandler(BaseHandler):
-    '''
+    """
     For the evaluation of the posts.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -33,12 +34,12 @@ class EvaluationHandler(BaseHandler):
 
     @tornado.web.authenticated
     def add_or_update(self, app_id, value):
-        '''
+        """
         Adding or updating the evalution.
         :param app_id:  the ID of the post.
         :param value: the evaluation
         :return:  in JSON format.
-        '''
+        """
         MEvaluation.add_or_update(self.userinfo.uid, app_id, value)
 
         out_dic = {

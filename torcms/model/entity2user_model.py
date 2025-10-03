@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 For file entities. Just like pdf, zipfile, docx, etc.
-'''
+"""
 
 import datetime
 import time
@@ -13,9 +13,9 @@ from torcms.model.core_tab import TabEntity, TabEntity2User, TabMember
 
 
 class MEntity2User:
-    '''
+    """
     For file entities. Just like pdf, zipfile, docx, etc.
-    '''
+    """
 
     @staticmethod
     def get_by_uid(uid):
@@ -71,9 +71,9 @@ class MEntity2User:
 
     @staticmethod
     def create_entity2user(enti_uid, user_id, user_ip):
-        '''
+        """
         create entity2user record in the database.
-        '''
+        """
 
         TabEntity2User.create(
             uid=tools.get_uuid(),
@@ -85,9 +85,9 @@ class MEntity2User:
 
     @staticmethod
     def total_number():
-        '''
+        """
         用户相关的实体总数目
-        '''
+        """
         return TabEntity2User.select().count()
 
     @staticmethod
@@ -96,7 +96,7 @@ class MEntity2User:
 
     @staticmethod
     def total_number_by_year(year):
-        down_year = int(time.mktime(time.strptime(year, "%Y")))
+        down_year = int(time.mktime(time.strptime(year, '%Y')))
         next_year = str(int(year) + 1)
         return (
             TabEntity2User.select()
@@ -104,7 +104,7 @@ class MEntity2User:
                 (TabEntity2User.timestamp >= down_year)
                 & (
                     TabEntity2User.timestamp
-                    < int(time.mktime(time.strptime(next_year, "%Y")))
+                    < int(time.mktime(time.strptime(next_year, '%Y')))
                 )
             )
             .count()

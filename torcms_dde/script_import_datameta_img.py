@@ -1,8 +1,8 @@
 # -*- coding: utf-8
 
-'''
+"""
 导入数据集IMG
-'''
+"""
 
 import os
 import sys
@@ -58,10 +58,10 @@ def gen_thumb(img_path, sig):
         os.mkdir(logo_cache_dir)
     try:
         thum_file_path = os.path.join(logo_cache_dir, 'd' + sig + '.jpg')
-        img.save(thum_file_path, "JPEG")
+        img.save(thum_file_path, 'JPEG')
     except Exception:
         thum_file_path = os.path.join(logo_cache_dir, 'd' + sig + '.png')
-        img.save(thum_file_path, "PNG")
+        img.save(thum_file_path, 'PNG')
     return thum_file_path
 
 

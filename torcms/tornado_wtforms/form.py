@@ -65,12 +65,12 @@ class TornadoForm(form.Form):
         self,
         formdata=None,
         obj=None,
-        prefix="",
+        prefix='',
         data=None,
         meta=None,
         **kwargs,
     ):
-        self._locale_code = kwargs.get("locale_code", "en_US")
+        self._locale_code = kwargs.get('locale_code', 'en_US')
         super(TornadoForm, self).__init__(
             formdata=formdata, obj=obj, prefix=prefix, data=data, meta=meta, **kwargs
         )
@@ -87,11 +87,11 @@ class TornadoForm(form.Form):
 
 class Form(TornadoForm):
     def __init__(
-        self, formdata=None, obj=None, prefix="", data=None, meta=None, **kwargs
+        self, formdata=None, obj=None, prefix='', data=None, meta=None, **kwargs
     ):
         warnings.warn(
-            "The tornado_wtforms.form.Form class is depreciated, please use "
-            "tornado_wtforms.form.TornadoForm.",
+            'The tornado_wtforms.form.Form class is depreciated, please use '
+            'tornado_wtforms.form.TornadoForm.',
             DeprecationWarning,
             stacklevel=3,
         )

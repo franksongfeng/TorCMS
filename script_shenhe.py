@@ -20,18 +20,18 @@ def test():
     # print("-" * 50)
 
     states = MState.query_all().dicts()
-    print("*" * 50)
-    print("Tabstate")
+    print('*' * 50)
+    print('Tabstate')
     [print(x) for x in states]
-    print("Tabstate")
-    print("-" * 50)
+    print('Tabstate')
+    print('-' * 50)
 
     action = MAction.query_all().dicts()
-    print("*" * 50)
-    print("action")
+    print('*' * 50)
+    print('action')
     [print(x) for x in action]
-    print("action")
-    print("-" * 50)
+    print('action')
+    print('-' * 50)
 
     # stateaction = MStateAction.query_all().dicts()
     # print("*" * 50)
@@ -41,52 +41,52 @@ def test():
     # print("-" * 50)
 
     trans = MTransition.query_all().dicts()
-    print("*" * 50)
-    print("Tabtrans")
+    print('*' * 50)
+    print('Tabtrans')
     [print(x) for x in trans]
-    print("Tabtrans")
-    print("-" * 50)
+    print('Tabtrans')
+    print('-' * 50)
 
     transaction = MTransitionAction.query_all().dicts()
-    print("*" * 50)
-    print("TransitionAction")
+    print('*' * 50)
+    print('TransitionAction')
     [print(x) for x in transaction]
-    print("TransitionAction")
-    print("-" * 50)
+    print('TransitionAction')
+    print('-' * 50)
 
     request = MRequest.query_all().dicts()
-    print("*" * 50)
-    print("request")
+    print('*' * 50)
+    print('request')
     [print(x) for x in request]
-    print("request")
-    print("-" * 50)
+    print('request')
+    print('-' * 50)
 
     RequestAction = MRequestAction.query_all().dicts()
-    print("*" * 50)
-    print("RequestAction")
+    print('*' * 50)
+    print('RequestAction')
     [print(x) for x in RequestAction]
-    print("RequestAction")
-    print("-" * 50)
+    print('RequestAction')
+    print('-' * 50)
 
     process = MProcess.query_all().dicts()
-    print("*" * 50)
-    print("process")
+    print('*' * 50)
+    print('process')
     [print(x) for x in process]
-    print("process")
-    print("-" * 50)
+    print('process')
+    print('-' * 50)
 
     permissionaction = MPermissionAction.query_all().dicts()
-    print("*" * 50)
-    print("permissionaction")
+    print('*' * 50)
+    print('permissionaction')
     [print(x) for x in permissionaction]
-    print("permissionaction")
-    print("-" * 50)
+    print('permissionaction')
+    print('-' * 50)
 
 
 def drop_the_table(table_name):
-    '''
+    """
     Drop a table.
-    '''
+    """
     try:
         table_name.drop_table()
     except Exception as err:
@@ -94,9 +94,9 @@ def drop_the_table(table_name):
 
 
 def run_drop_tables():
-    '''
+    """
     Running the script.
-    '''
+    """
     print('--')
 
     drop_the_table(TabRequestAction)

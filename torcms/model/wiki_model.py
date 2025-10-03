@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 The model for wiki.
 ``kind == '1'``
-'''
+"""
 
 import datetime
 
@@ -17,15 +17,15 @@ from torcms.model.core_tab import TabWiki
 
 
 class MWiki:
-    '''
+    """
     Class for wiki.
-    '''
+    """
 
     @staticmethod
     def get_counts():
-        '''
+        """
         The count in table.
-        '''
+        """
         # adding ``None`` to hide ``No value for argument 'database' in method call``
         return TabWiki.select().count(None)
 
@@ -39,16 +39,16 @@ class MWiki:
 
     @staticmethod
     def delete(uid):
-        '''
+        """
         Delete by uid
-        '''
+        """
         return MHelper.delete(TabWiki, uid)
 
     @staticmethod
     def get_by_uid(uid):
-        '''
+        """
         Get the wiki object by the UID.
-        '''
+        """
         return MHelper.get_by_uid(TabWiki, uid)
 
     @staticmethod
@@ -81,9 +81,9 @@ class MWiki:
 
     @staticmethod
     def create_wiki(post_data):
-        '''
+        """
         Create the wiki.
-        '''
+        """
         logger.info('Call create wiki')
 
         title = post_data['title'].strip()
@@ -103,9 +103,9 @@ class MWiki:
 
     @staticmethod
     def create_page(slug, post_data):
-        '''
+        """
         The page would be created with slug.
-        '''
+        """
         logger.info('Call create Page')
         if MWiki.get_by_uid(slug):
             return False
@@ -117,9 +117,9 @@ class MWiki:
 
     @staticmethod
     def __create_rec(*args, **kwargs):
-        '''
+        """
         Create the record.
-        '''
+        """
         uid = args[0]
         kind = args[1]
         post_data = kwargs['post_data']
@@ -144,9 +144,9 @@ class MWiki:
 
     @staticmethod
     def query_dated(num=10, kind='1'):
-        '''
+        """
         List the wiki of dated.
-        '''
+        """
         return (
             TabWiki.select()
             .where(TabWiki.kind == kind)
@@ -156,9 +156,9 @@ class MWiki:
 
     @staticmethod
     def query_most(num=8, kind='1'):
-        '''
+        """
         List the most viewed wiki.
-        '''
+        """
         return (
             TabWiki.select()
             .where(TabWiki.kind == kind)
@@ -168,9 +168,9 @@ class MWiki:
 
     @staticmethod
     def update_view_count(citiao):
-        '''
+        """
         view count of the wiki, plus 1. By wiki
-        '''
+        """
         entry = TabWiki.update(view_count=TabWiki.view_count + 1).where(
             TabWiki.title == citiao
         )
@@ -178,9 +178,9 @@ class MWiki:
 
     @staticmethod
     def update_view_count_by_uid(uid):
-        '''
+        """
         update the count of wiki, by uid.
-        '''
+        """
         entry = TabWiki.update(view_count=TabWiki.view_count + 1).where(
             TabWiki.uid == uid
         )
@@ -188,9 +188,9 @@ class MWiki:
 
     @staticmethod
     def get_by_wiki(citiao):
-        '''
+        """
         Get the wiki record by title.
-        '''
+        """
         q_res = TabWiki.select().where(
             (TabWiki.title == citiao) & (TabWiki.kind == '1')
         )
@@ -203,16 +203,16 @@ class MWiki:
 
     @staticmethod
     def get_by_title(in_title):
-        '''
+        """
         Aka get_by_wiki
-        '''
+        """
         return MWiki.get_by_wiki(in_title)
 
     @staticmethod
     def view_count_plus(slug):
-        '''
+        """
         View count plus one.
-        '''
+        """
         entry = TabWiki.update(
             view_count=TabWiki.view_count + 1,
         ).where(TabWiki.uid == slug)
@@ -220,9 +220,9 @@ class MWiki:
 
     @staticmethod
     def query_all(**kwargs):
-        '''
+        """
         Qeury recent wiki.
-        '''
+        """
         kind = kwargs.get('kind', '1')
         limit = kwargs.get('limit', 50)
 
@@ -230,9 +230,9 @@ class MWiki:
 
     @staticmethod
     def query_random(num=6, kind='1'):
-        '''
+        """
         Query wikis randomly.
-        '''
+        """
         return (
             TabWiki.select()
             .where(TabWiki.kind == kind)
@@ -251,16 +251,16 @@ class MWiki:
 
     @staticmethod
     def total_number(kind):
-        '''
+        """
         Return the number of certian slug.
-        '''
+        """
         return TabWiki.select().where(TabWiki.kind == kind).count()
 
     @staticmethod
     def query_pager_by_kind(kind, current_page_num=1):
-        '''
+        """
         Query pager
-        '''
+        """
         return (
             TabWiki.select()
             .where(TabWiki.kind == kind)
@@ -270,9 +270,9 @@ class MWiki:
 
     @staticmethod
     def count_of_certain_kind(kind):
-        '''
+        """
         Get the count of certain kind.
-        '''
+        """
 
         recs = TabWiki.select().where(TabWiki.kind == kind)
 

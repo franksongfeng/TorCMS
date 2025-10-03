@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 将 OSGeo 数据库中的 Posts 导出。
-'''
+"""
 
 import os
 import sys

@@ -16,7 +16,7 @@ class TestMLabel:
         self.add_message()
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tt = self.uu.get_by_slug(self.tmpl_uid)
         if tt:
             print('99999999')
@@ -45,7 +45,7 @@ class TestMLabel:
         assert tt == newid
 
     def test_create_tag_with_uid(self):
-        '''Wiki insert: Test invalid title'''
+        """Wiki insert: Test invalid title"""
         post_data = {
             'name': self.name,
         }
@@ -106,7 +106,7 @@ class TestMPost2Label:
         self.add_M2L()
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
 
         tt = MPost.get_by_uid(self.post_id)
         if tt:

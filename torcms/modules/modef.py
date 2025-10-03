@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 定义模块的名称，作为调用的名称
-'''
+"""
 
 from torcms.modules import (
     base_modules,

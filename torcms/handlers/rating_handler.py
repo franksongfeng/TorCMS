@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 For rating.
-'''
+"""
 
 import tornado.web
 
@@ -12,11 +12,11 @@ from torcms.model.rating_model import MRating
 
 
 class RatingHandler(BaseHandler):
-    '''
+    """
     For rating.
 
     评分处理
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -32,11 +32,11 @@ class RatingHandler(BaseHandler):
             self.update_post(url_arr[1])
 
     def update_post(self, postid):
-        '''
+        """
         The rating of Post should be updaed if the count is greater than 10
 
 
-        '''
+        """
         voted_recs = MRating.query_by_post(postid)
         if voted_recs.count() > 10:
             rating = MRating.query_average_rating(postid)
@@ -49,9 +49,9 @@ class RatingHandler(BaseHandler):
 
     @tornado.web.authenticated
     def update_rating(self, postid):
-        '''
+        """
         only the used who logged in would voting.
-        '''
+        """
         post_data = self.get_request_arguments()
         rating = float(post_data['rating'])
         postinfo = MPost.get_by_uid(postid)

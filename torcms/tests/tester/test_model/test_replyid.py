@@ -38,6 +38,6 @@ class TestMReplyid:
                 assert i.uid == self.uid
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         MHelper.delete(TabReplyid, self.uid)
         self.uid = ''

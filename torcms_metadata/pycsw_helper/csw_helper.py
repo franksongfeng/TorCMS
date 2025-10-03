@@ -14,13 +14,13 @@ class SPATIAL_REF_SYS(peewee.Model):
     class Meta:
         database = pycsw_db
 
-    '''
+    """
     srid INTEGER NOT NULL,
     auth_name TEXT,
     auth_srid INTEGER,
     srtext TEXT,
     PRIMARY KEY (srid)
-    '''
+    """
     srid = peewee.IntegerField(null=False, primary_key=True)
     auth_name = peewee.TextField(null=True)
     auth_srid = peewee.IntegerField(null=True)
@@ -31,7 +31,7 @@ class GEOMETRY_COLUMNS(peewee.Model):
     class Meta:
         database = pycsw_db
 
-    '''
+    """
     f_table_catalog TEXT NOT NULL,
     f_table_schema TEXT NOT NULL,
     f_table_name TEXT NOT NULL,
@@ -40,7 +40,7 @@ class GEOMETRY_COLUMNS(peewee.Model):
     coord_dimension INTEGER,
     srid INTEGER NOT NULL,
     geometry_format TEXT NOT NULL
-    '''
+    """
     f_table_catalog = peewee.TextField(null=False)
     f_table_schema = peewee.TextField(null=False)
     f_table_name = peewee.TextField(null=False)
@@ -52,7 +52,7 @@ class GEOMETRY_COLUMNS(peewee.Model):
 
 
 class Records(peewee.Model):
-    '''
+    """
     identifier TEXT NOT NULL,
     typename TEXT NOT NULL,
     schema TEXT NOT NULL,
@@ -60,7 +60,7 @@ class Records(peewee.Model):
     insert_date TEXT NOT NULL,
     xml TEXT NOT NULL,
     anytext TEXT NOT NULL,
-    '''
+    """
 
     class Meta:
         database = pycsw_db
@@ -140,68 +140,68 @@ class MRecords(object):
         self.add(postdata)
 
     def add(self, postdata):
-        '''
+        """
         命令行更新的
-        '''
+        """
         Records.create(
-            identifier=postdata["identifier"],
-            typename=postdata["typename"],
-            schema=postdata["schema"],
-            mdsource=postdata["mdsource"],
-            insert_date=postdata["insert_date"],
-            xml=postdata["xml"],
-            anytext=postdata["anytext"],
-            language=postdata["language"],
-            type=postdata["type"],
-            title=postdata["title"],
-            title_alternate=postdata["title_alternate"],
-            abstract=postdata["abstract"],
-            keywords=postdata["keywords"],
-            keywordstype=postdata["keywordstype"],
-            parentidentifier=postdata["parentidentifier"],
-            relation=postdata["relation"],
-            time_begin=postdata["time_begin"],
-            time_end=postdata["time_end"],
-            topicategory=postdata["topicategory"],
-            resourcelanguage=postdata["resourcelanguage"],
-            creator=postdata["creator"],
-            publisher=postdata["publisher"],
-            contributor=postdata["contributor"],
-            organization=postdata["organization"],
-            securityconstraints=postdata["securityconstraints"],
-            accessconstraints=postdata["accessconstraints"],
-            otherconstraints=postdata["otherconstraints"],
-            date=postdata["date"],
-            date_revision=postdata["date_revision"],
-            date_creation=postdata["date_creation"],
-            date_publication=postdata["date_publication"],
-            date_modified=postdata["date_modified"],
-            format=postdata["format"],
-            source=postdata["source"],
-            crs=postdata["crs"],
-            geodescode=postdata["geodescode"],
-            denominator=postdata["denominator"],
-            distancevalue=postdata["distancevalue"],
-            distanceuom=postdata["distanceuom"],
-            wkt_geometry=postdata["wkt_geometry"],
-            servicetype=postdata["servicetype"],
-            servicetypeversion=postdata["servicetypeversion"],
-            operation=postdata["operation"],
-            couplingtype=postdata["couplingtype"],
-            operateson=postdata["operateson"],
-            operatesonidentifier=postdata["operatesonidentifier"],
-            operatesoname=postdata["operatesoname"],
-            degree=postdata["degree"],
-            classification=postdata["classification"],
-            conditionapplyingtoaccessanduse=postdata["conditionapplyingtoaccessanduse"],
-            lineage=postdata["lineage"],
-            responsiblepartyrole=postdata["responsiblepartyrole"],
-            specificationtitle=postdata["specificationtitle"],
-            specificationdate=postdata["specificationdate"],
-            specificationdatetype=postdata["specificationdatetype"],
-            links=postdata["links"],
+            identifier=postdata['identifier'],
+            typename=postdata['typename'],
+            schema=postdata['schema'],
+            mdsource=postdata['mdsource'],
+            insert_date=postdata['insert_date'],
+            xml=postdata['xml'],
+            anytext=postdata['anytext'],
+            language=postdata['language'],
+            type=postdata['type'],
+            title=postdata['title'],
+            title_alternate=postdata['title_alternate'],
+            abstract=postdata['abstract'],
+            keywords=postdata['keywords'],
+            keywordstype=postdata['keywordstype'],
+            parentidentifier=postdata['parentidentifier'],
+            relation=postdata['relation'],
+            time_begin=postdata['time_begin'],
+            time_end=postdata['time_end'],
+            topicategory=postdata['topicategory'],
+            resourcelanguage=postdata['resourcelanguage'],
+            creator=postdata['creator'],
+            publisher=postdata['publisher'],
+            contributor=postdata['contributor'],
+            organization=postdata['organization'],
+            securityconstraints=postdata['securityconstraints'],
+            accessconstraints=postdata['accessconstraints'],
+            otherconstraints=postdata['otherconstraints'],
+            date=postdata['date'],
+            date_revision=postdata['date_revision'],
+            date_creation=postdata['date_creation'],
+            date_publication=postdata['date_publication'],
+            date_modified=postdata['date_modified'],
+            format=postdata['format'],
+            source=postdata['source'],
+            crs=postdata['crs'],
+            geodescode=postdata['geodescode'],
+            denominator=postdata['denominator'],
+            distancevalue=postdata['distancevalue'],
+            distanceuom=postdata['distanceuom'],
+            wkt_geometry=postdata['wkt_geometry'],
+            servicetype=postdata['servicetype'],
+            servicetypeversion=postdata['servicetypeversion'],
+            operation=postdata['operation'],
+            couplingtype=postdata['couplingtype'],
+            operateson=postdata['operateson'],
+            operatesonidentifier=postdata['operatesonidentifier'],
+            operatesoname=postdata['operatesoname'],
+            degree=postdata['degree'],
+            classification=postdata['classification'],
+            conditionapplyingtoaccessanduse=postdata['conditionapplyingtoaccessanduse'],
+            lineage=postdata['lineage'],
+            responsiblepartyrole=postdata['responsiblepartyrole'],
+            specificationtitle=postdata['specificationtitle'],
+            specificationdate=postdata['specificationdate'],
+            specificationdatetype=postdata['specificationdatetype'],
+            links=postdata['links'],
         )
-        return postdata["identifier"]
+        return postdata['identifier']
 
     def get_by_uid(self, sig):
         try:
@@ -215,9 +215,9 @@ def init_table():
     Records.create_table()
     SPATIAL_REF_SYS.create_table()
 
-    '''
+    """
     'public', 'public', 'records', 'wkt_geometry', 3, 2, 4326, 'WKT'
-    '''
+    """
     if GEOMETRY_COLUMNS.select().where(GEOMETRY_COLUMNS.srid == 4326):
         pass
     else:
@@ -231,10 +231,10 @@ def init_table():
             srid=4326,
             geometry_format='WKT',
         )
-    '''
+    """
     4326,'EPSG',4326,
     'GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.01745329251994328,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]]'
-    '''
+    """
     if SPATIAL_REF_SYS.select().where(SPATIAL_REF_SYS.srid == 4326):
         pass
     else:

@@ -1,15 +1,15 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 地图日志
-'''
+"""
 
 import os
 import sqlite3
 
 from torcms.core import tools
 
-'''
+"""
 try:
    cursor.execute('CREATE TABLE TabMaplog (uid VARCHAR NOT NULL ,'
                            'lat VARCHAR,'
@@ -26,13 +26,13 @@ try:
                            'user_browser VARCHAR);')
 except:
     pass
-'''
+"""
 
 
 class MMapLog:
-    '''
+    """
     Handle the usage of the info.
-    '''
+    """
 
     @staticmethod
     def get_all():
@@ -40,9 +40,9 @@ class MMapLog:
 
     @staticmethod
     def add(post_data):
-        '''
+        """
         Create the record.
-        '''
+        """
 
         db_file = os.path.join(os.getcwd(), 'xx_map_log.db')
         conn = sqlite3.connect(db_file)
@@ -67,7 +67,7 @@ class MMapLog:
         except Exception:
             pass
         try:
-            sql = '''insert into TabMaplog (uid,lat,lon,center,zoom,zoom_min,zoom_max,geojson,kind,create_time,user_uid,user_ip,user_browser) values (?,?,?,?,?,?,?,?,?,?,?,?,?)'''
+            sql = """insert into TabMaplog (uid,lat,lon,center,zoom,zoom_min,zoom_max,geojson,kind,create_time,user_uid,user_ip,user_browser) values (?,?,?,?,?,?,?,?,?,?,?,?,?)"""
             para = (
                 post_data['uid'],
                 post_data['lat'],

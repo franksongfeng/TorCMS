@@ -61,6 +61,6 @@ class TestMRating:
         assert tf
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         MHelper.delete(TabRating, self.uid)
         self.uid = ''

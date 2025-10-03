@@ -1,6 +1,6 @@
-'''
+"""
 逐行分词
-'''
+"""
 
 import re
 
@@ -28,7 +28,7 @@ def seg_sentence(sentence):
         if word not in stopwords:
             if word != '\t':
                 outstr += word
-                outstr += " "
+                outstr += ' '
     return outstr
 
 

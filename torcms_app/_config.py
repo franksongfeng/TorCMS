@@ -1,7 +1,7 @@
 _post_cfg = {
     's': {
         'router': 'app',
-        'html': '''<span style="color:green;" class="glyphicon glyphicon-list-alt">[{0}]</span>'''.format(
+        'html': """<span style="color:green;" class="glyphicon glyphicon-list-alt">[{0}]</span>""".format(
             'App'
         ),
         'checker': '0',

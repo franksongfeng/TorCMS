@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Handler for links.
-'''
+"""
 
 import json
 
@@ -13,9 +13,9 @@ from torcms.model.process_model import MProcess, MState, MTransition
 
 
 class StateHandler(BaseHandler):
-    '''
+    """
     Handler for links.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -49,7 +49,7 @@ class StateHandler(BaseHandler):
         if url_arr[0] == '_edit':
             self.update(url_arr[1])
         elif url_arr[0] == '_delete':
-            self.delete(url_arr[1]),
+            (self.delete(url_arr[1]),)
         elif url_arr[0] == 'batch_edit':
             self.batch_edit()
         elif url_arr[0] == 'batch_delete':
@@ -61,9 +61,9 @@ class StateHandler(BaseHandler):
             self.redirect('misc/html/404.html')
 
     def chainedOptions(self):
-        '''
+        """
         Recent links.
-        '''
+        """
 
         post_data = self.request.arguments  # {'page': [b'1'], 'perPage': [b'10']}
         if 'pro' in post_data:
@@ -76,28 +76,28 @@ class StateHandler(BaseHandler):
         for rec in recs:
             cur_pro = MProcess.get_by_uid(rec.process).get()
             dic = {
-                "label": str(rec.name) + ' [' + str(cur_pro.name) + '] ',
-                "value": rec.uid,
+                'label': str(rec.name) + ' [' + str(cur_pro.name) + '] ',
+                'value': rec.uid,
             }
 
             dics.append(dic)
-        out_dict = {"ok": True, "status": 0, 'data': dics}
+        out_dict = {'ok': True, 'status': 0, 'data': dics}
 
         return json.dump(out_dict, self, ensure_ascii=False)
 
     def list(self):
-        '''
+        """
         Recent links.
-        '''
+        """
 
         post_data = self.request.arguments  # {'page': [b'1'], 'perPage': [b'10']}
         page = int(post_data['page'][0].decode('utf-8'))
         perPage = int(post_data['perPage'][0].decode('utf-8'))
 
         def get_pager_idx():
-            '''
+            """
             Get the pager index.
-            '''
+            """
 
             current_page_number = 1
             if page == '':
@@ -123,19 +123,19 @@ class StateHandler(BaseHandler):
         for rec in recs:
             process = MProcess.get_by_uid(rec.process).get()
             dic = {
-                "uid": rec.uid,
-                "name": rec.name,
-                "state_type": rec.state_type,
-                "description": rec.description,
-                "process": process.name,
+                'uid': rec.uid,
+                'name': rec.name,
+                'state_type': rec.state_type,
+                'description': rec.description,
+                'process': process.name,
             }
 
             dics.append(dic)
         out_dict = {
-            "ok": True,
-            "status": 0,
-            "msg": "ok",
-            "data": {"count": counts, "rows": dics},
+            'ok': True,
+            'status': 0,
+            'msg': 'ok',
+            'data': {'count': counts, 'rows': dics},
         }
 
         return json.dump(out_dict, self, ensure_ascii=False)
@@ -143,9 +143,9 @@ class StateHandler(BaseHandler):
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def update(self, uid):
-        '''
+        """
         Update the link.
-        '''
+        """
 
         post_data = json.loads(self.request.body)
 
@@ -172,31 +172,31 @@ class StateHandler(BaseHandler):
 
             if exis_rec.count() > 0:
                 output = {
-                    "ok": False,
-                    "status": 404,
-                    "msg": "该流程下已存在当前状态，修改失败",
+                    'ok': False,
+                    'status': 404,
+                    'msg': '该流程下已存在当前状态，修改失败',
                 }
             else:
-                post_data["process"] = process
+                post_data['process'] = process
 
                 if MState.update(uid, post_data):
-                    output = {"ok": True, "status": 0, "msg": "更新状态成功"}
+                    output = {'ok': True, 'status': 0, 'msg': '更新状态成功'}
 
                 else:
-                    output = {"ok": False, "status": 404, "msg": "更新状态失败"}
+                    output = {'ok': False, 'status': 404, 'msg': '更新状态失败'}
 
         return json.dump(output, self, ensure_ascii=False)
 
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def batch_edit(self):
-        '''
+        """
         Update the link.
-        '''
+        """
 
         post_data = json.loads(self.request.body)
 
-        ids = post_data.get("ids", "").split(",")
+        ids = post_data.get('ids', '').split(',')
         if 'ext_process0' in post_data:
             pass
         else:
@@ -221,26 +221,26 @@ class StateHandler(BaseHandler):
 
                 if exis_rec.count() > 0:
                     output = {
-                        "ok": False,
-                        "status": 404,
-                        "msg": "该流程下已存在当前状态，修改失败",
+                        'ok': False,
+                        'status': 404,
+                        'msg': '该流程下已存在当前状态，修改失败',
                     }
                 else:
-                    post_data["process"] = process
+                    post_data['process'] = process
                     if MState.update_process(uid, post_data):
-                        output = {"ok": True, "status": 0, "msg": "更新流程成功"}
+                        output = {'ok': True, 'status': 0, 'msg': '更新流程成功'}
 
                     else:
-                        output = {"ok": False, "status": 404, "msg": "更新流程失败"}
+                        output = {'ok': False, 'status': 404, 'msg': '更新流程失败'}
 
         return json.dump(output, self, ensure_ascii=False)
 
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def add(self):
-        '''
+        """
         user add link.
-        '''
+        """
 
         post_data = json.loads(self.request.body)
         if 'ext_process0' in post_data:
@@ -263,29 +263,29 @@ class StateHandler(BaseHandler):
             the_pro_arr.append(post_data[key])
 
         for process in the_pro_arr:
-            post_data["process"] = process
+            post_data['process'] = process
 
             exis_rec = MState.get_by_pro_statename(process, post_data['name'])
             if exis_rec.count() > 0:
                 output = {
-                    "ok": False,
-                    "status": 404,
-                    "msg": "该流程下已存在当前状态，添加失败",
+                    'ok': False,
+                    'status': 404,
+                    'msg': '该流程下已存在当前状态，添加失败',
                 }
 
             else:
                 state_uid = MState.create(post_data)
                 if state_uid:
-                    output = {"ok": True, "status": 0, "msg": "添加状态成功"}
+                    output = {'ok': True, 'status': 0, 'msg': '添加状态成功'}
                 else:
-                    output = {"ok": False, "status": 404, "msg": "添加状态失败"}
+                    output = {'ok': False, 'status': 404, 'msg': '添加状态失败'}
 
         return json.dump(output, self, ensure_ascii=False)
 
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def delete(self, state_id):
-        '''
+        """
         delete user by ID.
         transaction delete by trans
         requestaction delete by trans
@@ -293,30 +293,30 @@ class StateHandler(BaseHandler):
         trans delete by state
         state delete by state
 
-        '''
+        """
         MTransition.delete_by_state(state_id)
 
         if MState.delete(state_id):
-            output = {"ok": True, "status": 0, "msg": "删除状态成功"}
+            output = {'ok': True, 'status': 0, 'msg': '删除状态成功'}
         else:
-            output = {"ok": False, "status": 404, "msg": "删除状态失败"}
+            output = {'ok': False, 'status': 404, 'msg': '删除状态失败'}
 
         return json.dump(output, self, ensure_ascii=False)
 
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def batch_delete(self, state_ids):
-        '''
+        """
         Delete a link by id.
-        '''
+        """
 
-        del_uids = state_ids.split(",")
+        del_uids = state_ids.split(',')
         for state_id in del_uids:
             MTransition.delete_by_state(state_id)
 
             if MState.delete(state_id):
-                output = {"ok": True, "status": 0, "msg": "删除状态成功"}
+                output = {'ok': True, 'status': 0, 'msg': '删除状态成功'}
             else:
-                output = {"ok": False, "status": 404, "msg": "删除状态失败"}
+                output = {'ok': False, 'status': 404, 'msg': '删除状态失败'}
 
         return json.dump(output, self, ensure_ascii=False)

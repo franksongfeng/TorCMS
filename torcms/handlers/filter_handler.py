@@ -1,7 +1,7 @@
-'''
+"""
 关键词过滤，涉及到不同分类，使用  session 来处理。
 分类下面的过滤，则使用GET的url的参数。
-'''
+"""
 
 import json
 import math
@@ -21,9 +21,9 @@ from torcms.model.staff2role_model import MStaff2Role
 
 
 def echo_html_fenye_str(rec_num, fenye_num):
-    '''
+    """
     生成分页的导航
-    '''
+    """
 
     pagination_num = int(math.ceil(rec_num * 1.0 / 10))
 
@@ -36,13 +36,11 @@ def echo_html_fenye_str(rec_num, fenye_num):
         fenye_str = '<ul class="pagination">'
 
         if fenye_num > 1:
-            pager_home = '''<li class="page-item {0}" name='fenye' onclick='change(this);'
-              value='{1}'><a class="page-link">First Page</a></li>'''.format(
-                '', 1
-            )
+            pager_home = """<li class="page-item {0}" name='fenye' onclick='change(this);'
+              value='{1}'><a class="page-link">First Page</a></li>""".format('', 1)
 
-            pager_pre = ''' <li class="page-item {0}" name='fenye' onclick='change(this);'
-              value='{1}'><a class="page-link">Previous Page</a></li>'''.format(
+            pager_pre = """ <li class="page-item {0}" name='fenye' onclick='change(this);'
+              value='{1}'><a class="page-link">Previous Page</a></li>""".format(
                 '', fenye_num - 1
             )
         if fenye_num > 5:
@@ -62,19 +60,17 @@ def echo_html_fenye_str(rec_num, fenye_num):
             else:
                 checkstr = ''
 
-            tmp_str_df = '''<li class="page-item {0}" name='fenye' onclick='change(this);'
-              value='{1}'><a class="page-link {0}">{1}</a></li>'''.format(
-                checkstr, num
-            )
+            tmp_str_df = """<li class="page-item {0}" name='fenye' onclick='change(this);'
+              value='{1}'><a class="page-link {0}">{1}</a></li>""".format(checkstr, num)
 
             pager_mid += tmp_str_df
         if fenye_num < pagination_num:
-            pager_next = '''<li class="page-item {0}" name='fenye' onclick='change(this);'
-              value='{1}'><a class="page-link">Next Page</a></li>'''.format(
+            pager_next = """<li class="page-item {0}" name='fenye' onclick='change(this);'
+              value='{1}'><a class="page-link">Next Page</a></li>""".format(
                 '', fenye_num + 1
             )
-            pager_last = '''<li class="page-item {0}" name='fenye' onclick='change(this);'
-              value='{1}'><a class="page-link">End Page</a></li>'''.format(
+            pager_last = """<li class="page-item {0}" name='fenye' onclick='change(this);'
+              value='{1}'><a class="page-link">End Page</a></li>""".format(
                 '', pagination_num
             )
 
@@ -87,9 +83,9 @@ def echo_html_fenye_str(rec_num, fenye_num):
 
 
 class FilterHandler(BaseHandler):
-    '''
+    """
     List view,by category uid. The list could be filtered.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -137,9 +133,9 @@ class FilterHandler(BaseHandler):
         return condition
 
     def echo_html(self, url_str):
-        '''
+        """
         Show the HTML
-        '''
+        """
 
         logger.info('info echo html: {0}'.format(url_str))
 
@@ -196,9 +192,9 @@ class FilterHandler(BaseHandler):
             )
 
     def get_info_num(self, url_str):
-        '''
+        """
         Show the HTML
-        '''
+        """
 
         logger.info('info echo html: {0}'.format(url_str))
 
@@ -237,9 +233,9 @@ class FilterHandler(BaseHandler):
         return json.dump(output, self)
 
     def echo_html_list_str(self, catid, infos, catinfo):
-        '''
+        """
         生成 list 后的 HTML 格式的字符串
-        '''
+        """
         zhiding_str = ''
         tuiguang_str = ''
         imgname = 'fixed/zhanwei.png'
@@ -261,9 +257,9 @@ class FilterHandler(BaseHandler):
         )
 
     def list(self, catid):
-        '''
+        """
         页面打开后的渲染方法，不包含 list 的查询结果与分页导航
-        '''
+        """
         logger.info('Infocat input: {0}'.format(catid))
         condition = self.gen_redis_kw()
         sig = catid

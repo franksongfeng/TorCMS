@@ -176,7 +176,7 @@ class TestMCategory:
         assert TF
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
 
         MPost.delete(self.postid)
 

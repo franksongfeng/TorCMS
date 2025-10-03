@@ -1,16 +1,16 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Model for Posts.
-'''
+"""
 
 from config import CMS_CFG
 from torcms.model.core_tab import TabPost
 
 
 class MNullifyInfo:
-    '''
+    """
     Model for Posts.
-    '''
+    """
 
     def __init__(self):
         super().__init__()

@@ -95,7 +95,7 @@ class TestMPostHist:
         assert aa == False
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tt = MPostHist.get_by_uid(self.uid)
         if tt:
             MPostHist.delete(tt.uid)

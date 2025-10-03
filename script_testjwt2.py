@@ -1,6 +1,6 @@
-'''
+"""
 pip install pyjwt  (2.8.0)
-'''
+"""
 
 import time
 
@@ -14,7 +14,7 @@ JWT_TOKEN_ALGORITHM = 'HS256'  # HASH算法
 def generate_jwt_token(user):
     """根据用户id生成token"""
     data = {'user_id': user, 'exp': int(time.time()) + JWT_TOKEN_EXPIRE_SECONDS}
-    print("generate data:", data)
+    print('generate data:', data)
     jwtToken = jwt.encode(data, JWT_TOKEN_SECRET_SALT, algorithm=JWT_TOKEN_ALGORITHM)
     return jwtToken
 
@@ -27,7 +27,7 @@ def verify_jwt_token(user, jwtToken):
         payload = jwt.decode(
             jwtToken, JWT_TOKEN_SECRET_SALT, algorithms=[JWT_TOKEN_ALGORITHM]
         )
-        print("verify:", payload)
+        print('verify:', payload)
         exp = int(payload.pop('exp'))
         if time.time() > exp:
             print('已失效')
@@ -41,13 +41,13 @@ def verify_jwt_token(user, jwtToken):
 
 
 if __name__ == '__main__':
-    '''
+    """
 
     https://www.jb51.net/python/2852675y0.htm
 
     AttributeError: module 'jwt' has no attribute 'encode'
 
-    '''
+    """
     # generate_jwt_token('user')
 
     aa = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlciIsImV4cCI6MTY4OTg0ODQyMH0.jx1qEhWA4dv_WK48jiSxBFIyWfAqhpEcLfXjPsUP3mw'

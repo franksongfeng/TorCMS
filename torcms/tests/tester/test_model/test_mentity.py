@@ -31,7 +31,7 @@ class TestMEntity:
         assert tf
 
     def test_create_entity_2(self):
-        '''Wiki insert: Test invalid title'''
+        """Wiki insert: Test invalid title"""
         post_data = {
             'path': '',
         }
@@ -89,7 +89,7 @@ class TestMEntity:
         assert tf is None
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tt = MEntity.get_id_by_impath(self.path)
         if tt:
             MEntity.delete(tt.uid)

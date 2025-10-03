@@ -1,6 +1,6 @@
-'''
+"""
 script for initialization.
-'''
+"""
 
 import sys
 from pathlib import Path
@@ -21,9 +21,9 @@ XLSX_FILE = './database/role_perm.xlsx'
 
 
 def run_init(*args):
-    '''
+    """
     running init.
-    '''
+    """
     build_dir()
     run_auto()
 

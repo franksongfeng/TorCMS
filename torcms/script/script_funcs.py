@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 Serveral functions.
 
 Checking the kind of post if it is valid.
 
 Build the directory for Whoosh database.
 and locale.
-'''
+"""
+
 import os
 
 import torcms.core.tool.whoosh_tool
@@ -20,9 +21,9 @@ from torcms.model.user_model import MUser
 
 
 def build_directory():
-    '''
+    """
     Build the directory for Whoosh database, and locale.
-    '''
+    """
     if os.path.exists('locale'):
         pass
     else:
@@ -36,9 +37,9 @@ def build_directory():
 
 
 def run_create_admin(*args):
-    '''
+    """
     creating the default administrator.
-    '''
+    """
     post_data = {
         'user_name': 'admin',
         'user_email': 'admin@osgeo.cn',
@@ -78,9 +79,9 @@ def run_create_admin(*args):
 
 
 def run_whoosh(*args):
-    '''
+    """
     running whoosh
-    '''
+    """
     kind_arr = []
     for key, value in post_cfg.items():
         kind_arr.append(key)

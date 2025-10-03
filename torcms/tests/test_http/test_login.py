@@ -16,6 +16,6 @@ class TestTornado(AsyncHTTPTestCase):
         # data = {"user_name": "bukun"}
 
         # response = self.fetch("/user/login",method="POST",body=data)
-        response = self.fetch("/user/login")
+        response = self.fetch('/user/login')
         # self.assertEqual(eval(response.body)["data"], "test")
         self.assertEqual(response.code, 200)

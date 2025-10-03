@@ -1,6 +1,6 @@
-'''
+"""
 通过Data中相关图层名称获取url，并通过url获取xml数据
-'''
+"""
 
 import json
 import sys
@@ -11,7 +11,7 @@ from owslib.wms import WebMapService
 
 
 def get_xml(maplayers):
-    with open("./demo_mapproxy.yaml", encoding='utf-8') as file:
+    with open('./demo_mapproxy.yaml', encoding='utf-8') as file:
         content = file.read()
         print(maplayers)
         # 设置Loader=yaml.FullLoader忽略YAMLLoadWarning警告
@@ -25,8 +25,8 @@ def get_xml(maplayers):
                 result = wms.getServiceXML()
 
                 result = str(result)[2:-1]
-                result2 = "".join(json.dumps(result).split("\\n"))
-                result3 = "".join(json.dumps(result2).split("\\"))
+                result2 = ''.join(json.dumps(result).split('\\n'))
+                result3 = ''.join(json.dumps(result2).split('\\'))
                 print(result3[2:-2])
 
 

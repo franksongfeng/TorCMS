@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 TestRoleHandler
-'''
+"""
+
 import sys
 
 sys.path.append('')
@@ -13,20 +14,20 @@ from server import APP
 
 
 class TestRoleHandler(AsyncHTTPSTestCase):
-    '''
+    """
     Test
-    '''
+    """
 
     def get_app(self):
-        '''
+        """
         Test
-        '''
+        """
         return APP
 
     def test_role_list(self):
-        '''
+        """
         Test
-        '''
+        """
         response = self.fetch('/api/role/list/')
         self.assertEqual(response.code, 200)
 
@@ -44,8 +45,8 @@ class TestRoleHandler(AsyncHTTPSTestCase):
     #     self.assertEqual(response.code, 200)
 
     def test_role_getpid(self):
-        '''
+        """
         Test
-        '''
+        """
         response = self.fetch('/api/role/getpid/')
         self.assertEqual(response.code, 200)

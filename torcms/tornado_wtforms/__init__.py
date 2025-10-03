@@ -15,20 +15,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__author__ = "Flávio Gonçalves Garcia <piraz@candango.org>"
+__author__ = 'Flávio Gonçalves Garcia <piraz@candango.org>'
 __version__ = (0, 0, 1)
-__licence__ = "Apache License V2.0"
+__licence__ = 'Apache License V2.0'
 
 
 def get_version():
     if isinstance(__version__[-1], str):
         return '.'.join(map(str, __version__[:-1])) + __version__[-1]
-    return ".".join(map(str, __version__))
+    return '.'.join(map(str, __version__))
 
 
 def get_author():
-    return __author__.split(" <")[0]
+    return __author__.split(' <')[0]
 
 
 def get_author_email():
-    return __author__.split(" <")[1][:-1]
+    return __author__.split(' <')[1][:-1]

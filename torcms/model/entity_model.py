@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 For file entities. Just like pdf, zipfile, docx, etc.
-'''
+"""
 
 import time
 
@@ -12,9 +12,9 @@ from torcms.model.core_tab import TabEntity
 
 
 class MEntity:
-    '''
+    """
     For file entities. Just like pdf, zipfile, docx, etc.
-    '''
+    """
 
     @staticmethod
     def get_by_uid(uid):
@@ -22,9 +22,9 @@ class MEntity:
 
     @staticmethod
     def query_all(limit=20):
-        '''
+        """
         Return the entities list.
-        '''
+        """
         return TabEntity.select().limit(limit)
 
     @staticmethod
@@ -41,9 +41,9 @@ class MEntity:
 
     @staticmethod
     def get_id_by_impath(path):
-        '''
+        """
         The the entity id by the path.
-        '''
+        """
         logger.info('Get Entiry, Path: {0}'.format(path))
 
         entity_list = TabEntity.select().where(TabEntity.path == path)
@@ -60,9 +60,9 @@ class MEntity:
 
     @staticmethod
     def create_entity(uid='', path='', desc='', kind='1'):
-        '''
+        """
         create entity record in the database.
-        '''
+        """
 
         if path:
             pass
@@ -88,15 +88,15 @@ class MEntity:
 
     @staticmethod
     def total_number():
-        '''
+        """
         Total number.
-        '''
+        """
         # adding ``None`` to hide ``No value for argument 'database' in method call``
         return TabEntity.select().count(None)
 
     @staticmethod
     def delete_by_path(path, kind='f'):
-        ''' '''
+        """ """
         delete = TabEntity.delete().where(
             (TabEntity.path == path) & (TabEntity.kind == kind)
         )

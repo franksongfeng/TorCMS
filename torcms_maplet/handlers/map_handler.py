@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 Handlers for Map application.
-'''
+"""
+
 import os
 import random
 import time
@@ -25,20 +26,20 @@ from torcms_maplet.model.layout_model import MLayout
 
 
 class MapPostHandler(PostHandler):
-    '''
+    """
     For meta handler of map.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super(MapPostHandler, self).initialize()
         self.kind = 'm'
 
     def _redirect(self, url_arr):
-        '''
+        """
         Redirection.
         :param url_arr:
         :return:
-        '''
+        """
         direct_dic = {
             'recent': '/post_list/recent',
             'refresh': '/post_list/_refresh',
@@ -144,9 +145,9 @@ class MapPostHandler(PostHandler):
         return map_hist
 
     def viewinfo(self, postinfo):
-        '''
+        """
         查看 Post.
-        '''
+        """
 
         __ext_catid = postinfo.extinfo.get('def_cat_uid', '')
         cat_enum1 = MCategory.get_qian2(__ext_catid[:2]) if __ext_catid else []
@@ -247,9 +248,9 @@ class MapPostHandler(PostHandler):
 
 
 class MapAdminHandler(MapPostHandler):
-    '''
+    """
     Extra defined the class, for it could be added into InfoHandler.
-    '''
+    """
 
     def post(self, *args):
         url_str = args[0]
@@ -269,9 +270,9 @@ class MapAdminHandler(MapPostHandler):
 
 
 class MapLayoutHandler(BaseHandler):
-    '''
+    """
     Layerout for map handler.
-    '''
+    """
 
     def initialize(self):
         super(MapLayoutHandler, self).initialize()
@@ -294,16 +295,16 @@ class MapLayoutHandler(BaseHandler):
 
     @tornado.web.authenticated
     def delete(self, uid):
-        '''
+        """
         Delete the map layout of user.
-        '''
+        """
         MLayout.delete(uid)
 
     @tornado.web.authenticated
     def save_layout(self):
-        '''
+        """
         Save the map layout.
-        '''
+        """
         post_data = self.get_request_arguments()
         if 'zoom' in post_data:
             pass
@@ -315,9 +316,9 @@ class MapLayoutHandler(BaseHandler):
 
 
 class MapOverlayHandler(BaseHandler):
-    '''
+    """
     For map overlay.
-    '''
+    """
 
     def initialize(self):
         super(MapOverlayHandler, self).initialize()

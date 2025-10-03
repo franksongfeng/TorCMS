@@ -77,9 +77,9 @@ def query_by_kw():
 
 
 def query_by_id():
-    '''
+    """
     没法使用联邦检索
-    '''
+    """
     c = csw.getrecordbyid(id=['xh_1_12073'])
     pprint(c.records['xh_1_12073'].title)
 

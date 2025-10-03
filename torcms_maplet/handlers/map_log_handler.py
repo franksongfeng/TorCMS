@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 地图日志
-'''
+"""
 
 from torcms.core.base_handler import BaseHandler
 from torcms_maplet.model.map_log_model import MMapLog
@@ -30,9 +30,9 @@ class MapLogHandler(BaseHandler):
             self.show404()
 
     def add(self):
-        '''
+        """
         添加地图日志
-        '''
+        """
 
         post_data = {}
         for key in self.request.arguments:
@@ -48,9 +48,9 @@ class MapLogHandler(BaseHandler):
         return True
 
     def list(self):
-        '''
+        """
         地图日志列表
-        '''
+        """
         kwd = {}
         recs = MMapLog.get_all()
         self.render(

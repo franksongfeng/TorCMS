@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Admin
-'''
+"""
+
 import tornado.web
 
 import config
@@ -9,9 +10,9 @@ from torcms.core.base_handler import BaseHandler
 
 
 class AdminHandler(BaseHandler):
-    '''
+    """
     Handler for Admin.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()

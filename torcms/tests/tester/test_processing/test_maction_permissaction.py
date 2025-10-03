@@ -16,12 +16,12 @@ class TestMAction:
         self.maction = MAction()
         self.mper_action = MPermissionAction()
         self.mpermission = MPermission()
-        self.fake = Faker(locale="zh_CN")
+        self.fake = Faker(locale='zh_CN')
         self.process_id = self.init_process()
         self.init_action()
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
 
         act_recs = MAction.query_by_proid(self.process_id)
 
@@ -32,18 +32,18 @@ class TestMAction:
         self.mprocess.delete_by_uid(self.process_id)
 
     def init_process(self):
-        '''
+        """
         创建流程TabProcess
-        '''
+        """
 
         process_name = 'test数据审核' + self.uid
         process_id = self.mprocess.create(process_name)
         return process_id
 
     def init_action(self):
-        '''
+        """
         创建动作TabAction
-        '''
+        """
 
         action_datas = [
             {

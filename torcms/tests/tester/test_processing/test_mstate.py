@@ -32,10 +32,10 @@ class TestMstate:
         self.state_dic = {}
         self.init_state()
 
-        self.fake = Faker(locale="zh_CN")
+        self.fake = Faker(locale='zh_CN')
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
 
         state_recs = self.mstate.query_by_pro_id(self.process_id)
         for state in state_recs:
@@ -48,18 +48,18 @@ class TestMstate:
         self.mprocess.delete_by_uid(self.process_id2)
 
     def init_process(self):
-        '''
+        """
         创建流程TabProcess
-        '''
+        """
 
         process_name = 'test数据审核' + self.uid
         process_id = self.mprocess.create(process_name)
         return process_id
 
     def init_state(self):
-        '''
+        """
         创建状态TabState
-        '''
+        """
 
         state_datas = [
             {

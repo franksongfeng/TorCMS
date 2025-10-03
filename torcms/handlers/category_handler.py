@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 CRUD for the category.
-'''
+"""
 
 import json
 
@@ -16,9 +16,9 @@ from torcms.model.post_model import MPost
 
 
 class CategoryAjaxHandler(BaseHandler):
-    '''
+    """
     Handler for category.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -60,9 +60,9 @@ class CategoryAjaxHandler(BaseHandler):
             self.redirect('misc/html/404.html')
 
     def list_catalog(self, kind):
-        '''
+        """
         listing the category.
-        '''
+        """
         kwd = {
             'pager': '',
             'title': '最近文档',
@@ -81,9 +81,9 @@ class CategoryAjaxHandler(BaseHandler):
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def add(self):
-        '''
+        """
         user add category.
-        '''
+        """
 
         post_data = self.get_request_arguments()
 
@@ -104,9 +104,9 @@ class CategoryAjaxHandler(BaseHandler):
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def update(self, uid):
-        '''
+        """
         Update the category.
-        '''
+        """
 
         post_data = self.get_request_arguments()
 
@@ -125,10 +125,10 @@ class CategoryAjaxHandler(BaseHandler):
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def delete_by_id(self, del_id):
-        '''
+        """
         Delete  by id.
 
-        '''
+        """
 
         post_resc = MPost2Catalog.query_postinfo_by_cat(del_id)
         for post in post_resc:

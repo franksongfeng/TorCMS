@@ -1,15 +1,16 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Model for Posts.
-'''
+"""
+
 from config import CMS_CFG
 from torcms.model.core_tab import TabPost, TabReply
 
 
 class MComment:
-    '''
+    """
     Model for Posts.
-    '''
+    """
 
     def __init__(self):
         super().__init__()
@@ -45,9 +46,9 @@ class MComment:
 
     @staticmethod
     def query_recent_edited(timstamp):
-        '''
+        """
         获取最近有评论的Post，以时间戳为条件
-        '''
+        """
         return (
             TabPost.select()
             .join(TabReply, on=(TabPost.uid == TabReply.post_id))

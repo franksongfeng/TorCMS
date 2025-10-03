@@ -68,7 +68,7 @@ class TestMReply2User:
         assert aa >= 1
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tt = self.user.get_by_uid(self.user_uid)
         if tt:
             self.user.delete(tt.uid)

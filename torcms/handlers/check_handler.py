@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 The basic HTML Page handler.
-'''
+"""
 
 import json
 
@@ -40,18 +40,18 @@ class CheckHandler(BaseHandler):
     @tornado.web.authenticated
     @privilege.permission(action='can_verify')
     def pend_review(self, list, **kwargs):
-        '''
+        """
         The default page of examine.
-        '''
+        """
 
         post_data = self.get_request_arguments()
         state = post_data.get('state', '')
         kind = post_data.get('kind', '9')
 
         def get_pager_idx():
-            '''
+            """
             Get the pager index.
-            '''
+            """
             cur_p = kwargs.get('cur_p')
             the_num = int(cur_p) if cur_p else 1
             the_num = 1 if the_num < 1 else the_num
@@ -88,18 +88,18 @@ class CheckHandler(BaseHandler):
 
     @tornado.web.authenticated
     def publish_list(self, list, **kwargs):
-        '''
+        """
         The default page of examine.
-        '''
+        """
 
         post_data = self.get_request_arguments()
         state = post_data.get('state', '')
         kind = post_data.get('kind', '9')
 
         def get_pager_idx():
-            '''
+            """
             Get the pager index.
-            '''
+            """
             cur_p = kwargs.get('cur_p')
             the_num = int(cur_p) if cur_p else 1
             the_num = 1 if the_num < 1 else the_num

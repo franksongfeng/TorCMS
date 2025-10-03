@@ -14,9 +14,9 @@ def run_init():
 
 
 def run_update_lon():
-    '''
+    """
     :return:
-    '''
+    """
 
     def fix_lon(lonval):
         return int(((lonval + 180) % 360 - 180) * 1000) / 1000
@@ -38,18 +38,18 @@ def run_update_lon():
 def entry(argv):
     try:
         # 这里的 h 就表示该选项无参数，i:表示 i 选项后需要有参数
-        opts, args = getopt.getopt(argv, "hi:")
+        opts, args = getopt.getopt(argv, 'hi:')
     except getopt.GetoptError:
         print('Error: helper.py -i cmd')
         sys.exit(2)
 
     for opt, arg in opts:
-        if opt == "-h":
+        if opt == '-h':
             print('helper.py -i cmd')
             print('-' * 20)
             print('helper.py -i update_lon')
             sys.exit()
-        elif opt in ("-i"):
+        elif opt in ('-i'):
             helper_app = arg
             eval('run_' + helper_app + '()')
 

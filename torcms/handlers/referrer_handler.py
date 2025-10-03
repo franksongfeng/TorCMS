@@ -12,9 +12,9 @@ from torcms.model.referrer_model import MReferrer
 
 
 class Referrer(BaseHandler):
-    '''
+    """
     The basic HTML Page handler.
-    '''
+    """
 
     executor = ThreadPoolExecutor(2)
 
@@ -36,7 +36,7 @@ class Referrer(BaseHandler):
         url_arr = self.parse_url(url_str)
 
         if url_arr[0] in ['_add']:
-            print("*" * 50)
+            print('*' * 50)
             print(len(url_arr))
 
             self.add()
@@ -44,9 +44,9 @@ class Referrer(BaseHandler):
             self.show404()
 
     def index(self):
-        '''
+        """
         The default page of POST.
-        '''
+        """
         postinfo = MReferrer.query_all()
         self.render(
             'post_{0}/post_index.html'.format(self.kind),
@@ -58,19 +58,19 @@ class Referrer(BaseHandler):
         )
 
     def _gen_uid(self):
-        '''
+        """
         Generate the ID for post.
         :return: the new ID.
-        '''
+        """
         cur_uid = self.kind + tools.get_uu4d()
         while MReferrer.get_by_uid(cur_uid):
             cur_uid = self.kind + tools.get_uu4d()
         return cur_uid
 
     def fetch_post_data(self):
-        '''
+        """
         fetch post accessed data. post_data, and ext_dic.
-        '''
+        """
         post_data = {}
         ext_dic = {}
         for key in self.request.arguments:
@@ -92,9 +92,9 @@ class Referrer(BaseHandler):
         return (post_data, ext_dic)
 
     def add(self, **kwargs):
-        '''
+        """
         in infor.
-        '''
+        """
 
         if 'uid' in kwargs:
             uid = kwargs['uid']
@@ -116,8 +116,8 @@ class Referrer(BaseHandler):
             MReferrer.add_meta(uid, post_data)
 
     def ext_post_data(self, **kwargs):
-        '''
+        """
         The additional information.  for add(), or update().
-        '''
+        """
         _ = kwargs
         return {}

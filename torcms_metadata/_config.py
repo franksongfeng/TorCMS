@@ -1,7 +1,7 @@
 _post_cfg = {
     '9': {
         'router': 'data',
-        'html': '''<span style="color:blue;" class="glyphicon glyphicon-list-alt">[{0}]</span>'''.format(
+        'html': """<span style="color:blue;" class="glyphicon glyphicon-list-alt">[{0}]</span>""".format(
             'Data'
         ),
         'checker': '10',  # '10', '100', '1000', '10000'

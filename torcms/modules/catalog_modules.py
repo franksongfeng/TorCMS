@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 For catalog modules.
-'''
+"""
 
 import tornado.web
 
@@ -11,9 +11,9 @@ from torcms.model.post2catalog_model import MPost2Catalog
 
 
 class CatalogMenu(tornado.web.UIModule):
-    '''
+    """
     Menu for catalog lists.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         # kind = kwargs['kind'] if 'kind' in kwargs else '1'
@@ -26,9 +26,9 @@ class CatalogMenu(tornado.web.UIModule):
 
 
 class CatalogList(tornado.web.UIModule):
-    '''
+    """
     catalog lists.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         catid = kwargs['catid'] if 'catid' in kwargs else ''
@@ -41,7 +41,7 @@ class CatalogList(tornado.web.UIModule):
 
 
 class CatalogContent(tornado.web.UIModule):
-    ''' '''
+    """ """
 
     def render(self, *args, **kwargs):
         slug = args[0]

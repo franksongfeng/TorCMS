@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 Testing for redis.
-'''
+"""
 
 import cfg
 
@@ -10,9 +10,9 @@ from config import REDIS_CFG
 
 
 class TestRedis:
-    '''
+    """
     Testing for redis.
-    '''
+    """
 
     def setup_method(self):
         print('setup 方法执行于本类中每条用例之前')

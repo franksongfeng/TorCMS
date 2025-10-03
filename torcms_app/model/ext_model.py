@@ -15,9 +15,9 @@ from torcms_app.model.ext import ExtabCalcInfo
 
 
 class MCalcInfo:
-    '''
+    """
     For App infor.
-    '''
+    """
 
     def __init__(self):
         try:
@@ -97,12 +97,12 @@ class MAppYun(MPost):
 
     @staticmethod
     def modify_meta(uid, data_dic, extinfo=None):
-        '''
+        """
         手工修改的。
         :param uid:
         :param data_dic:
         :return:
-        '''
+        """
         entry = TabApp.update(
             title=data_dic['title'][0],
             keywords=data_dic['keywords'][0],

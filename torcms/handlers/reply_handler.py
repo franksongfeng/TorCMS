@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Handler for reply.
-'''
+"""
 
 import datetime
 import json
@@ -20,15 +20,15 @@ from torcms.model.replyid_model import MReplyid
 class DateEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, datetime.datetime):
-            return obj.strftime("%Y-%m-%d %H:%M:%S")
+            return obj.strftime('%Y-%m-%d %H:%M:%S')
         else:
             return json.JSONEncoder.default(self, obj)
 
 
 class ReplyHandler(BaseHandler):
-    '''
+    """
     Handler for reply.
-    '''
+    """
 
     def initialize(self):
         super().initialize()
@@ -78,9 +78,9 @@ class ReplyHandler(BaseHandler):
 
     @tornado.web.authenticated
     def _add(self):
-        '''
+        """
         提问
-        '''
+        """
 
         kwd = {}
         if self.is_p:
@@ -91,9 +91,9 @@ class ReplyHandler(BaseHandler):
             self.render('misc/reply/reply_add.html', kwd=kwd, userinfo=self.userinfo)
 
     def list(self, cur_p=''):
-        '''
+        """
         List the replies.
-        '''
+        """
         current_page_number = 1
         if cur_p == '':
             current_page_number = 1
@@ -164,9 +164,9 @@ class ReplyHandler(BaseHandler):
             )
 
     def get_by_id(self, reply_id):
-        '''
+        """
         Get the reply by id.
-        '''
+        """
         reply = MReply.get_by_uid(reply_id)
         logger.info('get_reply: {0}'.format(reply_id))
         postdata = self.get_request_arguments()
@@ -245,9 +245,9 @@ class ReplyHandler(BaseHandler):
         return json.dump(out_dict, self, cls=DateEncoder, ensure_ascii=False)
 
     def more_by_id(self, reply_id):
-        '''
+        """
         Get the reply by id.
-        '''
+        """
         reply = MReply.get_by_uid(reply_id)
 
         self.render(
@@ -262,9 +262,9 @@ class ReplyHandler(BaseHandler):
         )
 
     def get_by_id_comment(self, reply_id):
-        '''
+        """
         Get the reply by id.
-        '''
+        """
         reply = MReply.get_by_uid(reply_id)
         logger.info('get_reply: {0}'.format(reply_id))
         postdata = self.get_request_arguments()
@@ -303,9 +303,9 @@ class ReplyHandler(BaseHandler):
             )
 
     def get_by_user(self, user_id, cur_p=''):
-        '''
+        """
         List the replies.
-        '''
+        """
         current_page_number = 1
         if cur_p == '':
             current_page_number = 1
@@ -378,9 +378,9 @@ class ReplyHandler(BaseHandler):
 
     @tornado.web.authenticated
     def add(self, post_id):
-        '''
+        """
         Adding reply to a post.
-        '''
+        """
         post_data = self.get_request_arguments()
 
         post_data['user_name'] = self.userinfo.user_name
@@ -400,9 +400,9 @@ class ReplyHandler(BaseHandler):
 
     @tornado.web.authenticated
     def json_add(self):
-        '''
+        """
         Adding reply to a post.
-        '''
+        """
         post_data, ext_data = self.fetch_post_data()
 
         post_data['user_name'] = self.userinfo.user_name
@@ -427,10 +427,10 @@ class ReplyHandler(BaseHandler):
 
     @tornado.web.authenticated
     def zan(self, id_reply):
-        '''
+        """
         先在外部表中更新，然后更新内部表字段的值。
         有冗余，但是查看的时候避免了联合查询
-        '''
+        """
 
         logger.info('zan: {0}'.format(id_reply))
 
@@ -447,9 +447,9 @@ class ReplyHandler(BaseHandler):
         return json.dump(output, self, ensure_ascii=False)
 
     def reply_count(self, id_reply):
-        '''
+        """
         回复数量
-        '''
+        """
 
         res = MReplyid.get_by_rid(id_reply)
         reply_count = res.count()
@@ -461,9 +461,9 @@ class ReplyHandler(BaseHandler):
         return json.dump(output, self, ensure_ascii=False)
 
     def comment_count(self, postid):
-        '''
+        """
         评论数量
-        '''
+        """
 
         res = MReply.query_by_post(postid)
         comment_count = res.count()
@@ -476,9 +476,9 @@ class ReplyHandler(BaseHandler):
 
     @tornado.web.authenticated
     def delete(self, del_id):
-        '''
+        """
         Delete the id
-        '''
+        """
         if MReply2User.delete(del_id):
             output = {'del_zan': 1}
         else:
@@ -487,9 +487,9 @@ class ReplyHandler(BaseHandler):
 
     @tornado.web.authenticated
     def delete_com(self, del_id):
-        '''
+        """
         Delete the reply id
-        '''
+        """
 
         if MReply.delete_by_uid(del_id):
             output = {'del_reply': 1}
@@ -499,9 +499,9 @@ class ReplyHandler(BaseHandler):
 
     @tornado.web.authenticated
     def add_reply(self, post_id, reply_id):
-        '''
+        """
         Adding reply
-        '''
+        """
         post_data, ext_data = self.fetch_post_data()
 
         post_data['user_name'] = self.userinfo.user_name
@@ -524,9 +524,9 @@ class ReplyHandler(BaseHandler):
 
     @tornado.web.authenticated
     def modify(self, pid, cat):
-        '''
+        """
         Adding comment to a post.
-        '''
+        """
         post_data = self.get_request_arguments()
         post_data['user_name'] = self.userinfo.user_name
         post_data['user_id'] = self.userinfo.uid
@@ -545,9 +545,9 @@ class ReplyHandler(BaseHandler):
 
 
 class ReplyAjaxHandler(ReplyHandler):
-    '''
+    """
     Partially render for user handler.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()

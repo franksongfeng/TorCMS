@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Handler for links.
-'''
+"""
 
 import json
 
@@ -14,9 +14,9 @@ from torcms.model.link_model import MLink
 
 
 class LinkHandler(BaseHandler):
-    '''
+    """
     Handler for links.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -61,9 +61,9 @@ class LinkHandler(BaseHandler):
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def recent(self):
-        '''
+        """
         Recent links.
-        '''
+        """
         kwd = {
             'pager': '',
             'title': '最近文档',
@@ -91,9 +91,9 @@ class LinkHandler(BaseHandler):
     def to_add_link(
         self,
     ):
-        '''
+        """
         To add link
-        '''
+        """
 
         kwd = {
             'pager': '',
@@ -109,9 +109,9 @@ class LinkHandler(BaseHandler):
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def update(self, uid):
-        '''
+        """
         Update the link.
-        '''
+        """
 
         post_data = self.get_request_arguments()
 
@@ -134,9 +134,9 @@ class LinkHandler(BaseHandler):
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def to_modify(self, uid):
-        '''
+        """
         Try to edit the link.
-        '''
+        """
 
         self.render(
             'misc/link/link_edit.html',
@@ -148,9 +148,9 @@ class LinkHandler(BaseHandler):
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def viewit(self, post_id):
-        '''
+        """
         View the link.
-        '''
+        """
 
         rec = MLink.get_by_uid(post_id)
 
@@ -174,9 +174,9 @@ class LinkHandler(BaseHandler):
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def p_user_add_link(self):
-        '''
+        """
         user add link.
-        '''
+        """
 
         post_data = self.get_request_arguments()
 
@@ -199,9 +199,9 @@ class LinkHandler(BaseHandler):
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def user_add_link(self):
-        '''
+        """
         Create link by user.
-        '''
+        """
 
         post_data = self.get_request_arguments()
 
@@ -218,9 +218,9 @@ class LinkHandler(BaseHandler):
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def delete_by_id(self, del_id):
-        '''
+        """
         Delete a link by id.
-        '''
+        """
 
         if self.is_p:
             if MLink.delete(del_id):
@@ -235,9 +235,9 @@ class LinkHandler(BaseHandler):
 
 
 class LinkPartialHandler(LinkHandler):
-    '''
+    """
     Partially render for user handler.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()

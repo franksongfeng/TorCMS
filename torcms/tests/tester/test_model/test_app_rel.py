@@ -112,7 +112,7 @@ class TestMRelation:
         assert aa == None
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tt = MCategory.get_by_uid(self.tag_id)
         if tt:
             MCategory.delete(tt.uid)

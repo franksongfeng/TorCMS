@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 PermissionHandler
-'''
+"""
+
 import sys
 
 sys.path.append('')
@@ -13,14 +14,14 @@ from server import APP
 
 
 class TestPermissionHandler(AsyncHTTPSTestCase):
-    '''
+    """
     Test
-    '''
+    """
 
     def get_app(self):
-        '''
+        """
         Test
-        '''
+        """
         return APP
 
     # def test_index(self):
@@ -37,8 +38,8 @@ class TestPermissionHandler(AsyncHTTPSTestCase):
     #     response = self.fetch('/permission/get/')
     #     self.assertEqual(response.code, 200)
     def test_getall(self):
-        '''
+        """
         Test getall.
-        '''
+        """
         response = self.fetch('/permission/getall/')
         self.assertEqual(response.code, 200)

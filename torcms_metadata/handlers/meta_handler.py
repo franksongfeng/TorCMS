@@ -22,10 +22,10 @@ from torcms.model.post_model import MPost
 
 
 def update_category(uid, post_data):
-    '''
+    """
     Update the category of the post.
     :param uid:  The ID of the post. Extra info would get by requests.
-    '''
+    """
 
     # deprecated
     # catid = kwargs['catid'] if MCategory.get_by_uid(kwargs.get('catid')) else None
@@ -85,9 +85,9 @@ def update_category(uid, post_data):
 
 
 def update_label(signature, post_data):
-    '''
+    """
     Update the label when updating.
-    '''
+    """
     current_tag_infos = MPost2Label.get_by_uid(signature).objects()
     if 'tags' in post_data:
         pass
@@ -212,9 +212,9 @@ class MetadataHandler(PostHandler):
         return meta_dic
 
     def fetch_post_data(self):
-        '''
+        """
         fetch post accessed data. post_data, and ext_dic.
-        '''
+        """
         post_data = {}
         ext_dic = {}
         ii = 1
@@ -254,9 +254,9 @@ class MetadataHandler(PostHandler):
     @privilege.permission(action='can_add')
     @tornado.gen.coroutine
     def add(self, **kwargs):
-        '''
+        """
         in infor.
-        '''
+        """
 
         post_data, ext_dic = self.fetch_post_data()
 
@@ -315,9 +315,9 @@ class MetadataHandler(PostHandler):
     @privilege.permission(action='can_edit')
     @tornado.gen.coroutine
     def update(self, uid):
-        '''
+        """
         in infor.
-        '''
+        """
 
         post_data, ext_dic = self.fetch_post_data()
         if 'gcat0' in post_data:
@@ -372,9 +372,9 @@ class MetadataHandler(PostHandler):
         )
 
     def download_xlsx(self, postid):
-        '''
+        """
         下载元数据XLSX文件
-        '''
+        """
         tag_info = MPost2Label.get_by_uid(postid).objects()
         print('======')
         keywords = ''
@@ -431,7 +431,7 @@ class MetadataHandler(PostHandler):
 
     def 生成验证语言(self):
         dv = DataValidation(
-            type="list",
+            type='list',
             formula1='"英文,中文,法文,俄语,阿拉伯语,西班牙语,其他"',
             allow_blank=True,
         )
@@ -443,15 +443,15 @@ class MetadataHandler(PostHandler):
 
     @tornado.web.authenticated
     def upload_excel(self):
-        '''
+        """
         Adding the pdf file.
-        '''
+        """
 
         post_data = self.get_request_arguments()
 
         img_entity = self.request.files['file'][0]
-        img_desc = img_entity["filename"]
-        filename = img_entity["filename"]
+        img_desc = img_entity['filename']
+        filename = img_entity['filename']
 
         if filename and self.allowed_file_pdf(filename):
             pass
@@ -479,8 +479,8 @@ class MetadataHandler(PostHandler):
             pass
         else:
             os.makedirs(outpath)
-        with open(os.path.join(outpath, outfilename), "wb") as fout:
-            fout.write(img_entity["body"])
+        with open(os.path.join(outpath, outfilename), 'wb') as fout:
+            fout.write(img_entity['body'])
 
         sig_save = os.path.join(signature[:2], signature)
         path_save = os.path.join(signature[:2], outfilename)
@@ -517,9 +517,9 @@ class MetadataHandler(PostHandler):
         return json.dump(ext_dic, self)
 
     def allowed_file_pdf(self, filename):
-        '''
+        """
         Allowed xlsx files
-        '''
+        """
         ALLOWED_EXTENSIONS_PDF = ['xlsx']
         return (
             '.' in filename

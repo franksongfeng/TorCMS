@@ -12,8 +12,8 @@ class TestMWiki:
         self.raw_count = MWiki.get_counts()
         self.wiki_title = 'lkablkjcdefg'
         self.wiki_title2 = 'lkablkjcdefgqq'
-        self.uid = ""
-        self.uid2 = "asdf"
+        self.uid = ''
+        self.uid2 = 'asdf'
         self.add_mess()
 
     def add_mess(self):
@@ -27,7 +27,7 @@ class TestMWiki:
         self.uid = aa.uid
 
     def test_insert_1(self):
-        '''Wiki insert: Test invalid title'''
+        """Wiki insert: Test invalid title"""
         post_data = {
             'title': '',
             'cnt_md': '## adslkfjasdf\n lasdfkjsadf',
@@ -43,7 +43,7 @@ class TestMWiki:
         assert tt.title == self.wiki_title
 
     def test_get_by_title2(self):
-        '''Test Wiki title with SPACE'''
+        """Test Wiki title with SPACE"""
 
         ss = MWiki.get_by_uid(self.uid)
         assert ss.title == self.wiki_title
@@ -237,6 +237,6 @@ class TestMWiki:
         assert aa >= 1
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         MWiki.delete(self.uid)
         MWiki.delete(self.uid2)

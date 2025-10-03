@@ -1,6 +1,6 @@
-'''
+"""
 Handler of Posts via Ajax.
-'''
+"""
 
 import json
 
@@ -27,9 +27,9 @@ from torcms.model.user_model import MUser
 
 
 class ApiPostHandler(PostHandler):
-    '''
+    """
     Handler of Posts via Ajax.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -83,9 +83,9 @@ class ApiPostHandler(PostHandler):
         return json.dump(output, self)
 
     def create_request(self, process_id, post_id, user_id):
-        '''
+        """
         创建请求以及请求对应状态的相关动作
-        '''
+        """
 
         # 获取“开始”状态ID
 
@@ -106,11 +106,11 @@ class ApiPostHandler(PostHandler):
                 if act.action_type.startswith('restart'):
                     act_arr.append(
                         {
-                            "act_name": act.name,
-                            "act_uid": cur_act['action'],
-                            "request_id": req_id,
-                            "state_id": cur_state.uid,
-                            "process_id": process_id,
+                            'act_name': act.name,
+                            'act_uid': cur_act['action'],
+                            'request_id': req_id,
+                            'state_id': cur_state.uid,
+                            'process_id': process_id,
                         }
                     )
             return act_arr, req_id
@@ -146,7 +146,7 @@ class ApiPostHandler(PostHandler):
 
         act_arr = []
         if request_id:
-            print("1-" * 50)
+            print('1-' * 50)
             print(act_id)
             print(request_id)
 
@@ -155,7 +155,7 @@ class ApiPostHandler(PostHandler):
 
             if reqact.is_active:
                 # 更新操作动态
-                print("gengxin")
+                print('gengxin')
                 MRequestAction.update_by_action(act_id, request_id)
 
                 # 查询该请求中该转换的所有动作是否都为True
@@ -165,7 +165,7 @@ class ApiPostHandler(PostHandler):
 
                 if istrues:
                     if istrues.is_complete:
-                        print("1.12 " * 50)
+                        print('1.12 ' * 50)
                         # 禁用该请求下其它动作
                         MRequestAction.update_by_action_reqs(act_id, request_id)
                         # 转到下一状态
@@ -173,17 +173,17 @@ class ApiPostHandler(PostHandler):
                         new_state = MState.get_by_uid(trans.next_state).get()
 
                         if new_state.state_type.startswith('complete'):
-                            print("1.13 " * 50)
+                            print('1.13 ' * 50)
                             MPost.update_valid(post_id)
 
                             output = {
-                                "responseStatus": 0,
-                                "responseData": {'act_arr': ''},
-                                "responseMsg": "ok",
+                                'responseStatus': 0,
+                                'responseData': {'act_arr': ''},
+                                'responseMsg': 'ok',
                             }
                             return json.dump(output, self)
                         else:
-                            print("1.14 " * 50)
+                            print('1.14 ' * 50)
                             # 创建请求
                             new_request_id = MRequest.create(
                                 process_id, post_id, user_id, new_state.uid
@@ -204,18 +204,18 @@ class ApiPostHandler(PostHandler):
 
                                 act_arr.append(
                                     {
-                                        "act_name": act.name,
-                                        "act_uid": cur_act['action'],
-                                        "request_id": new_request_id,
-                                        "cur_state": new_state.uid,
-                                        "process_id": process_id,
+                                        'act_name': act.name,
+                                        'act_uid': cur_act['action'],
+                                        'request_id': new_request_id,
+                                        'cur_state': new_state.uid,
+                                        'process_id': process_id,
                                     }
                                 )
 
                             output = {
-                                "responseStatus": 0,
-                                "responseData": {'act_arr': act_arr},
-                                "responseMsg": "ok",
+                                'responseStatus': 0,
+                                'responseData': {'act_arr': act_arr},
+                                'responseMsg': 'ok',
                             }
                             return json.dump(output, self)
 
@@ -234,9 +234,9 @@ class ApiPostHandler(PostHandler):
             keywords = ''
 
         def get_pager_idx():
-            '''
+            """
             Get the pager index.
-            '''
+            """
 
             current_page_number = 1
             if page == '':
@@ -266,7 +266,7 @@ class ApiPostHandler(PostHandler):
         rec_arr = []
 
         for rec in recs:
-            print("9" * 50)
+            print('9' * 50)
             print(rec.uid)
             ##查询当前流程的请求
             request_rec = MRequest.query_by_postid(rec.uid)
@@ -302,11 +302,11 @@ class ApiPostHandler(PostHandler):
                                 == 1
                             ):
                                 act_dic = {
-                                    "act_name": act_rec.name,
-                                    "act_uid": act_rec.uid,
-                                    "request_id": request_rec.uid,
-                                    "state_id": request_rec.current_state_id,
-                                    "process_id": request_rec.process_id,
+                                    'act_name': act_rec.name,
+                                    'act_uid': act_rec.uid,
+                                    'request_id': request_rec.uid,
+                                    'state_id': request_rec.current_state_id,
+                                    'process_id': request_rec.process_id,
                                 }
 
                                 if state == '1':
@@ -321,67 +321,67 @@ class ApiPostHandler(PostHandler):
                 if act_arr:
                     rec_arr.append(
                         {
-                            "uid": rec.uid,
-                            "title": rec.title,
-                            "cnt_md": rec.cnt_md,
-                            "cnt_html": tornado.escape.xhtml_unescape(rec.cnt_html),
-                            "user_name": rec.user_name,
-                            "keywords": rec.keywords,
-                            "logo": rec.logo,
-                            "kind": rec.kind,
-                            "state": rec.state,
-                            "time_create": tools.format_time(rec.time_create),
-                            "time_update": tools.format_time(rec.time_update),
-                            "view_count": rec.view_count,
-                            "rating": rec.rating,
-                            "valid": rec.valid,
-                            "order": rec.order,
-                            "extinfo": rec.extinfo,
-                            "router": post_cfg[kind]['router'],
-                            "cur_user_id": self.userinfo.uid,
-                            "action_arr": act_arr,
+                            'uid': rec.uid,
+                            'title': rec.title,
+                            'cnt_md': rec.cnt_md,
+                            'cnt_html': tornado.escape.xhtml_unescape(rec.cnt_html),
+                            'user_name': rec.user_name,
+                            'keywords': rec.keywords,
+                            'logo': rec.logo,
+                            'kind': rec.kind,
+                            'state': rec.state,
+                            'time_create': tools.format_time(rec.time_create),
+                            'time_update': tools.format_time(rec.time_update),
+                            'view_count': rec.view_count,
+                            'rating': rec.rating,
+                            'valid': rec.valid,
+                            'order': rec.order,
+                            'extinfo': rec.extinfo,
+                            'router': post_cfg[kind]['router'],
+                            'cur_user_id': self.userinfo.uid,
+                            'action_arr': act_arr,
                         }
                     )
 
         output = {
-            "ok": True,
-            "status": 0,
-            "msg": "ok",
-            "data": {"count": len(rec_arr), "rows": rec_arr},
+            'ok': True,
+            'status': 0,
+            'msg': 'ok',
+            'data': {'count': len(rec_arr), 'rows': rec_arr},
         }
         return json.dump(output, self, ensure_ascii=False)
 
     @tornado.web.authenticated
     @privilege.permission(action='can_delete')
     def delete(self, del_id):
-        '''
+        """
         Delete the post, but return the JSON.
-        '''
+        """
 
         current_infor = MPost.get_by_uid(del_id)
         is_deleted = MPost.delete(del_id)
         MCategory.update_count(current_infor.extinfo['def_cat_uid'])
         if is_deleted:
-            output = {"ok": True, "status": 0, "msg": "删除成功"}
+            output = {'ok': True, 'status': 0, 'msg': '删除成功'}
         else:
-            output = {"ok": True, "status": 0, "msg": "删除失败"}
+            output = {'ok': True, 'status': 0, 'msg': '删除失败'}
         return json.dump(output, self, ensure_ascii=False)
 
     @privilege.permission(action='can_delete')
     @tornado.web.authenticated
     def batch_delete(self, del_id):
-        '''
+        """
         Delete a link by id.
-        '''
+        """
 
-        del_uids = del_id.split(",")
+        del_uids = del_id.split(',')
         for del_id in del_uids:
             current_infor = MPost.get_by_uid(del_id)
             is_deleted = MPost.delete(del_id)
             MCategory.update_count(current_infor.extinfo['def_cat_uid'])
             if is_deleted:
-                output = {"ok": True, "status": 0, "msg": "删除成功"}
+                output = {'ok': True, 'status': 0, 'msg': '删除成功'}
             else:
-                output = {"ok": True, "status": 0, "msg": "删除失败"}
+                output = {'ok': True, 'status': 0, 'msg': '删除失败'}
 
         return json.dump(output, self, ensure_ascii=False)

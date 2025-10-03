@@ -252,7 +252,7 @@ class TestMCategory:
         assert aa == None
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tt = MPost.get_by_uid(self.uid)
 
         if tt:

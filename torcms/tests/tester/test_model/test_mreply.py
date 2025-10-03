@@ -167,7 +167,7 @@ class TestMReply:
         assert aa.user_id == self.user_uid
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tt = self.post.get_by_uid(self.post_uid)
         if tt:
             self.post.delete(tt.uid)

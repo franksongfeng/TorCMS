@@ -62,7 +62,7 @@ class TestMRelation:
         # assert rel_rec.get().post_id == self.uid
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         MRelation.delete(self.uid)
         MCategory.delete(self.tag_id)
         MPost.delete(self.uid)

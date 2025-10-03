@@ -5,7 +5,7 @@ from torcms.handlers.label_handler import InfoTagHandler
 
 def test_foo():
     urls = [
-        ("/label/(.*)", InfoTagHandler, {}),
+        ('/label/(.*)', InfoTagHandler, {}),
     ]
 
     assert urls is not None

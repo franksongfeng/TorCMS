@@ -1,6 +1,6 @@
-'''
+"""
 To control the cookie for locale.
-'''
+"""
 
 import json
 
@@ -8,9 +8,9 @@ from torcms.core.base_handler import BaseHandler
 
 
 class SysHandler(BaseHandler):
-    '''
+    """
     To control the cookie for locale.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -40,9 +40,9 @@ class SysHandler(BaseHandler):
             self.render('misc/html/404.html', kwd=kwd, userinfo=self.userinfo)
 
     def get_language(self):
-        '''
+        """
         Get the cookie for locale.
-        '''
+        """
         u_locael = self.get_cookie('ulocale')
         if u_locael:
             return self.get_cookie('ulocale')
@@ -50,9 +50,9 @@ class SysHandler(BaseHandler):
             return 'en_US'
 
     def set_language(self, language):
-        '''
+        """
         Set the cookie for locale.
-        '''
+        """
         if language == 'ZH':
             self.set_cookie('ulocale', 'zh_CN')
             self.set_cookie('blocale', 'zh_CN')

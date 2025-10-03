@@ -13,7 +13,7 @@ from pathlib import Path
 import nltk
 from nltk import data
 
-data.path.append("./nltk_data/packages")
+data.path.append('./nltk_data/packages')
 import jieba.analyse
 from gensim import corpora, models, similarities
 from nltk.stem.lancaster import LancasterStemmer

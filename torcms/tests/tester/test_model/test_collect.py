@@ -106,7 +106,7 @@ class TestMCollect:
         assert rec == None
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tt = MPost.get_by_uid(self.post_id)
         tt1 = MPost.get_by_uid(self.post_id_new)
         if tt:

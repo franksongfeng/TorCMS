@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Handler for user.
 ToDo: 太多硬编码。需要处理。
-'''
+"""
 
 import datetime
 import json
@@ -35,17 +35,17 @@ from torcms.tornado_wtforms.form import Form
 def no_cache(method):
     def wrapper(self, *args, **kwargs):
         self.set_header(
-            "Cache-Control", "no-store, no-cache, must-revalidate, max-age=0"
+            'Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0'
         )
-        self.set_header("Pragma", "no-cache")
-        self.set_header("Expires", "Thu, 01 Jan 1970 00:00:00 GMT")
+        self.set_header('Pragma', 'no-cache')
+        self.set_header('Expires', 'Thu, 01 Jan 1970 00:00:00 GMT')
         return method(self, *args, **kwargs)
 
     return wrapper
 
 
 def check_regist_info(post_data):
-    '''
+    """
     check data for user regist.
     Return the status code dict.
 
@@ -57,7 +57,7 @@ def check_regist_info(post_data):
     The seconde char of 'code' stands for different status.
     '1' for invalide
     '2' for already exists.
-    '''
+    """
     user_create_status = {'success': False, 'code': '00'}
 
     if not tools.check_username_valid(post_data['user_name']):
@@ -76,9 +76,9 @@ def check_regist_info(post_data):
 
 
 def check_modify_info(post_data):
-    '''
+    """
     check data for user infomation modification.
-    '''
+    """
     user_create_status = {'success': False, 'code': '00'}
 
     if not tools.check_email_valid(post_data['user_email']):
@@ -91,9 +91,9 @@ def check_modify_info(post_data):
 
 
 def check_valid_pass(postdata):
-    '''
+    """
     对用户密码进行有效性检查。
-    '''
+    """
     _ = postdata
     user_create_status = {'success': False, 'code': '00'}
     if not tools.check_pass_valid(postdata['user_pass']):
@@ -104,9 +104,9 @@ def check_valid_pass(postdata):
 
 
 class SumForm(Form):
-    '''
+    """
     WTForm for user.
-    '''
+    """
 
     user_name = StringField('user_name', validators=[DataRequired()], default='')
     user_pass = StringField('user_pass', validators=[DataRequired()], default='')
@@ -118,9 +118,9 @@ class SumForm(Form):
 
 
 class SumFormInfo(Form):
-    '''
+    """
     WTForm for user.
-    '''
+    """
 
     user_email = StringField(
         'user_email', validators=[DataRequired(), wtforms.validators.Email()]
@@ -128,17 +128,17 @@ class SumFormInfo(Form):
 
 
 class SumFormPass(Form):
-    '''
+    """
     WTForm for user password.
-    '''
+    """
 
     user_pass = StringField('user_pass', validators=[DataRequired()])
 
 
 class UserHandler(BaseHandler):
-    '''
+    """
     Handler for user.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -146,9 +146,9 @@ class UserHandler(BaseHandler):
 
     def set_default_headers(self):
         self.set_header(
-            "Cache-Control", "no-store, no-cache, must-revalidate, max-age=0"
+            'Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0'
         )
-        self.set_header("Pragma", "no-cache")
+        self.set_header('Pragma', 'no-cache')
         self.set_header('Access-Control-Allow-Origin', '*')
         # self.set_header("Expires", "Thu, 01 Jan 1970 00:00:00 GMT")
 
@@ -188,9 +188,9 @@ class UserHandler(BaseHandler):
             pass
 
     def post(self, *args, **kwargs):
-        '''
+        """
         用户操作。
-        '''
+        """
         _ = kwargs
         url_str = args[0]
         url_arr = self.parse_url(url_str)
@@ -227,9 +227,9 @@ class UserHandler(BaseHandler):
 
     @tornado.web.authenticated
     def p_changepassword(self):
-        '''
+        """
         Changing password.
-        '''
+        """
 
         post_data = self.get_request_arguments()
 
@@ -243,9 +243,9 @@ class UserHandler(BaseHandler):
 
     @tornado.web.authenticated
     def p_changeinfo(self):
-        '''
+        """
         Change Infor via Ajax.
-        '''
+        """
 
         post_data, def_dic = self.fetch_post_data()
 
@@ -260,9 +260,9 @@ class UserHandler(BaseHandler):
         return json.dump(output, self)
 
     def fetch_post_data(self):
-        '''
+        """
         fetch post accessed data. post_data, and ext_dic.
-        '''
+        """
         post_data = {}
         ext_dic = {}
         for key in self.request.arguments:
@@ -279,9 +279,9 @@ class UserHandler(BaseHandler):
         return (post_data, ext_dic)
 
     def fetch_user_data(self):
-        '''
+        """
         fetch post accessed data. post_data, and ext_dic.
-        '''
+        """
         post_data = {}
         ext_dic = {}
         for key in self.request.arguments:
@@ -296,17 +296,17 @@ class UserHandler(BaseHandler):
         return (post_data, ext_dic)
 
     def ext_post_data(self, **kwargs):
-        '''
+        """
         The additional information.  for add(), or update().
-        '''
+        """
         _ = kwargs
         return {}
 
     @tornado.web.authenticated
     def __change_password__(self):
-        '''
+        """
         Change password
-        '''
+        """
         post_data = self.get_request_arguments()
 
         usercheck_num = MUser.check_user(self.userinfo.uid, post_data['rawpass'])
@@ -336,9 +336,9 @@ class UserHandler(BaseHandler):
 
     @tornado.web.authenticated
     def __change_info__(self):
-        '''
+        """
         Change the user info
-        '''
+        """
 
         post_data, def_dic = self.fetch_post_data()
 
@@ -357,9 +357,9 @@ class UserHandler(BaseHandler):
 
     @tornado.web.authenticated
     def __change_role__(self, xg_username):
-        '''
+        """
         Change th user rule
-        '''
+        """
         post_data = self.get_request_arguments()
 
         # 审核权限
@@ -377,14 +377,14 @@ class UserHandler(BaseHandler):
 
     @tornado.web.authenticated
     def __logout__(self):
-        '''
+        """
         user logout.
-        '''
+        """
         print('开始执行注销操作')
         self.clear_all_cookies()
 
         self.set_secure_cookie(
-            "user",
+            'user',
             '',
         )
         print('清除所有cookies并设置user cookie为空')
@@ -394,9 +394,9 @@ class UserHandler(BaseHandler):
 
     @tornado.web.authenticated
     def __change_pass__(self):
-        '''
+        """
         to change the password.
-        '''
+        """
 
         if self.is_p:
             tmpl = 'admin/user/puser_changepass.html'
@@ -406,9 +406,9 @@ class UserHandler(BaseHandler):
 
     @tornado.web.authenticated
     def __to_change_info__(self):
-        '''
+        """
         to change the user info.
-        '''
+        """
         if self.is_p:
             tmpl = 'admin/user/puser_changeinfo.html'
         else:
@@ -417,9 +417,9 @@ class UserHandler(BaseHandler):
 
     @tornado.web.authenticated
     def __to_change_role__(self, xg_username):
-        '''
+        """
         to change the user role
-        '''
+        """
         try:
             if config.post_cfg:
                 post_authority = config.post_cfg
@@ -436,9 +436,9 @@ class UserHandler(BaseHandler):
 
     @tornado.web.authenticated
     def __to_find__(self, cur_p=''):
-        '''
+        """
         to find the user
-        '''
+        """
         post_data = self.get_request_arguments()
         type = post_data.get('type', '')
         isjson = post_data.get('isjson', False)
@@ -489,16 +489,16 @@ class UserHandler(BaseHandler):
             cfg=config.CMS_CFG,
             infos=infos,
             kwd=kwd,
-            view=MUser.get_by_keyword(""),
+            view=MUser.get_by_keyword(''),
             userinfo=self.userinfo,
         )
 
     @tornado.web.authenticated
     @no_cache
     def __to_show_info__(self, userid=''):
-        '''
+        """
         show the user info
-        '''
+        """
 
         #
         # if userid:
@@ -539,16 +539,16 @@ class UserHandler(BaseHandler):
         self.render(tmpl, userinfo=rec, extinfo=rec.extinfo, kwd=kwd)
 
     def __to_reset_password__(self):
-        '''
+        """
         to reset the password.
-        '''
+        """
         self.render('user/user_reset_password.html', userinfo=self.userinfo, kwd={})
 
     def __to_login__(self):
-        '''
+        """
         to login.
-        '''
-        next_url = self.get_argument("next", "/")
+        """
+        next_url = self.get_argument('next', '/')
 
         if self.get_current_user():
             self.redirect(next_url)
@@ -562,9 +562,9 @@ class UserHandler(BaseHandler):
             self.render('user/user_login.html', kwd=kwd, userinfo=None)
 
     def __register__(self):
-        '''
+        """
         regist the user.
-        '''
+        """
 
         post_data, extinfo = self.fetch_user_data()
 
@@ -631,9 +631,9 @@ class UserHandler(BaseHandler):
             )
 
     def json_register(self):
-        '''
+        """
         user regist.
-        '''
+        """
 
         post_data, extinfo = self.fetch_user_data()
 
@@ -650,9 +650,9 @@ class UserHandler(BaseHandler):
         return json.dump(user_create_status, self)
 
     def json_changeinfo(self):
-        '''
+        """
         Modify user infomation.
-        '''
+        """
 
         post_data = self.get_request_arguments()
 
@@ -674,9 +674,9 @@ class UserHandler(BaseHandler):
         return False
 
     def json_changepass(self):
-        '''
+        """
         modify password.
-        '''
+        """
 
         # user_create_status = {'success': False, 'code': '00'} # Not used currently.
         post_data = self.get_request_arguments()
@@ -699,13 +699,13 @@ class UserHandler(BaseHandler):
         return False
 
     def json_batchchangerole(self):
-        '''
+        """
         Batch Modify Permission
-        '''
+        """
 
         post_data = self.get_request_arguments()
 
-        name_list = post_data.get("check_value", '')
+        name_list = post_data.get('check_value', '')
 
         username_list = json.loads(name_list)
         if username_list == []:
@@ -725,18 +725,18 @@ class UserHandler(BaseHandler):
             self.redirect('/user/info')
 
     def __to_register__(self):
-        '''
+        """
         to register.
-        '''
+        """
         kwd = {
             'pager': '',
         }
         self.render('user/user_regist.html', cfg=config.CMS_CFG, userinfo=None, kwd=kwd)
 
     def j_register(self):
-        '''
+        """
         to register.
-        '''
+        """
         kwd = {
             'pager': '',
         }
@@ -748,12 +748,12 @@ class UserHandler(BaseHandler):
         return int(''.join([x for x in stringss if x.isdigit()]))
 
     def fromCharCOde(self, passstr, *b):
-        return chr(passstr % 65536) + "".join([chr(i % 65536) for i in b])
+        return chr(passstr % 65536) + ''.join([chr(i % 65536) for i in b])
 
     def login(self):
-        '''
+        """
         user login.
-        '''
+        """
         post_data = self.get_request_arguments()
 
         if post_data.get('next', '') != '':
@@ -769,7 +769,7 @@ class UserHandler(BaseHandler):
             userpassstr = u_pass
             passarr = userpassstr.split(CMS_CFG.get('pass_encrypt', ','))
 
-            r = ""
+            r = ''
             for ii in passarr:
                 if ii != '':
                     codde = self.parseint(str(ii))
@@ -789,7 +789,7 @@ class UserHandler(BaseHandler):
         # Todo: the `kwd` should remove from the codes.
         if result == 1:
             self.set_secure_cookie(
-                "user",
+                'user',
                 u_name,
                 expires_days=None,
                 expires=time.time() + 60 * CMS_CFG.get('expires_minutes', 120),
@@ -883,27 +883,27 @@ class UserHandler(BaseHandler):
                 }
                 return json.dump(user_login_status, self)
             else:
-                self.redirect("{0}".format(next_url))
+                self.redirect('{0}'.format(next_url))
 
     def p_to_find(self):
-        '''
+        """
         To find, pager.
-        '''
+        """
         kwd = {
             'pager': '',
         }
         self.render(
             'user/user_find_list.html',
             kwd=kwd,
-            view=MUser.get_by_keyword(""),
+            view=MUser.get_by_keyword(''),
             cfg=config.CMS_CFG,
             userinfo=self.userinfo,
         )
 
     def find(self, keyword=None, cur_p=''):
-        '''
+        """
         find by keyword.
-        '''
+        """
         if not keyword:
             self.__to_find__(cur_p)
 
@@ -926,9 +926,9 @@ class UserHandler(BaseHandler):
         )
 
     def __user_list__(self):
-        '''
+        """
         find by keyword.
-        '''
+        """
 
         month_arr = []
         count_arr = []
@@ -953,7 +953,7 @@ class UserHandler(BaseHandler):
         recs = MUser.query_by_time(current_month * 30)
 
         for rec in recs:
-            current_mon = time.strftime("%m", time.localtime(rec.time_create))
+            current_mon = time.strftime('%m', time.localtime(rec.time_create))
             if current_mon == '01':
                 jan_arr.append(rec)
             elif current_mon == '02':
@@ -1013,9 +1013,9 @@ class UserHandler(BaseHandler):
             )
 
     def __delete_user__(self, user_id):
-        '''
+        """
         delete user by ID.
-        '''
+        """
         if self.is_p:
             if MUser.delete(user_id):
                 output = {'del_category': 1}
@@ -1032,17 +1032,17 @@ class UserHandler(BaseHandler):
                 self.redirect('/user/find')
 
     def post_find(self):
-        '''
+        """
         Do find user.
-        '''
+        """
         keyword = self.get_argument('keyword', default='')
         self.find(keyword)
 
     def reset_password(self):
-        '''
+        """
         Do reset password
         :return: None
-        '''
+        """
         post_data = self.get_request_arguments()
 
         if 'email' in post_data:
@@ -1065,17 +1065,17 @@ class UserHandler(BaseHandler):
                 url_reset = '{0}/user/reset-passwd?u={1}&t={2}&p={3}'.format(
                     config.SITE_CFG['site_url'], username, timestamp, hash_str
                 )
-                email_cnt = '''<div>请查看下面的信息，并<span style="color:red">谨慎操作</span>：</div>
+                email_cnt = """<div>请查看下面的信息，并<span style="color:red">谨慎操作</span>：</div>
                 <div>您在"{0}"网站（{1}）申请了密码重置，如果确定要进行密码重置，请打开下面链接：</div>
                 <div><a href={2}>{2}</a></div>
                 <div>如果点击链接无法直接打开页面，请复制链接地址到浏览器粘贴打开。</div>
-                <div>如果无法确定本信息的有效性，请忽略本邮件。</div>'''.format(
+                <div>如果无法确定本信息的有效性，请忽略本邮件。</div>""".format(
                     config.SMTP_CFG['name'], config.SITE_CFG['site_url'], url_reset
                 )
 
                 if send_mail(
                     [userinfo.user_email],
-                    "{0}|密码重置".format(config.SMTP_CFG['name']),
+                    '{0}|密码重置'.format(config.SMTP_CFG['name']),
                     email_cnt,
                 ):
                     MUser.update_time_reset_passwd(username, timestamp)
@@ -1091,9 +1091,9 @@ class UserHandler(BaseHandler):
         return False
 
     def gen_passwd(self):
-        '''
+        """
         reseting password
-        '''
+        """
         post_data = self.get_request_arguments()
 
         userinfo = MUser.get_by_name(post_data['u'])
@@ -1158,9 +1158,9 @@ class UserHandler(BaseHandler):
 
     @tornado.web.authenticated
     def json_info(self):
-        '''
+        """
         show the user info
-        '''
+        """
         post_data = self.get_request_arguments()
         user_name = post_data.get('user_name', '')
         rec = MUser.get_by_uid(self.userinfo.uid)
@@ -1184,7 +1184,7 @@ class UserHandler(BaseHandler):
         return json.dump(userinfo, self, ensure_ascii=False)
 
     def pass_strength(self, pwd):
-        '''
+        """
         实现密码强度计算函数:
         1. 实现函数 passworld_strength 返回 0-10 的数值，表示强度，数值越高，密码强度越强
         2. 密码长度在 6 位及以上，强度 +1，
@@ -1193,7 +1193,7 @@ class UserHandler(BaseHandler):
         3. 有大写字母，强度 +2
         4. 除字母外，还包含数字，强度 +2
         5. 有除字母、数字以外字符，强度 +2
-        '''
+        """
 
         intensity = 0
         if len(pwd) >= 12:
@@ -1229,10 +1229,10 @@ class UserHandler(BaseHandler):
 
 
 class UserPartialHandler(UserHandler):
-    '''
+    """
     Partially render for user handler.
     For website background.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()

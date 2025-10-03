@@ -1,6 +1,6 @@
-'''
+"""
 DRRKS本身数据集
-'''
+"""
 
 import sys
 from pprint import pprint
@@ -16,9 +16,9 @@ from torcms.model.post_model import MPost
 
 # import ruamel.yaml
 
-'''
+"""
 解析DRR数据集，解压缩后获取每个的地理范围
-'''
+"""
 
 import os
 import shutil
@@ -47,7 +47,7 @@ tmpl = open('./tmpl.xml').read()
 
 # print(tmpl)
 
-tmpl_0 = '''<?xml version="1.0" encoding="UTF-8"?>
+tmpl_0 = """<?xml version="1.0" encoding="UTF-8"?>
 <csw:Record
 	xmlns:csw="http://www.opengis.net/cat/csw/2.0.2"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -55,11 +55,11 @@ tmpl_0 = '''<?xml version="1.0" encoding="UTF-8"?>
 	xmlns:ows="http://www.opengis.net/ows"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.opengis.net/cat/csw/2.0.2/record.xsd">
-'''
+"""
 
-tmpl_9 = '''
+tmpl_9 = """
 </csw:Record>
-'''
+"""
 
 tp_creator = '<dc:creator>{}</dc:creator>'
 tp_contributor = '<dc:contributor>{}</dc:contributor>'

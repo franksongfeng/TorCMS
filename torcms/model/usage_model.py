@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Handle the usage of the info.
-'''
+"""
 
 import time
 
@@ -14,15 +14,15 @@ from torcms.model.post2catalog_model import MPost2Catalog as MInfor2Catalog
 
 
 class MUsage:
-    '''
+    """
     Handle the usage of the info.
-    '''
+    """
 
     @staticmethod
     def query_by_post(postid):
-        '''
+        """
         Query records by post.
-        '''
+        """
         return TabUsage.select().where(TabUsage.post_id == postid)
 
     @staticmethod
@@ -87,9 +87,9 @@ class MUsage:
 
     @staticmethod
     def add_or_update(user_id, post_id, kind):
-        '''
+        """
         Create the record if new, else update it.
-        '''
+        """
 
         rec = MUsage.query_by_signature(user_id, post_id)
         cate_rec = MInfor2Catalog.get_first_category(post_id)

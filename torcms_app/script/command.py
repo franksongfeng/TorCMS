@@ -1,8 +1,8 @@
-'''
+"""
 Yunsuan中的工具，已经集成为：
 
 helper_yunsuan.py -i check_jshtml
-'''
+"""
 
 import getopt
 import os
@@ -15,17 +15,17 @@ from torcms_app.script.script_fix_app_path import run_fix_path
 
 
 def run_gen_auto(kind='s'):
-    '''
+    """
     生成自动
-    '''
+    """
     run_gen_classed()
     run_gen_formula()
 
 
 def run_check_jshtml(kind='s'):
-    '''
+    """
     Check if the js path is correct.
-    '''
+    """
     run_gen_auto()
     run_fix_path(kind=kind)
     print('=' * 20)
@@ -44,17 +44,17 @@ def run_check_jshtml(kind='s'):
 def entry(argv, kind='2'):
     try:
         # 这里的 h 就表示该选项无参数，i:表示 i 选项后需要有参数
-        opts, args = getopt.getopt(argv, "hi:")
+        opts, args = getopt.getopt(argv, 'hi:')
     except getopt.GetoptError:
         print('Error: helper.py -i cmd')
         sys.exit(2)
 
     for opt, arg in opts:
-        if opt == "-h":
+        if opt == '-h':
             print('helper_yunsuan.py -i cmd')
             print('-' * 20)
             print('helper_yunsuan.py -i check_jshtml')
             sys.exit()
-        elif opt in ("-i"):
+        elif opt in ('-i'):
             helper_app = arg
             eval('run_' + helper_app + '(kind = "{0}")'.format(kind))

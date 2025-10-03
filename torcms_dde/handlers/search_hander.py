@@ -82,7 +82,7 @@ class DirectorySearchHandler(BaseHandler):
         startnum = post_data.get('startnum', 0)
 
         startposition = int(startnum) * int(max_num) + 1
-        print("," * 50)
+        print(',' * 50)
         print(startnum)
         csw = CatalogueServiceWeb('https://drr.ikcest.org/csw')
         # birds_query_like = PropertyIsLike('dc:title', '%{0}%'.format(keyw))

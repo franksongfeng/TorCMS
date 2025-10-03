@@ -1,13 +1,13 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 The Base of Model
-'''
+"""
 
 
 class MHelper:
-    '''
+    """
     Common used function for most Model. Using Model as the first parameter.
-    '''
+    """
 
     @staticmethod
     def get_by_uid(model, uid):
@@ -33,8 +33,8 @@ class MHelper:
 
     @staticmethod
     def get_counts(model):
-        '''
+        """
         The count in table.
-        '''
+        """
         # adding ``None`` to hide ``No value for argument 'database' in method call``
         return model.select().count(None)

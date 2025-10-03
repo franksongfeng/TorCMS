@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 For pypi
-'''
+"""
 
 from setuptools import find_packages, setup
 
@@ -24,8 +24,8 @@ setup(
         # include=('torcms',),
         exclude=(
             'devops',
-            "tests",
-            "torcms_tester",
+            'tests',
+            'torcms_tester',
             'flasky',
             'torcms_*',
             'torcms/tests',

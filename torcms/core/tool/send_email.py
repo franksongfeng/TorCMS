@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 发送 E-mail 的脚本
-'''
+"""
 
 import smtplib
 from email.mime.text import MIMEText
@@ -10,14 +10,14 @@ from config import SMTP_CFG
 
 
 def send_mail(to_list, sub, content, cc=None):
-    '''
+    """
     Sending email via Python.
-    '''
-    sender = SMTP_CFG['name'] + "<" + SMTP_CFG['user'] + ">"
+    """
+    sender = SMTP_CFG['name'] + '<' + SMTP_CFG['user'] + '>'
     msg = MIMEText(content, _subtype='html', _charset='utf-8')
     msg['Subject'] = sub
     msg['From'] = sender
-    msg['To'] = ";".join(to_list)
+    msg['To'] = ';'.join(to_list)
     if cc:
         msg['cc'] = ';'.join(cc)
     try:

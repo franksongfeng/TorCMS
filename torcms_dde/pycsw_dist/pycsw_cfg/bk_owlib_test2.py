@@ -1,7 +1,7 @@
-'''
+"""
 https://www.osgeo.cn/geonetwork/annexes/gallery/gallery.html
 测试其中服务
-'''
+"""
 
 import sys
 

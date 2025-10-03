@@ -63,7 +63,7 @@ class TestMCatalog:
         assert tf
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         post = MPost.get_by_uid(self.post_id)
         if post:
             MPost.delete(self.post_id)

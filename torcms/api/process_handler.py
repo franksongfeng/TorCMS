@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Handler for links.
-'''
+"""
 
 import json
 
@@ -22,9 +22,9 @@ from torcms.model.process_model import (
 
 
 class ProcessHandler(BaseHandler):
-    '''
+    """
     Handler for links.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -70,18 +70,18 @@ class ProcessHandler(BaseHandler):
             self.redirect('misc/html/404.html')
 
     def list(self):
-        '''
+        """
         Recent links.
-        '''
+        """
 
         post_data = self.request.arguments  # {'page': [b'1'], 'perPage': [b'10']}
         page = int(post_data['page'][0].decode('utf-8'))
         perPage = int(post_data['perPage'][0].decode('utf-8'))
 
         def get_pager_idx():
-            '''
+            """
             Get the pager index.
-            '''
+            """
 
             current_page_number = 1
             if page == '':
@@ -106,75 +106,75 @@ class ProcessHandler(BaseHandler):
 
         for rec in recs:
             dic = {
-                "uid": rec.uid,
-                "name": rec.name,
+                'uid': rec.uid,
+                'name': rec.name,
             }
 
             dics.append(dic)
         out_dict = {
-            "ok": True,
-            "status": 0,
-            "msg": "ok",
-            "data": {"count": counts, "rows": dics},
+            'ok': True,
+            'status': 0,
+            'msg': 'ok',
+            'data': {'count': counts, 'rows': dics},
         }
 
         return json.dump(out_dict, self, ensure_ascii=False)
 
     def chainedOptions(self):
-        '''
+        """
         Recent links.
-        '''
+        """
 
         dics = []
         recs = MProcess.query_all()
 
         for rec in recs:
-            dic = {"label": rec.name, "value": rec.uid}
+            dic = {'label': rec.name, 'value': rec.uid}
 
             dics.append(dic)
-        out_dict = {"ok": True, "status": 0, 'data': dics}
+        out_dict = {'ok': True, 'status': 0, 'data': dics}
 
         return json.dump(out_dict, self, ensure_ascii=False)
 
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def update(self, uid):
-        '''
+        """
         Update the link.
-        '''
+        """
 
         post_data = json.loads(self.request.body)
 
         if MProcess.update(uid, post_data):
-            output = {"ok": True, "status": 0, "msg": "更新流程成功"}
+            output = {'ok': True, 'status': 0, 'msg': '更新流程成功'}
 
         else:
-            output = {"ok": False, "status": 404, "msg": "更新流程失败"}
+            output = {'ok': False, 'status': 404, 'msg': '更新流程失败'}
 
         return json.dump(output, self, ensure_ascii=False)
 
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def add(self):
-        '''
+        """
         user add link.
-        '''
+        """
 
         post_data = json.loads(self.request.body)
 
         role_uid = MProcess.create(post_data.get('name'))
         if role_uid:
-            output = {"ok": True, "status": 0, "msg": "添加流程成功"}
+            output = {'ok': True, 'status': 0, 'msg': '添加流程成功'}
         else:
-            output = {"ok": False, "status": 404, "msg": "添加流程失败"}
+            output = {'ok': False, 'status': 404, 'msg': '添加流程失败'}
         return json.dump(output, self, ensure_ascii=False)
 
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def delete(self, process_id):
-        '''
+        """
         Delete a link by id.
-        '''
+        """
         trans = MTransition.query_by_proid(process_id)
 
         for tran in trans:
@@ -235,19 +235,19 @@ class ProcessHandler(BaseHandler):
                     pass
 
         if MProcess.delete_by_uid(process_id):
-            output = {"ok": True, "status": 0, "msg": "删除流程成功"}
+            output = {'ok': True, 'status': 0, 'msg': '删除流程成功'}
         else:
-            output = {"ok": False, "status": 404, "msg": "删除流程失败"}
+            output = {'ok': False, 'status': 404, 'msg': '删除流程失败'}
         return json.dump(output, self, ensure_ascii=False)
 
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def batch_delete(self, del_id):
-        '''
+        """
         Delete a link by id.
-        '''
+        """
 
-        del_uids = del_id.split(",")
+        del_uids = del_id.split(',')
         for process_id in del_uids:
             trans = MTransition.query_by_proid(process_id)
 
@@ -309,8 +309,8 @@ class ProcessHandler(BaseHandler):
                         pass
 
             if MProcess.delete_by_uid(process_id):
-                output = {"ok": True, "status": 0, "msg": "删除流程成功"}
+                output = {'ok': True, 'status': 0, 'msg': '删除流程成功'}
             else:
-                output = {"ok": False, "status": 404, "msg": "删除流程失败"}
+                output = {'ok': False, 'status': 404, 'msg': '删除流程失败'}
 
         return json.dump(output, self, ensure_ascii=False)

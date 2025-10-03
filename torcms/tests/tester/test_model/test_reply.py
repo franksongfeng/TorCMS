@@ -156,7 +156,7 @@ class TestMReply:
         assert aa == None
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         MUser.delete_by_user_name(self.username)
         MPost.delete(self.post_id)
         MReply2User.delete(self.reply_uid)

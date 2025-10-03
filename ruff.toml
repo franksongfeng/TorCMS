@@ -1,0 +1,19 @@
+# command: ruff format
+# 使用单引号
+# quote-style = "single"
+
+extend = "./pyproject.toml"
+
+
+# 使用单引号
+
+line-length = 88
+
+[format]
+quote-style = "single"
+#quote-style = "preserve"
+#skip-string-normalization = 1
+
+[lint]
+# Disable fix for unused imports (`F401`).
+unfixable = ["F401"]

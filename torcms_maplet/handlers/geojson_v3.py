@@ -164,11 +164,11 @@ class GeoJsonHandler(BaseHandler):
 
     @tornado.web.authenticated
     def download(self, pa_str):
-        '''
+        """
         Download the GeoJson to file.
         :param pa_str:
         :return:
-        '''
+        """
         uid = pa_str.split('_')[-1].split('.')[0]
         self.set_header('Content-Type', 'application/force-download')
         rec = MJson.get_by_id(uid)
@@ -177,7 +177,7 @@ class GeoJsonHandler(BaseHandler):
         for key in geojson.keys():
             out_arr = out_arr + geojson[key]['features']
 
-        out_dic = {"type": "FeatureCollection", "features": out_arr}
+        out_dic = {'type': 'FeatureCollection', 'features': out_arr}
 
         if rec:
             return json.dump(out_dic, self)
@@ -197,18 +197,18 @@ class GeoJsonHandler(BaseHandler):
         self.redirect('/geojson/')
 
     def parse_geojson(self, geojson_str):
-        '''
+        """
         Parse the GeoJson from string.
         :param geojson_str:
         :return:
-        '''
+        """
 
         def get_geometry(geom):
-            '''
+            """
             Get geometry from GeoJson.
             :param geom:
             :return:
-            '''
+            """
             bcbc = geom['geometry']
             if 'features' in bcbc:
                 if bcbc['features'][0]['geometry']['coordinates'] in [[], [[None]]]:
@@ -219,9 +219,9 @@ class GeoJsonHandler(BaseHandler):
 
                 bcbc = {
                     'features': [
-                        {'geometry': bcbc, "properties": {}, "type": "Feature"}
+                        {'geometry': bcbc, 'properties': {}, 'type': 'Feature'}
                     ],
-                    'type': "Feature",
+                    'type': 'Feature',
                 }
             return bcbc
 
@@ -277,11 +277,11 @@ class GeoJsonHandler(BaseHandler):
 
     @tornado.web.authenticated
     def add_data_with_map(self, url_arr):
-        '''
+        """
         Add geojson from Map
         :param url_arr:
         :return:
-        '''
+        """
 
         post_data = self.get_request_arguments()
         geojson_str = post_data['geojson']
@@ -314,14 +314,14 @@ class GeoJsonAjaxHandler(GeoJsonHandler):
         self.set_default_headers()
 
     def set_default_headers(self):
-        print("setting headers!!!")
-        self.set_header("Access-Control-Allow-Origin", "*")
-        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        print('setting headers!!!')
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Headers', 'x-requested-with')
         self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
 
     def get(self, *args, **kwargs):
-        self.set_header("Access-Control-Allow-Origin", "*")
-        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Headers', 'x-requested-with')
         self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
         # print(args)
         url_arr = self.parse_url(args[0])
@@ -348,8 +348,8 @@ class GeoJsonAjaxHandler(GeoJsonHandler):
 
     def post(self, *args, **kwargs):
         print('Post')
-        self.set_header("Access-Control-Allow-Origin", "*")
-        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Headers', 'x-requested-with')
         self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
         url_arr = self.parse_url(args[0])
         print(url_arr)

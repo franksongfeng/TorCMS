@@ -1,7 +1,8 @@
 # -*- coding: utf-8
-'''
+"""
 Genereting catetory.
-'''
+"""
+
 import os
 
 import yaml
@@ -13,9 +14,9 @@ from .autocrud.base_crud import XLSX_CATEGORY_FILE_LIST
 
 
 def gen_xlsx_category():
-    '''
+    """
     Genereting catetory from xlsx file.
-    '''
+    """
     for XLSX_FILE in XLSX_CATEGORY_FILE_LIST:
         if XLSX_FILE.exists():
             pass
@@ -75,9 +76,9 @@ def gen_xlsx_category():
 
 
 def gen_category(yaml_file, sig):
-    '''
+    """
     Genereting catetory from YAML file.
-    '''
+    """
 
     out_dic = yaml.full_load(open(yaml_file))
 
@@ -126,9 +127,9 @@ def gen_category(yaml_file, sig):
 
 
 def gen_yaml_category():
-    '''
+    """
     find YAML.
-    '''
+    """
     for wroot, _, wfiles in os.walk('./database/meta'):
         for wfile in wfiles:
             if wfile.endswith('.yaml'):
@@ -136,8 +137,8 @@ def gen_yaml_category():
 
 
 def run_gen_category(*args):
-    '''
+    """
     to run
-    '''
+    """
     gen_yaml_category()
     gen_xlsx_category()

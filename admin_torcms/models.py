@@ -34,7 +34,7 @@ class TabTag(models.Model):
 
     class Meta:
         db_table = 'tabtag'
-        verbose_name = "Tags"
+        verbose_name = 'Tags'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = [
@@ -59,7 +59,7 @@ class TabLink(models.Model):
 
     class Meta:
         db_table = 'tablink'
-        verbose_name = "Links"
+        verbose_name = 'Links'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
@@ -112,7 +112,7 @@ class TabPost(models.Model):
 
     class Meta:
         db_table = 'tabpost'
-        verbose_name = "TabPost"
+        verbose_name = 'TabPost'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = [
@@ -150,15 +150,15 @@ class TabWiki(models.Model):
 
     class Meta:
         db_table = 'tabwiki'
-        verbose_name = "wiki"
+        verbose_name = 'wiki'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
 
 class TabPostHist(models.Model):
-    '''
+    """
     Table for post history.
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -189,15 +189,15 @@ class TabPostHist(models.Model):
 
     class Meta:
         db_table = 'tabposthist'
-        verbose_name = "PostHist"
+        verbose_name = 'PostHist'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
 
 class TabWikiHist(models.Model):
-    '''
+    """
     Table for wiki history.
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -220,13 +220,13 @@ class TabWikiHist(models.Model):
 
     class Meta:
         db_table = 'tabwikihist'
-        verbose_name = "WikiHist"
+        verbose_name = 'WikiHist'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
 
 class TabMember(models.Model):
-    '''
+    """
     role:  the index and value should not greater than 3.
     "0123"
     read,add,edit,delete,manage
@@ -240,7 +240,7 @@ class TabMember(models.Model):
     1: for basic editing
     2: for management
     3:
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -268,12 +268,12 @@ class TabMember(models.Model):
     role = models.CharField(
         null=False, default='1000', help_text='Member Privilege', max_length=4
     )
-    '''
+    """
     进行审核的权限，与 role 配合使用。
     role 声明是否有权限， authority 声明对哪些 post 有权限。
     post 权限类型由二进制的 '1', '10', '100', '1000', ... 声明 ，成员的 authority 则根据二进制相加的结果来声明多种 post 的审核权限
     ToDo: 设计有问题。应该将采用RBAC进行解耦。
-    '''
+    """
     authority = models.CharField(
         null=False,
         default='0',
@@ -297,15 +297,15 @@ class TabMember(models.Model):
 
     class Meta:
         db_table = 'tabmember'
-        verbose_name = "Member"
+        verbose_name = 'Member'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
 
 class TabEntity(models.Model):
-    '''
+    """
     Table to store the entity information.
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -323,15 +323,15 @@ class TabEntity(models.Model):
 
     class Meta:
         db_table = 'tabentity'
-        verbose_name = "Entity"
+        verbose_name = 'Entity'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
 
 class TabPost2Tag(models.Model):
-    '''
+    """
     Table of tag to the post.
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -381,15 +381,15 @@ class TabPost2Tag(models.Model):
 
     class Meta:
         db_table = 'tabpost2tag'
-        verbose_name = "Post2Tag"
+        verbose_name = 'Post2Tag'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
 
 class TabReply(models.Model):
-    '''
+    """
     Table of the reply to the post.
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -430,7 +430,7 @@ class TabReply(models.Model):
 
     class Meta:
         db_table = 'tabreply'
-        verbose_name = "Reply"
+        verbose_name = 'Reply'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = [
@@ -441,9 +441,9 @@ class TabReply(models.Model):
 
 
 class TabUser2Reply(models.Model):
-    '''
+    """
     Table of the reply of the user.
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -479,7 +479,7 @@ class TabUser2Reply(models.Model):
 
     class Meta:
         db_table = 'tabuser2reply'
-        verbose_name = "User2Reply"
+        verbose_name = 'User2Reply'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = [
@@ -489,9 +489,9 @@ class TabUser2Reply(models.Model):
 
 
 class TabCollect(models.Model):
-    '''
+    """
     用户收藏
-    '''
+    """
 
     uid = models.CharField(
         max_length=36, null=False, unique=True, help_text='', primary_key=True
@@ -522,15 +522,15 @@ class TabCollect(models.Model):
 
     class Meta:
         db_table = 'tabcollect'
-        verbose_name = "Collect"
+        verbose_name = 'Collect'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
 
 class TabEvaluation(models.Model):
-    '''
+    """
     用户评价
-    '''
+    """
 
     uid = models.CharField(
         max_length=36, null=False, unique=True, help_text='', primary_key=True
@@ -555,15 +555,15 @@ class TabEvaluation(models.Model):
 
     class Meta:
         db_table = 'tabevaluation'
-        verbose_name = "Evaluation"
+        verbose_name = 'Evaluation'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
 
 class TabRating(models.Model):
-    '''
+    """
     Rating for App of each user.
-    '''
+    """
 
     uid = models.CharField(
         max_length=36, null=False, unique=True, help_text='', primary_key=True
@@ -591,7 +591,7 @@ class TabRating(models.Model):
 
     class Meta:
         db_table = 'tabrating'
-        verbose_name = "Rating"
+        verbose_name = 'Rating'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = [
@@ -601,10 +601,10 @@ class TabRating(models.Model):
 
 
 class TabUsage(models.Model):
-    '''
+    """
     记录用户访问 Post 的概括情况。
     包括数目，最后的访问时间。
-    '''
+    """
 
     uid = models.CharField(
         max_length=36, null=False, unique=True, help_text='', primary_key=True
@@ -641,7 +641,7 @@ class TabUsage(models.Model):
 
     class Meta:
         db_table = 'tabusage'
-        verbose_name = "Usage"
+        verbose_name = 'Usage'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = [
@@ -650,10 +650,10 @@ class TabUsage(models.Model):
 
 
 class TabRel(models.Model):
-    '''
+    """
     相关应用
     相关性，并非是对称操作
-    '''
+    """
 
     uid = models.CharField(
         max_length=36, null=False, unique=True, help_text='', primary_key=True
@@ -684,7 +684,7 @@ class TabRel(models.Model):
 
     class Meta:
         db_table = 'tabrel'
-        verbose_name = "Rel"
+        verbose_name = 'Rel'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = [
@@ -693,7 +693,7 @@ class TabRel(models.Model):
 
 
 class TabCorrelation(models.Model):
-    '''
+    """
     Post之间的相关性
     `kind为`相关性的类别：
     1: 同小类
@@ -701,7 +701,7 @@ class TabCorrelation(models.Model):
     3: 同类 (kind)
     4: 全系统
     5: 与文档
-    '''
+    """
 
     uid = models.CharField(
         max_length=36, null=False, unique=True, help_text='', primary_key=True
@@ -728,18 +728,21 @@ class TabCorrelation(models.Model):
 
     class Meta:
         db_table = 'tabcorrelation'
-        verbose_name = "Correlation"
+        verbose_name = 'Correlation'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
 
 class TabEntity2User(models.Model):
-    '''
+    """
     The table for the entity to user.
-    '''
+    """
 
     uid = models.CharField(
-        null=False, unique=True, primary_key=True, max_length=36  #  # db_index =True,
+        null=False,
+        unique=True,
+        primary_key=True,
+        max_length=36,  #  # db_index =True,
     )
 
     # entity_id = models.CharField(null=False, max_length=36, help_text='')
@@ -767,15 +770,15 @@ class TabEntity2User(models.Model):
 
     class Meta:
         db_table = 'tabentity2user'
-        verbose_name = "Entity2User"
+        verbose_name = 'Entity2User'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
 
 class TabLog(models.Model):
-    '''
+    """
     用户访问行为记录
-    '''
+    """
 
     uid = models.CharField(null=False, unique=True, primary_key=True, max_length=36)
     current_url = models.CharField(null=False, max_length=255, help_text='')
@@ -795,7 +798,7 @@ class TabLog(models.Model):
 
     class Meta:
         db_table = 'tablog'
-        verbose_name = "Log"
+        verbose_name = 'Log'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = [
@@ -804,9 +807,9 @@ class TabLog(models.Model):
 
 
 class TabReplyid(models.Model):
-    '''
+    """
     用户评论回复。
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -822,15 +825,15 @@ class TabReplyid(models.Model):
 
     class Meta:
         db_table = 'tabreplyid'
-        verbose_name = "Replyid"
+        verbose_name = 'Replyid'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
 
 class TabReferrer(models.Model):
-    '''
+    """
     创建 访问来源 记录表
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -853,7 +856,7 @@ class TabReferrer(models.Model):
 
     class Meta:
         db_table = 'tabreferrer'
-        verbose_name = "Referrer"
+        verbose_name = 'Referrer'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
@@ -864,9 +867,9 @@ class TabReferrer(models.Model):
 
 # 此表去掉， 使用 TabUser表即可。
 class TabStaff(models.Model):
-    '''
+    """
     后台人员表，名称使用 Staff.
-    '''
+    """
 
     uid = models.CharField(
         null=False,  # db_index =True,
@@ -902,16 +905,16 @@ class TabStaff(models.Model):
 
     class Meta:
         db_table = 'tabstaff'
-        verbose_name = "Staff"
+        verbose_name = 'Staff'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
 
 class TabRole(models.Model):
-    '''
+    """
     后台人员分组表，或角色表
     角色和组两个概念可能会让人混淆，在这里做个区分：角色赋予的是主体，主体可以是用户，也可以是组；角色是权限的集合；组是用户的集合
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -922,7 +925,10 @@ class TabRole(models.Model):
         help_text='',
     )
     name = models.CharField(
-        null=False, unique=True, max_length=255, help_text='分组名称'  # db_index =True,
+        null=False,
+        unique=True,
+        max_length=255,
+        help_text='分组名称',  # db_index =True,
     )
     status = models.IntegerField(
         null=False, default=0, help_text='角色状态.0=禁用,1=启用'
@@ -933,13 +939,13 @@ class TabRole(models.Model):
 
     class Meta:
         db_table = 'tabrole'
-        verbose_name = "Role"
+        verbose_name = 'Role'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
 
 class TabPermission(models.Model):
-    '''
+    """
     后台人员权限表
     action, 缺省的值如下：
     * assign_group:分组
@@ -950,7 +956,7 @@ class TabPermission(models.Model):
     * can_delete:删除
     * can_review:复查
     * can_verify:审核
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -961,7 +967,10 @@ class TabPermission(models.Model):
         help_text='',
     )
     name = models.CharField(
-        null=False, unique=True, max_length=255, help_text='权限名称'  # db_index =True,
+        null=False,
+        unique=True,
+        max_length=255,
+        help_text='权限名称',  # db_index =True,
     )
     action = models.CharField(
         null=False, max_length=255, help_text='允许动作,字符串编码'
@@ -970,15 +979,15 @@ class TabPermission(models.Model):
 
     class Meta:
         db_table = 'tabpermission'
-        verbose_name = "Permission"
+        verbose_name = 'Permission'
         ordering = ['uid']
         verbose_name_plural = verbose_name
 
 
 class TabStaff2Role(models.Model):
-    '''
+    """
     人员、角色关联表
-    '''
+    """
 
     staff = models.ForeignKey(
         TabMember, help_text='后台人员id', on_delete=models.CASCADE
@@ -987,15 +996,15 @@ class TabStaff2Role(models.Model):
 
     class Meta:
         db_table = 'tabstaff2role'
-        verbose_name = "Staff2Role"
+        verbose_name = 'Staff2Role'
         ordering = ['role']
         verbose_name_plural = verbose_name
 
 
 class TabRole2Permission(models.Model):
-    '''
+    """
     角色、权限关联表
-    '''
+    """
 
     role = models.ForeignKey(TabRole, help_text='后台角色id', on_delete=models.CASCADE)
     permission = models.ForeignKey(
@@ -1005,15 +1014,15 @@ class TabRole2Permission(models.Model):
 
     class Meta:
         db_table = 'tabrole2permission'
-        verbose_name = "Role2Permission"
+        verbose_name = 'Role2Permission'
         ordering = ['kind']
         verbose_name_plural = verbose_name
 
 
 class TabAssociation(models.Model):
-    '''
+    """
     与Post关联的扩展表。
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -1060,7 +1069,7 @@ class TabAssociation(models.Model):
 
     class Meta:
         db_table = 'tabassociation'
-        verbose_name = "TabAssociation"
+        verbose_name = 'TabAssociation'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = [
@@ -1070,9 +1079,9 @@ class TabAssociation(models.Model):
 
 
 class MabGson(models.Model):
-    '''
+    """
     For GeoJson storage.
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -1107,16 +1116,16 @@ class MabGson(models.Model):
 
     class Meta:
         db_table = 'mabjson'
-        verbose_name = "mabjson"
+        verbose_name = 'mabjson'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = []
 
 
 class MabPost2Gson(models.Model):
-    '''
+    """
     relatio between Post2Json.
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -1150,7 +1159,7 @@ class MabPost2Gson(models.Model):
 
     class Meta:
         db_table = 'mabpost2json'
-        verbose_name = "mabpost2json"
+        verbose_name = 'mabpost2json'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = [
@@ -1160,9 +1169,9 @@ class MabPost2Gson(models.Model):
 
 
 class MabLayout(models.Model):
-    '''
+    """
     For Map layout.
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -1212,7 +1221,7 @@ class MabLayout(models.Model):
 
     class Meta:
         db_table = 'mablayout'
-        verbose_name = "mablayout"
+        verbose_name = 'mablayout'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = [
@@ -1266,7 +1275,7 @@ class ExtabCalcInfo(models.Model):
 
     class Meta:
         db_table = 'extabcalcinfo'
-        verbose_name = "extabcalcinfo"
+        verbose_name = 'extabcalcinfo'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = []
@@ -1347,16 +1356,16 @@ class Records(models.Model):
 
     class Meta:
         db_table = 'records'
-        verbose_name = "records"
+        verbose_name = 'records'
         # ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = []
 
 
 class TabProcess(models.Model):
-    '''
+    """
     流程
-    '''
+    """
 
     uid = models.CharField(
         null=False,
@@ -1376,7 +1385,7 @@ class TabProcess(models.Model):
 
     class Meta:
         db_table = 'tabprocess'
-        verbose_name = "tabprocess"
+        verbose_name = 'tabprocess'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = []
@@ -1416,7 +1425,7 @@ class TabState(models.Model):
 
     class Meta:
         db_table = 'tabstate'
-        verbose_name = "tabstate"
+        verbose_name = 'tabstate'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = []
@@ -1460,7 +1469,7 @@ class TabTransition(models.Model):
 
     class Meta:
         db_table = 'tabtransition'
-        verbose_name = "tabtransition"
+        verbose_name = 'tabtransition'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = []
@@ -1500,7 +1509,7 @@ class TabAction(models.Model):
 
     class Meta:
         db_table = 'tabaction'
-        verbose_name = "tabaction"
+        verbose_name = 'tabaction'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = [
@@ -1536,7 +1545,7 @@ class TabPermissionAction(models.Model):
 
     class Meta:
         db_table = 'tabpermissionaction'
-        verbose_name = "tabpermissionaction"
+        verbose_name = 'tabpermissionaction'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = []
@@ -1571,7 +1580,7 @@ class TabTransitionAction(models.Model):
 
     class Meta:
         db_table = 'tabtransitionaction'
-        verbose_name = "tabtransitionaction"
+        verbose_name = 'tabtransitionaction'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = []
@@ -1623,7 +1632,7 @@ class TabRequest(models.Model):
 
     class Meta:
         db_table = 'tabrequest'
-        verbose_name = "tabrequest"
+        verbose_name = 'tabrequest'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = []
@@ -1671,7 +1680,7 @@ class TabRequestAction(models.Model):
 
     class Meta:
         db_table = 'tabrequestaction'
-        verbose_name = "tabrequestaction"
+        verbose_name = 'tabrequestaction'
         ordering = ['uid']
         verbose_name_plural = verbose_name
         indexes = []

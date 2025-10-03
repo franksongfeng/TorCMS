@@ -62,11 +62,11 @@ PYCSW_DB_FIELD = [
     'links',
 ]
 
-uuuu = '''
+uuuu = """
 class Records(BaseModel):    
     uid = peewee.CharField(null=False, index=True, unique=True, primary_key=True,help_text='主键', )            
-'''
-uadd = '''
+"""
+uadd = """
 class RecordsModel():
     def __init__(self):
         super(RecordsModel, self).__init__() 
@@ -74,7 +74,7 @@ class RecordsModel():
     def add_rec(the_data):     
         Records.create(      
             uid = the_data['uid'] 
-'''
+"""
 
 
 def echo_schema(fields):

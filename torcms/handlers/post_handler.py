@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 The basic HTML Page handler.
-'''
+"""
 
 import json
 import os
@@ -39,9 +39,9 @@ from torcms.model.usage_model import MUsage
 
 
 def import_post(uid, post_data, extinfo={}):
-    '''
+    """
     Used for import data scripts.
-    '''
+    """
     cat_rec = MCategory.get_by_uid(post_data['gcat0'])
     if cat_rec:
         if post_data['kind'] == cat_rec.kind:
@@ -57,21 +57,21 @@ def import_post(uid, post_data, extinfo={}):
 
 
 def update_category(uid, post_data):
-    '''
+    """
     Update the category of the post.
     :param uid:  The ID of the post. Extra info would get by requests.
-    '''
+    """
 
     # deprecated
     # catid = kwargs['catid'] if MCategory.get_by_uid(kwargs.get('catid')) else None
     # post_data = self.get_request_arguments()
 
-    '''
+    """
     在前端，使用 `gcat0`，`gcat1`，`gcat2` 等，作为分类的参数。
     因为一个 post 可能会有多个分类，再定义第1分类的 key ：
         'def_cat_uid'： 第1分类
         'def_cat_pid' : 分1分类的父类
-    '''
+    """
     if 'gcat0' in post_data:
         pass
     else:
@@ -127,9 +127,9 @@ def update_category(uid, post_data):
 
 
 def update_label(post_id, post_data):
-    '''
+    """
     Update the label when updating.
-    '''
+    """
     current_tag_infos = MPost2Label.get_by_uid(post_id).objects()
     if 'tags' in post_data:
         pass
@@ -160,9 +160,9 @@ def update_label(post_id, post_data):
 
 
 class PostHandler(BaseHandler):
-    '''
+    """
     The basic HTML Page handler.
-    '''
+    """
 
     executor = ThreadPoolExecutor(2)
 
@@ -228,9 +228,9 @@ class PostHandler(BaseHandler):
             self.show404()
 
     def index(self):
-        '''
+        """
         The default page of POST.
-        '''
+        """
         if self.filter_view:
             tmpl = f'tmpl_{self.kind}/tpl_index.html'
         else:
@@ -244,22 +244,22 @@ class PostHandler(BaseHandler):
         )
 
     def _gen_uid(self):
-        '''
+        """
         Generate the ID for post.
         :return: the new ID.
-        '''
+        """
         cur_uid = self.kind + tools.get_uu4d()
         while MPost.get_by_uid(cur_uid):
             cur_uid = self.kind + tools.get_uu4d()
         return cur_uid
 
     def _get_tmpl_view(self, rec):
-        '''
+        """
         According to the application, each info of it's classification could
         has different temaplate.
         :param rec: the App record.
         :return: the temaplte path.
-        '''
+        """
 
         cat_id = self.__get_cat_id(rec)
 
@@ -287,10 +287,10 @@ class PostHandler(BaseHandler):
     @tornado.web.authenticated
     @privilege.permission(action='can_add')
     def _to_add_with_category(self, catid):
-        '''
+        """
         Used for info2.
         :param catid: the uid of category
-        '''
+        """
 
         catinfo = MCategory.get_by_uid(catid)
         kwd = {
@@ -307,9 +307,9 @@ class PostHandler(BaseHandler):
         )
 
     def _view_or_add(self, uid):
-        '''
+        """
         Try to get the post. If not, to add the wiki.
-        '''
+        """
         postinfo = MPost.get_by_uid(uid)
         if postinfo:
             if postinfo.kind == self.kind:
@@ -328,9 +328,9 @@ class PostHandler(BaseHandler):
     @tornado.web.authenticated
     @privilege.permission(action='can_add')
     def _to_add(self, **kwargs):
-        '''
+        """
         Used for info1.
-        '''
+        """
 
         if 'catid' in kwargs:
             catid = kwargs['catid']
@@ -355,9 +355,9 @@ class PostHandler(BaseHandler):
     @tornado.web.authenticated
     @privilege.permission(action='can_edit')
     def _to_edit(self, infoid):
-        '''
+        """
         render the HTML page for post editing.
-        '''
+        """
 
         postinfo = MPost.get_by_uid(infoid)
 
@@ -417,9 +417,9 @@ class PostHandler(BaseHandler):
         )
 
     def _gen_last_current_relation(self, post_id):
-        '''
+        """
         Generate the relation for the post and last post viewed.
-        '''
+        """
         last_post_id = self.get_secure_cookie('last_post_uid')
         if last_post_id:
             last_post_id = last_post_id.decode('utf-8')
@@ -429,9 +429,9 @@ class PostHandler(BaseHandler):
             self._add_relation(last_post_id, post_id)
 
     def viewinfo(self, postinfo):
-        '''
+        """
         查看 Post.
-        '''
+        """
 
         # out_dir = os.path.join(self.application.settings.get('template_path'), 'caches')
         # if os.path.exists(out_dir):
@@ -549,11 +549,11 @@ class PostHandler(BaseHandler):
         )
 
     def _the_view_kwd(self, postinfo):
-        '''
+        """
         Generate the kwd dict for view.
         :param postinfo: the postinfo
         :return:  dict
-        '''
+        """
         p_cfg = post_cfg.get(postinfo.kind, None)
         kwd = {
             'pager': '',
@@ -574,9 +574,9 @@ class PostHandler(BaseHandler):
         return kwd
 
     def fetch_additional_posts(self, uid):
-        '''
+        """
         fetch the rel_recs, and random recs when view the post.
-        '''
+        """
         cats = MPost2Catalog.query_by_entity_uid(uid, kind=self.kind)
         cat_uid_arr = []
         for cat_rec in cats:
@@ -595,12 +595,12 @@ class PostHandler(BaseHandler):
         return rand_recs, rel_recs
 
     def _add_relation(self, f_uid, t_uid):
-        '''
+        """
         Add the relation. And the from and to, should have different weight.
         :param f_uid: the uid of `from` post.
         :param t_uid: the uid of `to` post.
         :return: return True if the relation has been succesfully added.
-        '''
+        """
         if not MPost.get_by_uid(t_uid):
             return False
         if f_uid == t_uid:
@@ -624,9 +624,9 @@ class PostHandler(BaseHandler):
         return True
 
     def __parse_post_data(self):
-        '''
+        """
         fetch post accessed data. post_data, and ext_dic.
-        '''
+        """
         post_data = {}
         ext_dic = {}
         for key in self.request.arguments:
@@ -656,9 +656,9 @@ class PostHandler(BaseHandler):
     @privilege.permission(action='can_add')
     @tornado.gen.coroutine
     def add(self, **kwargs):
-        '''
+        """
         in infor.
-        '''
+        """
         if 'uid' in kwargs:
             uid = kwargs['uid']
         else:
@@ -705,9 +705,9 @@ class PostHandler(BaseHandler):
     @privilege.permission(action='can_edit')
     @tornado.gen.coroutine
     def update(self, uid):
-        '''
+        """
         in infor.
-        '''
+        """
         # cache_file = Path(
         #     self.application.settings.get('template_path')
         # ) / 'caches' / f'xx_{self.kind}_{uid}.html'
@@ -758,9 +758,9 @@ class PostHandler(BaseHandler):
     @tornado.web.authenticated
     @privilege.permission(action='can_delete')
     def _delete(self, *args, **kwargs):
-        '''
+        """
         delete the post.
-        '''
+        """
         _ = kwargs
         uid = args[0]
         current_infor = MPost.get_by_uid(uid)
@@ -771,11 +771,11 @@ class PostHandler(BaseHandler):
             MCategory.update_count(current_infor.extinfo['def_cat_uid'])
 
             if post_cfg[self.kind]['router'] == 'info':
-                url = "filter"
+                url = 'filter'
                 id_dk8 = current_infor.extinfo['def_cat_uid']
 
             else:
-                url = "list"
+                url = 'list'
                 id_dk8 = tslug.slug
 
             self.redirect('/{0}/{1}'.format(url, id_dk8))
@@ -784,10 +784,10 @@ class PostHandler(BaseHandler):
             self.redirect('/{0}/{1}'.format(post_cfg[self.kind]['router'], uid))
 
     def _chuli_cookie_relation(self, app_id):
-        '''
+        """
         The current Info and the Info viewed last should have some relation.
         And the last viewed Info could be found from cookie.
-        '''
+        """
         last_app_uid = self.get_secure_cookie('use_app_uid')
         if last_app_uid:
             last_app_uid = last_app_uid.decode('utf-8')
@@ -796,22 +796,22 @@ class PostHandler(BaseHandler):
             self._add_relation(last_app_uid, app_id)
 
     def ext_view_kwd(self, postinfo):
-        '''
+        """
         The additional information. for View.
-        '''
+        """
         _ = postinfo
         return {}
 
     def ext_tmpl_view(self, rec):
-        '''
+        """
         Used for self defined templates. for View.
-        '''
+        """
         return self._get_tmpl_view(rec)
 
     def ext_post_data(self, **kwargs):
-        '''
+        """
         The additional information.  for add(), or update().
-        '''
+        """
         _ = kwargs
         return {}
 
@@ -830,9 +830,9 @@ class PostHandler(BaseHandler):
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def _to_edit_kind(self, post_uid):
-        '''
+        """
         Show the page for changing the category.
-        '''
+        """
 
         postinfo = MPost.get_by_uid(
             post_uid,
@@ -852,9 +852,9 @@ class PostHandler(BaseHandler):
     @tornado.web.authenticated
     @privilege.permission(action='assign_role')
     def _change_kind(self, post_uid):
-        '''
+        """
         To modify the category of the post, and kind.
-        '''
+        """
 
         post_data = self.get_request_arguments()
 

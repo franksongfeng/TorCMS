@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Model for referrer.
-'''
+"""
+
 import peewee
 
 from torcms.core import tools
@@ -12,9 +13,9 @@ from torcms.model.core_tab import TabReplyid
 class MReplyid:
     @staticmethod
     def get_by_uid(uid):
-        '''
+        """
         return the record by uid
-        '''
+        """
         return MHelper.get_by_uid(TabReplyid, uid)
 
     @staticmethod

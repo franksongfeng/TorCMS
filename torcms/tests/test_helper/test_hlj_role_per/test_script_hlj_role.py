@@ -1,7 +1,8 @@
 # -*- coding: utf-8
-'''
+"""
 Genereting role.
-'''
+"""
+
 import sys
 from pathlib import Path
 
@@ -23,18 +24,18 @@ else:
 
 
 def test_gen_role():
-    '''
+    """
     Genereting role from xlsx file.
-    '''
+    """
 
     for sheet_ranges in load_workbook(filename=XLSX_FILE):
         # role 入库
 
         cell_val = sheet_ranges['A1'].value
         if cell_val and cell_val != '':
-            puid = cell_val.split(":")[0]
+            puid = cell_val.split(':')[0]
 
-            ppdata = {'name': cell_val.split(":")[1], 'pid': '0000'}
+            ppdata = {'name': cell_val.split(':')[1], 'pid': '0000'}
             try:
                 MRole.add_or_update(puid, ppdata)
             except:
@@ -56,16 +57,16 @@ def test_gen_role():
 
             if a_cell_val and a_cell_val != '':
                 cell_arr = a_cell_val.strip()
-                uid = cell_arr.split(":")[0]
-                name = cell_arr.split(":")[1]
+                uid = cell_arr.split(':')[0]
+                name = cell_arr.split(':')[1]
                 pid = puid
                 shi_uid = uid
 
             elif b_cell_val and b_cell_val != '':
                 cell_arr = b_cell_val
-                uid = cell_arr.split(":")[0]
+                uid = cell_arr.split(':')[0]
                 pid = shi_uid
-                name = cell_arr.split(":")[1]
+                name = cell_arr.split(':')[1]
 
             else:
                 continue
@@ -88,7 +89,7 @@ def test_gen_role():
 
 def select_role():
     recs = MRole.query_all()
-    print("*" * 50)
+    print('*' * 50)
     for x in recs:
         print(x.name)
 

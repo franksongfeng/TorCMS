@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Define the widget modules for TorCMS.
-'''
+"""
+
 import random
 
 import tornado.escape
@@ -27,9 +28,9 @@ from torcms.model.user_model import MUser
 
 
 class BaiduShare(tornado.web.UIModule):
-    '''
+    """
     widget for baidu share.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         en = kwargs.get('en', False)
@@ -37,9 +38,9 @@ class BaiduShare(tornado.web.UIModule):
 
 
 class ReplyPanel(tornado.web.UIModule):
-    '''
+    """
     the reply panel.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         uid = args[0]
@@ -59,9 +60,9 @@ class ReplyPanel(tornado.web.UIModule):
 
 
 class ReplyPanelIndex(tornado.web.UIModule):
-    '''
+    """
     the reply panel.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         uid = args[0]
@@ -79,9 +80,9 @@ class ReplyPanelIndex(tornado.web.UIModule):
 
 
 class UserinfoWidget(tornado.web.UIModule, tornado.web.RequestHandler):
-    '''
+    """
     userinfo widget.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         # is_logged = kwargs.get('userinfo', False)
@@ -94,9 +95,9 @@ class UserinfoWidget(tornado.web.UIModule, tornado.web.RequestHandler):
 
 
 class WidgetEditor(tornado.web.UIModule):
-    '''
+    """
     editor widget.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         router = args[0]
@@ -146,9 +147,9 @@ class WidgetEditor(tornado.web.UIModule):
 
 
 class WidgetSearch(tornado.web.UIModule):
-    '''
+    """
     search widget. Simple searching. searching for all.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         # tag_enum = MCategory.query_pcat()
@@ -156,9 +157,9 @@ class WidgetSearch(tornado.web.UIModule):
 
 
 class StarRating(tornado.web.UIModule):
-    '''
+    """
     For rating of posts.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         postinfo = args[0]
@@ -179,9 +180,9 @@ class StarRating(tornado.web.UIModule):
 
 
 class UseF2E(tornado.web.UIModule):
-    '''
+    """
     using f2e lib.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         f2ename = args[0]
@@ -189,27 +190,27 @@ class UseF2E(tornado.web.UIModule):
 
 
 class UploadPicture(tornado.web.UIModule):
-    '''
+    """
     Upload picture
-    '''
+    """
 
     def render(self, *args, **kwargs):
         return self.render_string('modules/widget/upload_entity_pic.html')
 
 
 class UploadFile(tornado.web.UIModule):
-    '''
+    """
     Upload file
-    '''
+    """
 
     def render(self, *args, **kwargs):
         return self.render_string('modules/widget/upload_entity_file.html')
 
 
 class Navigation_menu(tornado.web.UIModule):
-    '''
+    """
     Web site secondary navigation
-    '''
+    """
 
     def render(self, *args, **kwargs):
         kind = args[0]
@@ -233,9 +234,9 @@ class Navigation_menu(tornado.web.UIModule):
 
 
 class CommentList(tornado.web.UIModule):
-    '''
+    """
     reply list
-    '''
+    """
 
     def render(self, *args, **kwargs):
         replyid = kwargs.get('replyid', '')
@@ -281,9 +282,9 @@ class ReplyRecentcnt(tornado.web.UIModule):
 
 
 class Userprofile(tornado.web.UIModule):
-    '''
+    """
     the reply panel.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         user_id = args[0]
@@ -341,11 +342,11 @@ class State(tornado.web.UIModule):
 
                     else:
                         act_dic = {
-                            "act_name": act_rec.name,
-                            "act_uid": act_rec.uid,
-                            "request_id": request_rec.uid,
-                            "state_id": request_rec.current_state,
-                            "process_id": request_rec.process,
+                            'act_name': act_rec.name,
+                            'act_uid': act_rec.uid,
+                            'request_id': request_rec.uid,
+                            'state_id': request_rec.current_state,
+                            'process_id': request_rec.process,
                         }
 
                         act_arr.append(act_dic)
@@ -371,9 +372,9 @@ class State(tornado.web.UIModule):
 
 
 class Check_pager(tornado.web.UIModule):
-    '''
+    """
     审核翻页
-    '''
+    """
 
     def render(self, *args, **kwargs):
         current = int(args[0])
@@ -408,9 +409,9 @@ class Check_pager(tornado.web.UIModule):
 
 
 class Check_username_pager(tornado.web.UIModule):
-    '''
+    """
     审核翻页
-    '''
+    """
 
     def render(self, *args, **kwargs):
         current = int(args[0])
@@ -447,9 +448,9 @@ class Check_username_pager(tornado.web.UIModule):
 
 
 class Jupyter_link(tornado.web.UIModule):
-    '''
+    """
     jupyter link
-    '''
+    """
 
     def render(self, *args, **kwargs):
         mach_dict = {
@@ -459,5 +460,5 @@ class Jupyter_link(tornado.web.UIModule):
         the_key = random.choice(list(mach_dict))
         dc_image = kwargs.get('dc_image', '')
         dc_uid = kwargs.get('dc_uid', '')
-        outstr = f"http://{mach_dict[the_key]}:6628/t/{dc_image}/{dc_uid}/{the_key}"
+        outstr = f'http://{mach_dict[the_key]}:6628/t/{dc_image}/{dc_uid}/{the_key}'
         return outstr

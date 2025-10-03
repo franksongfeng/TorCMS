@@ -1,6 +1,6 @@
-'''
+"""
 对Django与TorCMS建立的数据库进行比较
-'''
+"""
 
 import difflib
 
@@ -16,7 +16,7 @@ host = DB_INFO['HOST']
 port = 5432
 
 # 连接字符串
-conn_string = f"host={host} port={port} dbname={dbname} user={user} password={password}"
+conn_string = f'host={host} port={port} dbname={dbname} user={user} password={password}'
 conn_string2 = (
     f"host={host} port={port} dbname='torcms2' user=torcms2 password={password}"
 )

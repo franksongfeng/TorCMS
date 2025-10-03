@@ -49,14 +49,14 @@ class TestMProcess:
         self.init_state()
         self.init_trans()
 
-        self.fake = Faker(locale="zh_CN")
+        self.fake = Faker(locale='zh_CN')
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         trans = self.mtrans.query_by_proid(self.process_id)
         print(trans.count())
         for tran in trans:
-            print("*" * 50)
+            print('*' * 50)
             print(tran.uid)
 
             self.mreqaction.delete_by_trans(tran.uid)
@@ -101,18 +101,18 @@ class TestMProcess:
         update_category(self.uid, post_data)
 
     def init_process(self):
-        '''
+        """
         创建流程TabProcess
-        '''
+        """
 
         process_name = 'test数据审核' + self.uid
         process_id = self.mprocess.create(process_name)
         return process_id
 
     def init_state(self):
-        '''
+        """
         创建状态TabState
-        '''
+        """
 
         state_datas = [
             {
@@ -150,9 +150,9 @@ class TestMProcess:
             assert self.state_dic
 
     def init_action(self):
-        '''
+        """
         创建动作TabAction
-        '''
+        """
 
         action_datas = [
             {
@@ -192,9 +192,9 @@ class TestMProcess:
             assert action_uids
 
     def init_trans(self):
-        '''
+        """
         转换Tabtransition
-        '''
+        """
         if self.process_id:
             deny = 'deny_' + self.process_id
             cancel = 'cancel_' + self.process_id
@@ -256,16 +256,16 @@ class TestMProcess:
             # assert True
 
     def test_create_request(self):
-        '''
+        """
         创建请求以及请求对应状态的相关动作
-        '''
+        """
 
         # 获取“开始”状态ID
 
         state_type = 'start_' + self.process_id
         cur_state = MState.get_by_state_type(state_type)
         if cur_state:
-            print("/" * 50)
+            print('/' * 50)
             print(cur_state)
             # 创建请求
             req_id = MRequest.create(
@@ -292,13 +292,13 @@ class TestMProcess:
         assert req_rec3.process_id == self.process_id
 
     def test_request_action(self, request_id='', post_id='', act_id=''):
-        '''
+        """
         进行请求操作
-        '''
+        """
 
         act_arr = []
         if request_id:
-            print("1-" * 50)
+            print('1-' * 50)
             print(act_id)
             print(request_id)
 
@@ -307,7 +307,7 @@ class TestMProcess:
 
             if reqact.is_active:
                 # 更新操作动态
-                print("gengxin")
+                print('gengxin')
                 MRequestAction.update_by_action(act_id, request_id)
 
                 # 查询该请求中该转换的所有动作是否都为True
@@ -317,7 +317,7 @@ class TestMProcess:
 
                 if istrues:
                     if istrues.is_complete:
-                        print("1.2 " * 50)
+                        print('1.2 ' * 50)
                         # 禁用该请求下其它动作
                         MRequestAction.update_by_action_reqs(act_id, request_id)
                         # 转到下一状态
@@ -328,13 +328,13 @@ class TestMProcess:
                         print(trans.next_state)
 
                         if new_state.state_type.startswith('complete'):
-                            print("1.3 " * 50)
+                            print('1.3 ' * 50)
                             MPost.update_valid(post_id)
                             post_rec = MPost.get_by_uid(post_id)
                             assert post_rec.valid == 1
 
                         else:
-                            print("1.4 " * 50)
+                            print('1.4 ' * 50)
                             print(new_state.name)
                             # 创建请求
                             new_request_id = MRequest.create(
@@ -354,25 +354,25 @@ class TestMProcess:
                                 )
                                 act = MAction.get_by_id(cur_act['action']).get()
 
-                                act_arr.append({"act_name": act.name})
+                                act_arr.append({'act_name': act.name})
 
                             if new_state.name == '正常':
-                                new_act_arr = [{"act_name": "提交审核"}]
+                                new_act_arr = [{'act_name': '提交审核'}]
                             elif new_state.name == '开始':
                                 new_act_arr = [
-                                    {"act_name": "拒绝"},
-                                    {"act_name": "通过"},
+                                    {'act_name': '拒绝'},
+                                    {'act_name': '通过'},
                                 ]
                             elif new_state.name == '拒绝':
-                                new_act_arr = [{"act_name": "撤消"}]
+                                new_act_arr = [{'act_name': '撤消'}]
                             elif new_state.name == '取消':
                                 new_act_arr = [
-                                    {"act_name": "拒绝"},
-                                    {"act_name": "通过"},
+                                    {'act_name': '拒绝'},
+                                    {'act_name': '通过'},
                                 ]
                             else:
                                 new_act_arr = []
-                            print("~" * 50)
+                            print('~' * 50)
                             print(act_arr)
                             print(new_act_arr)
                             assert act_arr == new_act_arr
@@ -393,7 +393,7 @@ class TestMProcess:
             assert recs3.uid == req_uid
 
             req_rec = self.mrequest.create(
-                "self.process_id", self.process_id, self.user_id, cur_state.uid
+                'self.process_id', self.process_id, self.user_id, cur_state.uid
             )
             assert req_rec == False
 

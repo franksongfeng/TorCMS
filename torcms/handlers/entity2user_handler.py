@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Hander for entiey, such as files or URL.
-'''
+"""
+
 import json
 
 import tornado.web
@@ -13,9 +14,9 @@ from torcms.model.entity2user_model import MEntity2User
 
 
 class Entity2UserHandler(BaseHandler):
-    '''
+    """
     Hander for entity, such as files or URL.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -41,9 +42,9 @@ class Entity2UserHandler(BaseHandler):
     @tornado.web.authenticated
     @privilege.permission(action='assign_role')
     def down_count_by_year(self):
-        '''
+        """
         List the entities of the user.
-        '''
+        """
         post_data = self.get_request_arguments()
         down_year = post_data.get('down_year', '2022')
         count = MEntity2User.total_number_by_year(down_year)
@@ -53,9 +54,9 @@ class Entity2UserHandler(BaseHandler):
     @tornado.web.authenticated
     @privilege.permission(action='assign_role')
     def all_list(self, cur_p=''):
-        '''
+        """
         List the entities of the user.
-        '''
+        """
         current_page_number = 1
         if cur_p == '':
             current_page_number = 1
@@ -86,9 +87,9 @@ class Entity2UserHandler(BaseHandler):
 
     @tornado.web.authenticated
     def user_list(self, userid, cur_p=''):
-        '''
+        """
         List the entities of the user.
-        '''
+        """
         current_page_number = 1
         if cur_p == '':
             current_page_number = 1

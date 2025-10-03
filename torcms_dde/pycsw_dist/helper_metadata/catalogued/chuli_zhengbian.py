@@ -1,7 +1,7 @@
-'''
+"""
 处理整编的元数据
 在当前文件夹运行
-'''
+"""
 
 from pathlib import Path
 
@@ -78,9 +78,9 @@ from xml.sax.saxutils import escape
 
 from openpyxl import load_workbook
 
-'''
+"""
 导入数据集的元数据，以及数据实体
-'''
+"""
 
 import os
 import pathlib
@@ -104,7 +104,7 @@ def chuli_meta(metafile, sig, ginfo=None):
 
     tmpl = open('./tmpl.xml').read()
 
-    tmpl_0 = '''<?xml version="1.0" encoding="UTF-8"?>
+    tmpl_0 = """<?xml version="1.0" encoding="UTF-8"?>
    <csw:Record
     xmlns:csw="http://www.opengis.net/cat/csw/2.0.2"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -112,20 +112,20 @@ def chuli_meta(metafile, sig, ginfo=None):
     xmlns:ows="http://www.opengis.net/ows"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.opengis.net/cat/csw/2.0.2/record.xsd">
-           '''
-    tmpl_geo = '''
+           """
+    tmpl_geo = """
 <ows:BoundingBox crs="urn:x-ogc:def:crs:EPSG:6.11:4326">
 <ows:LowerCorner>{} {}</ows:LowerCorner>
 <ows:UpperCorner>{} {}</ows:UpperCorner>
 </ows:BoundingBox>
-    '''
+    """
 
     tp_identifier = '<dc:identifier>{}</dc:identifier>'
 
-    tmpl_9 = ''' 
+    tmpl_9 = """ 
      </csw:Record>
                          
-        '''
+        """
 
     outfile = outws / (sig + '.xml')
 
@@ -165,9 +165,9 @@ def chuli_meta(metafile, sig, ginfo=None):
 
 
 def get_meta():
-    '''
+    """
     Get metadata of dataset via ID.
-    '''
+    """
 
     meta_base = '/home/bk/geows/data'
 

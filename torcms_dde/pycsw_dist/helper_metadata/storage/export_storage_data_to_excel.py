@@ -38,7 +38,7 @@ def query_data():
     for info in search_res1['rows']:
         id_list.append(info['datasetId'])
 
-    print("共有记录:" + str(len(id_list)) + "条")
+    print('共有记录:' + str(len(id_list)) + '条')
     export_data(id_list)
 
 
@@ -77,8 +77,8 @@ def export_data(id_list):
             row_inx = row_inx + 1
 
         wb2.save(out_docx)
-        print("*" * 50)
-        print("导出仓储数据成功： " + save_file + id + '.xlsx')
+        print('*' * 50)
+        print('导出仓储数据成功： ' + save_file + id + '.xlsx')
 
 
 if __name__ == '__main__':

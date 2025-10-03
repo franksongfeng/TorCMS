@@ -1,9 +1,10 @@
 # -*- coding: utf-8
 
-'''
+"""
 导入数据集的信息
 
-'''
+"""
+
 import os
 import pathlib
 
@@ -17,9 +18,9 @@ from torcms.model.post_model import MPost
 
 
 def update_category(uid, postdata, kwargs):
-    '''
+    """
     Update the category of the post.
-    '''
+    """
     catid = (
         kwargs['catid']
         if ('catid' in kwargs and MCategory.get_by_uid(kwargs['catid']))
@@ -96,11 +97,11 @@ def chuli_meta(metafile):
 
 
 def get_meta(catid, sig, kind_sig=''):
-    '''
+    """
     catid : 类别 ID
     sig : Excel 中字段
     kind_sig :
-    '''
+    """
     if kind_sig:
         pass
     else:
@@ -170,9 +171,9 @@ def update_db_info(catid, sig, kind_sig, ds_base):
 
 
 def update_label(signature, post_data):
-    '''
+    """
     Update the label .
-    '''
+    """
     current_tag_infos = MPost2Label.get_by_uid(signature).objects()
     if 'tags' in post_data:
         pass
@@ -215,9 +216,9 @@ def import_meta():
 
 
 def chli_xlsx(cat_path):
-    '''
+    """
     处理网站中的数据集列表的 XLSX 文件
-    '''
+    """
     full_path_str = str(cat_path.resolve())
 
     wb = load_workbook(full_path_str)

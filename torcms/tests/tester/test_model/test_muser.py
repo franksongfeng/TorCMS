@@ -246,7 +246,7 @@ class TestMUser:
         self.uu.delete_by_user_name(pdata['user_name'])
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tt = self.uu.get_by_uid(self.uid)
         if tt:
             self.uu.delete(tt.uid)

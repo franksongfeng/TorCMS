@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Tornado Modules for infor.
-'''
+"""
 
 import bs4
 import tornado.web
@@ -19,15 +19,15 @@ from torcms.model.usage_model import MUsage
 
 
 class InfoCategory(tornado.web.UIModule):
-    '''
+    """
     List of category
-    '''
+    """
 
     def render(self, *args, **kwargs):
-        '''
+        """
         fun(uid_with_str)
         fun(uid_with_str, slug = val1, glyph = val2)
-        '''
+        """
 
         uid_with_str = args[0]
 
@@ -59,17 +59,17 @@ class InfoCategory(tornado.web.UIModule):
 
 
 class InforUserMost(tornado.web.UIModule):
-    '''
+    """
     User most accessed posts.
-    '''
+    """
 
     def render(self, *args, **kwargs):
-        '''
+        """
         fun(user_name, kind)
         fun(user_name, kind, num)
         fun(user_name, kind, num, with_tag = val1, glyph = val2)
         fun(user_name = vala, kind = valb, num = valc, with_tag = val1, glyph = val2)
-        '''
+        """
         user_name = kwargs.get('user_name', args[0])
         kind = kwargs.get('kind', args[1])
         num = kwargs.get('num', args[2] if len(args) > 2 else 6)
@@ -84,9 +84,9 @@ class InforUserMost(tornado.web.UIModule):
 
 
 class InfoMostUsed(tornado.web.UIModule):
-    '''
+    """
     posts that most used.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         kind = kwargs.get('kind', args[0] if args else '1')
@@ -105,12 +105,12 @@ class InfoMostUsed(tornado.web.UIModule):
         return html_str
 
     def render_it(self, *args, **kwargs):
-        '''
+        """
         Render without userinfo.
         fun(kind, num)
         fun(kind, num, with_tag = val1)
         fun(kind, num, with_tag = val1, glyph = val2)
-        '''
+        """
         kind = kwargs.get('kind', args[0])
         num = kwargs.get('num', args[1] if len(args) > 1 else 6)
         with_tag = kwargs.get('with_tag', False)
@@ -123,13 +123,13 @@ class InfoMostUsed(tornado.web.UIModule):
         )
 
     def render_user(self, *args, **kwargs):
-        '''
+        """
         Render user.
         fun(kind, num)
         fun(kind, num, with_tag = val1)
         fun(kind, num, with_tag = val1, user_id = val2)
         fun(kind, num, with_tag = val1, user_id = val2, glyph = val3)
-        '''
+        """
         kind = kwargs.get('kind', args[0])
         num = kwargs.get('num', args[1] if len(args) > 1 else 6)
         with_tag = kwargs.get('with_tag', False)
@@ -144,9 +144,9 @@ class InfoMostUsed(tornado.web.UIModule):
 
 
 class InfoRecentUsed(tornado.web.UIModule):
-    '''
+    """
     posts that recently used.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         kind = kwargs.get('kind', args[0] if args else '1')
@@ -165,9 +165,9 @@ class InfoRecentUsed(tornado.web.UIModule):
         return html_str
 
     def render_it(self, kind, num, with_tag=False, glyph=''):
-        '''
+        """
         render, no user logged in
-        '''
+        """
         all_cats = MPost.query_recent(num, kind=kind)
         kwd = {'with_tag': with_tag, 'router': post_cfg[kind]['router'], 'glyph': glyph}
         return self.render_string(
@@ -175,13 +175,13 @@ class InfoRecentUsed(tornado.web.UIModule):
         )
 
     def render_user(self, *args, **kwargs):
-        '''
+        """
         render, with userinfo
         fun(kind, num)
         fun(kind, num, with_tag = val1)
         fun(kind, num, with_tag = val1, user_id = val2)
         fun(kind, num, with_tag = val1, user_id = val2, glyph = val3)
-        '''
+        """
 
         kind = kwargs.get('kind', args[0])
         num = kwargs.get('num', args[1] if len(args) > 1 else 6)
@@ -203,11 +203,11 @@ class InfoRecentUsed(tornado.web.UIModule):
 
 
 class InfoRandom(tornado.web.UIModule):
-    '''
+    """
     return some infors, randomly.
     fun(kind, num)
     fun(kind, num, glyph = val1)
-    '''
+    """
 
     def render(self, *args, **kwargs):
         kind = kwargs.get('kind', args[0])
@@ -222,9 +222,9 @@ class InfoRandom(tornado.web.UIModule):
 
 
 class RecentAccess(tornado.web.UIModule):
-    '''
+    """
     模块，最近访问最多
-    '''
+    """
 
     def render(self, *args, **kwargs):
         kind = args[0]
@@ -239,9 +239,9 @@ class RecentAccess(tornado.web.UIModule):
 
 
 class RelateDoc(tornado.web.UIModule):
-    '''
+    """
     相关推荐
-    '''
+    """
 
     def render(self, *args, **kwargs):
         post_uid = args[0]
@@ -261,10 +261,10 @@ class RelateDoc(tornado.web.UIModule):
 
 
 class InfoTags(tornado.web.UIModule):
-    '''
+    """
     return tags of certain infor
     fun(uid)
-    '''
+    """
 
     def render(self, *args, **kwargs):
         uid = kwargs.get('uid', args[0])
@@ -272,20 +272,18 @@ class InfoTags(tornado.web.UIModule):
         out_str = ''
         iii = 1
         for tag_info in MPost2Catalog.query_by_entity_uid(uid).objects():
-            tmp_str = '''<a data-inline="true" href="/list/{0}"
-             class="tag{1}">{2}</a>'''.format(
-                tag_info.tag_slug, iii, tag_info.tag_name
-            )
+            tmp_str = """<a data-inline="true" href="/list/{0}"
+             class="tag{1}">{2}</a>""".format(tag_info.tag_slug, iii, tag_info.tag_name)
             out_str += tmp_str
             iii += 1
         return out_str
 
 
 class LabelCount(tornado.web.UIModule):
-    '''
+    """
     the count of certian tag.
     fun(uid)
-    '''
+    """
 
     def render(self, *args, **kwargs):
         # uid = args[0]
@@ -295,9 +293,9 @@ class LabelCount(tornado.web.UIModule):
 
 
 class InfoCount(tornado.web.UIModule):
-    '''
+    """
     各信息分类下，信息数量。
-    '''
+    """
 
     def render(self, *args, **kwargs):
         pcat = kwargs['pcat']
@@ -311,9 +309,9 @@ class InfoCount(tornado.web.UIModule):
 
 
 class InfoCountByState(tornado.web.UIModule):
-    '''
+    """
     各信息分类下，信息数量。
-    '''
+    """
 
     def render(self, *args, **kwargs):
         pcat = kwargs['pcat']
@@ -327,11 +325,11 @@ class InfoCountByState(tornado.web.UIModule):
 
 
 class InfoMenu(tornado.web.UIModule):
-    '''
+    """
     menu for infor.
     fun(kind)
     fun(kind, limit)
-    '''
+    """
 
     def render(self, *args, **kwargs):
         kind = kwargs.get('kind', args[0])
@@ -345,12 +343,12 @@ class InfoMenu(tornado.web.UIModule):
 
 # Todo:  To test the class.
 class RelPost2app(tornado.web.UIModule):
-    '''
+    """
     relation, post to app.
     fun(uid, num)
     fun(uid, num, kind = val1)
     fun(uid, num, kind = val1, num = val2)
-    '''
+    """
 
     def render(self, *args, **kwargs):
         uid = kwargs.get('uid', args[0])
@@ -376,12 +374,12 @@ class RelPost2app(tornado.web.UIModule):
 
 # Todo: To test the class.
 class RelApp2post(tornado.web.UIModule):
-    '''
+    """
     relation, app to post.
     fun(uid, num)
     fun(uid, num, kind = val1)
     fun(uid, num, kind = val1, num = val2)
-    '''
+    """
 
     def render(self, *args, **kwargs):
         uid = kwargs.get('uid', args[0])
@@ -406,10 +404,10 @@ class RelApp2post(tornado.web.UIModule):
 
 
 class ParentName(tornado.web.UIModule):
-    '''
+    """
     ParentName
     fun(info)
-    '''
+    """
 
     def render(self, *args, **kwargs):
         info = kwargs.get('info', args[0])
@@ -417,10 +415,10 @@ class ParentName(tornado.web.UIModule):
 
 
 class CatName(tornado.web.UIModule):
-    '''
+    """
     CatName
     fun(info)
-    '''
+    """
 
     def render(self, *args, **kwargs):
         info = kwargs.get('info', args[0])
@@ -428,10 +426,10 @@ class CatName(tornado.web.UIModule):
 
 
 class BreadcrumbPublish(tornado.web.UIModule):
-    '''
+    """
     BreadCrumb
     fun(sig = val1)
-    '''
+    """
 
     def render(self, *args, **kwargs):
         sig = kwargs.get('sig', 0)
@@ -442,10 +440,10 @@ class BreadcrumbPublish(tornado.web.UIModule):
 
 
 class InfoList(tornado.web.UIModule):
-    '''
+    """
     InfoList.
     fun(info)
-    '''
+    """
 
     def render(self, *args, **kwargs):
         # info = args[0]
@@ -478,16 +476,16 @@ class InfoList(tornado.web.UIModule):
 
 
 class InfoRightNav(tornado.web.UIModule):
-    '''
+    """
     Web site Additional navigation
-    '''
+    """
 
     def render(self, *args, **kwargs):
         content = args[0]
         con_arr = []
-        Soup = bs4.BeautifulSoup(content, features="html.parser")
+        Soup = bs4.BeautifulSoup(content, features='html.parser')
         # for text in Soup.find_all(["h2", "h3"]):
-        for text in Soup.find_all(["h2"]):
+        for text in Soup.find_all(['h2']):
             text_tag = text.a.parent.name
             title = text.contents[0]
             if text_tag == 'h3':
@@ -503,7 +501,7 @@ class InfoRightNav(tornado.web.UIModule):
 
 
 class TutorialCatalog(tornado.web.UIModule):
-    ''' '''
+    """ """
 
     def render(self, *args, **kwargs):
         cat_id = args[0]

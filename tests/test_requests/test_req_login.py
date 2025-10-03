@@ -18,8 +18,8 @@ class TestTornado(AsyncHTTPTestCase):
     def test_BaseHandler(self):
         # 测试正常输入文本
 
-        data = {"user_name": "bukun"}
+        data = {'user_name': 'bukun'}
 
-        response = requests.post(os.path.join(domain, "user/login"), json=data)
+        response = requests.post(os.path.join(domain, 'user/login'), json=data)
         # self.assertEqual(eval(response.body)["data"], "test")
         self.assertEqual(response.status_code, 500)

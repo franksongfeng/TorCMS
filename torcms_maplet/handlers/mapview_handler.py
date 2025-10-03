@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 Handlers for Map application.
-'''
+"""
 
 import tornado.escape
 import tornado.web
@@ -13,9 +13,9 @@ from torcms_maplet.core.tools import average_array
 
 
 class MapViewHandler(BaseHandler):
-    '''
+    """
     For map overlay.
-    '''
+    """
 
     def initialize(self):
         super(MapViewHandler, self).initialize()
@@ -36,9 +36,9 @@ class MapViewHandler(BaseHandler):
             self.render('misc/html/404.html', kwd=kwd, userinfo=self.userinfo)
 
     def show_overlay(self, app_arr):
-        '''
+        """
         Open two maps on one screen.
-        '''
+        """
         app_info_arr = []
         lon_arr = []
         lat_arr = []
@@ -79,9 +79,9 @@ class MapViewHandler(BaseHandler):
         )
 
     def show_sync(self, app_arr):
-        '''
+        """
         Sync view for two maps.
-        '''
+        """
         app_info_arr = []
         lon_arr = []
         lat_arr = []
@@ -120,9 +120,9 @@ class MapViewHandler(BaseHandler):
         )
 
     def show_split(self, app_arr):
-        '''
+        """
         Splitting view for two maps.
-        '''
+        """
         app_info_arr = []
         lon_arr = []
         lat_arr = []

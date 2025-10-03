@@ -8,9 +8,9 @@ from torcms.model.core_tab import TabPost, TabTag
 
 
 class Ext_tag:
-    '''
+    """
     Model for Posts.
-    '''
+    """
 
     @staticmethod
     def get_taglist(kind):

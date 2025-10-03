@@ -170,7 +170,7 @@ class TestMUsage:
         assert tf
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tf = MCategory.get_by_uid(self.tag_id)
         if tf:
             MCategory.delete(self.tag_id)

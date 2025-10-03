@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 For GeoJson storage.
-'''
+"""
+
 from torcms.core import tools
 
 # from torcms.model.abc_model import Mabc
@@ -21,11 +22,11 @@ class MPost2Gson:
 
     @staticmethod
     def query_by_post(postid):
-        '''
+        """
         Query records by post.
         :param postid:
         :return:
-        '''
+        """
         return MabPost2Gson.select().where(MabPost2Gson.post_id == postid)
 
     @staticmethod
@@ -36,9 +37,9 @@ class MPost2Gson:
 
 
 class MJson:
-    '''
+    """
     For GeoJson storage.
-    '''
+    """
 
     def __init__(self):
         super(MJson, self).__init__()

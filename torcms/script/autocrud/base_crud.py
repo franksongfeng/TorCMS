@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Basic configuration for CRUD.
-'''
+"""
 
 import os
 from pathlib import Path
@@ -62,17 +62,17 @@ RAW_LIST = [
 
 FILTER_COLUMNS = (
     RAW_LIST
-    + ["A" + x for x in ['A', 'B', 'C', 'D'] + RAW_LIST]
-    + ["B" + x for x in ['A', 'B', 'C', 'D'] + RAW_LIST]
-    + ["C" + x for x in ['A', 'B', 'C', 'D'] + RAW_LIST]
-    + ["D" + x for x in ['A', 'B', 'C', 'D'] + RAW_LIST]
+    + ['A' + x for x in ['A', 'B', 'C', 'D'] + RAW_LIST]
+    + ['B' + x for x in ['A', 'B', 'C', 'D'] + RAW_LIST]
+    + ['C' + x for x in ['A', 'B', 'C', 'D'] + RAW_LIST]
+    + ['D' + x for x in ['A', 'B', 'C', 'D'] + RAW_LIST]
 )
 
 
 def build_dir():
-    '''
+    """
     Build the directory used for templates.
-    '''
+    """
     tag_arr = ['add', 'edit', 'view', 'list', 'infolist']
     path_arr = [os.path.join(CRUD_PATH, x) for x in tag_arr]
     for wpath in path_arr:

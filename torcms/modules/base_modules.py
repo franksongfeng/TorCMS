@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 TorCMS basic modules.
-'''
+"""
 
 from math import ceil as math_ceil
 
@@ -28,12 +28,12 @@ from torcms.model.wiki_model import MWiki
 
 
 class ShowPage(tornado.web.UIModule):
-    '''
+    """
     Get page info by page_id.
-    '''
+    """
 
     def render(self, *args, **kwargs):
-        ''' '''
+        """ """
         page_id = kwargs['page_id']
         userinfo = kwargs.get('userinfo', None)
         count = kwargs.get('count', 0)
@@ -49,9 +49,9 @@ class ShowPage(tornado.web.UIModule):
 
 
 class PostLabels(tornado.web.UIModule):
-    '''
+    """
     Show the labels of the post.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         post_uid = kwargs.get('post_uid', None)
@@ -82,13 +82,13 @@ class PostLabels(tornado.web.UIModule):
 
 
 class PreviousPostLink(tornado.web.UIModule):
-    '''
+    """
     Link for the previous post link.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         current_id = args[0]
-        kind = kwargs.get("kind", '1')
+        kind = kwargs.get('kind', '1')
         prev_record = MPost.get_previous_record(current_id, kind=kind)
         if prev_record:
             kwd = {
@@ -100,13 +100,13 @@ class PreviousPostLink(tornado.web.UIModule):
 
 
 class NextPostLink(tornado.web.UIModule):
-    '''
+    """
     Link for the next post link.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         current_id = args[0]
-        kind = kwargs.get("kind", '1')
+        kind = kwargs.get('kind', '1')
         next_record = MPost.get_next_record(current_id, kind=kind)
         if next_record:
             kwd = {
@@ -118,9 +118,9 @@ class NextPostLink(tornado.web.UIModule):
 
 
 class PostMostView(tornado.web.UIModule):
-    '''
+    """
     list of most viewd posts.
-    '''
+    """
 
     def render(self, num, **kwargs):
         kind = kwargs.get('kind', '1')
@@ -140,9 +140,9 @@ class PostMostView(tornado.web.UIModule):
 
 
 class PostRandom(tornado.web.UIModule):
-    '''
+    """
     return some posts randomly.
-    '''
+    """
 
     def render(self, num, with_date=True, with_catalog=True, kind='1'):
         kwd = {
@@ -158,9 +158,9 @@ class PostRandom(tornado.web.UIModule):
 
 
 class PostCatRandom(tornado.web.UIModule):
-    '''
+    """
     return some posts randomly of certain category.
-    '''
+    """
 
     def render(self, cat_id, num, with_date=True, with_catalog=True):
         kwd = {
@@ -176,9 +176,9 @@ class PostCatRandom(tornado.web.UIModule):
 
 
 class PostRecentMostView(tornado.web.UIModule):
-    '''
+    """
     return some posts most viewed recently.
-    '''
+    """
 
     def render(self, num, recent, with_date=True, with_catalog=True):
         kwd = {
@@ -194,9 +194,9 @@ class PostRecentMostView(tornado.web.UIModule):
 
 
 class CategoryOf(tornado.web.UIModule):
-    '''
+    """
     return the categories which uid starts with certain string.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         uid_with_str = args[0]
@@ -207,9 +207,9 @@ class CategoryOf(tornado.web.UIModule):
 
 
 class PostCategoryOf(tornado.web.UIModule):
-    '''
+    """
     The catalog of the post.
-    '''
+    """
 
     def render(self, uid_with_str, **kwargs):
         curinfo = MCategory.get_by_uid(uid_with_str)
@@ -245,9 +245,9 @@ class PostCategoryOf(tornado.web.UIModule):
 
 
 class PostRecent(tornado.web.UIModule):
-    '''
+    """
     return the post of recent.
-    '''
+    """
 
     def render(self, num=10, **kwargs):
         kind = kwargs.get('kind', '1')
@@ -266,9 +266,9 @@ class PostRecent(tornado.web.UIModule):
 
 
 class LinkList(tornado.web.UIModule):
-    '''
+    """
     return the list of links.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         num = kwargs['num'] if 'num' in kwargs else 10
@@ -278,9 +278,9 @@ class LinkList(tornado.web.UIModule):
 
 
 class PostCategoryRecent(tornado.web.UIModule):
-    '''
+    """
     The reccent posts of certain category.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         cat_id = args[0]
@@ -322,9 +322,9 @@ class PostCategoryRecent(tornado.web.UIModule):
 
 
 class ShowoutRecent(tornado.web.UIModule):
-    '''
+    """
     return posts of recent for showing out.
-    '''
+    """
 
     def render(self, cat_id, kind, **kwargs):
         num = kwargs.get('num', 10)
@@ -349,18 +349,18 @@ class ShowoutRecent(tornado.web.UIModule):
 
 
 class SiteUrl(tornado.web.UIModule):
-    '''
+    """
     return the url of the site.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         return config.SITE_CFG['site_url']
 
 
 class SiteTitle(tornado.web.UIModule):
-    '''
+    """
     return the title of the site.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         if 'site_title' in config.SITE_CFG:
@@ -370,15 +370,15 @@ class SiteTitle(tornado.web.UIModule):
 
 
 class TheCategory(tornado.web.UIModule):
-    '''
+    """
     return the category according to the id of post.
-    '''
+    """
 
     def render(self, post_id, order=False):
         if order:
-            tmpl_str = '''<a href="/catalog/{0}">{1}</a>'''
+            tmpl_str = """<a href="/catalog/{0}">{1}</a>"""
         else:
-            tmpl_str = '''<a href="/list/{0}">{1}</a>'''
+            tmpl_str = """<a href="/list/{0}">{1}</a>"""
 
         format_arr = [
             tmpl_str.format(uu.tag_slug, uu.tag_name)
@@ -388,29 +388,29 @@ class TheCategory(tornado.web.UIModule):
 
 
 class ListCategories(tornado.web.UIModule):
-    '''
+    """
     list categories.
-    '''
+    """
 
     def render(self, cat_id, list_num):
         recs = MPost.query_cat_recent(cat_id, num=list_num)
         out_str = ''
         for rec in recs:
-            tmp_str = '''<li><a href="/{0}">{1}</a></li>'''.format(rec.title, rec.title)
+            tmp_str = """<li><a href="/{0}">{1}</a></li>""".format(rec.title, rec.title)
             out_str += tmp_str
         return out_str
 
 
 class GenerateAbstract(tornado.web.UIModule):
-    '''
+    """
     translate html to text, and return 130 charactors.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         html_str = args[0]
         count = kwargs.get('count', 130)
         tmp_str = bs4.BeautifulSoup(
-            tornado.escape.xhtml_unescape(html_str), "html.parser"
+            tornado.escape.xhtml_unescape(html_str), 'html.parser'
         )
         return tmp_str.get_text()[:count] + '...'
 
@@ -428,9 +428,9 @@ class GenerateAbstract(tornado.web.UIModule):
 
 
 class PostTags(tornado.web.UIModule):
-    '''
+    """
     show tags of the post.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         uid = args[0]
@@ -447,9 +447,9 @@ class PostTags(tornado.web.UIModule):
 
 
 class MapTags(tornado.web.UIModule):
-    '''
+    """
     show tags of the map.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         uid = args[0]
@@ -465,16 +465,16 @@ class MapTags(tornado.web.UIModule):
 
 
 class CategoryPager(tornado.web.UIModule):
-    '''
+    """
     pager of category
-    '''
+    """
 
     def render(self, *args, **kwargs):
         cat_slug = args[0]
         current = int(args[1])
         # cat_slug 分类
         # current 当前页面
-        tag = kwargs['tag'] if 'tag' in kwargs else ""
+        tag = kwargs['tag'] if 'tag' in kwargs else ''
 
         cat_rec = MCategory.get_by_slug(cat_slug)
         num_of_cat = MPost2Catalog.count_of_certain_category(cat_rec.uid, tag=tag)
@@ -500,9 +500,9 @@ class CategoryPager(tornado.web.UIModule):
 
 
 class CollectPager(tornado.web.UIModule):
-    '''
+    """
     pager of category
-    '''
+    """
 
     def render(self, *args, **kwargs):
         user_id = args[0]
@@ -531,9 +531,9 @@ class CollectPager(tornado.web.UIModule):
 
 
 class InfoLabelPager(tornado.web.UIModule):
-    '''
+    """
     Pager for info label.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         tag_slug = args[0]
@@ -560,9 +560,9 @@ class InfoLabelPager(tornado.web.UIModule):
 
 
 class LabelPager(tornado.web.UIModule):
-    '''
+    """
     Pager for label.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         kind = args[0]
@@ -594,9 +594,9 @@ class LabelPager(tornado.web.UIModule):
 
 
 class TagPager(tornado.web.UIModule):
-    '''
+    """
     Pager for tag.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         tag_slug = args[0]
@@ -622,9 +622,9 @@ class TagPager(tornado.web.UIModule):
 
 
 class SearchPager(tornado.web.UIModule):
-    '''
+    """
     Pager for search result.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         ysearch = YunSearch()
@@ -651,9 +651,9 @@ class SearchPager(tornado.web.UIModule):
 
 
 class AppTitle(tornado.web.UIModule):
-    '''
+    """
     search widget. Simple searching. searching for all.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         uid = args[0]
@@ -663,9 +663,9 @@ class AppTitle(tornado.web.UIModule):
 
 
 class EntityList(tornado.web.UIModule):
-    '''
+    """
     search widget. Simple searching. searching for all.
-    '''
+    """
 
     def render(self, kind, cur_p=''):
         if cur_p == '':
@@ -682,9 +682,9 @@ class EntityList(tornado.web.UIModule):
 
 
 class EntityPager(tornado.web.UIModule):
-    '''
+    """
     Pager for search result.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         current = int(args[0])
@@ -707,9 +707,9 @@ class EntityPager(tornado.web.UIModule):
 
 
 class Entity2UserPager(tornado.web.UIModule):
-    '''
+    """
     Pager for search result.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         current = int(args[0])
@@ -740,9 +740,9 @@ class Entity2UserPager(tornado.web.UIModule):
 
 
 class Entity2Pager(tornado.web.UIModule):
-    '''
+    """
     Pager for search result.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         current = int(args[0])
@@ -769,9 +769,9 @@ class Entity2Pager(tornado.web.UIModule):
 
 
 class Entity2DownloadCount(tornado.web.UIModule):
-    '''
+    """
     Pager for search result.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         path = args[0]
@@ -780,9 +780,9 @@ class Entity2DownloadCount(tornado.web.UIModule):
 
 
 class EntityGetPost(tornado.web.UIModule):
-    '''
+    """
     根据实体PATH获取Data相关信息
-    '''
+    """
 
     def render(self, *args, **kwargs):
         path = args[0]
@@ -794,9 +794,9 @@ class EntityGetPost(tornado.web.UIModule):
 
 
 class UserName(tornado.web.UIModule):
-    '''
+    """
     Pager for search result.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         user_id = args[0]
@@ -806,9 +806,9 @@ class UserName(tornado.web.UIModule):
 
 
 class ReplyPostById(tornado.web.UIModule):
-    '''
+    """
     Pager for search result.
-    '''
+    """
 
     def render(self, post_id, reply_uid):
         try:
@@ -822,9 +822,9 @@ class ReplyPostById(tornado.web.UIModule):
 
 # Todo: Should to be reviewed.
 class CategoryBySlug(tornado.web.UIModule):
-    '''
+    """
     catalog 列表页 面包屑导航
-    '''
+    """
 
     def render(self, *args, **kwargs):
         slug = args[0]
@@ -842,9 +842,9 @@ class CategoryBySlug(tornado.web.UIModule):
 
 
 class Collect(tornado.web.UIModule):
-    '''
+    """
     添加收藏模块
-    '''
+    """
 
     def render(self, *args, **kwargs):
         user_id = args[0]
@@ -857,9 +857,9 @@ class Collect(tornado.web.UIModule):
 
 
 class UserCollect(tornado.web.UIModule):
-    '''
+    """
     用户收藏列表
-    '''
+    """
 
     def render(self, *args, **kwargs):
         user_id = kwargs.get('user_id', args[0])
@@ -876,9 +876,9 @@ class UserCollect(tornado.web.UIModule):
 
 
 class Admin_Post_pager(tornado.web.UIModule):
-    '''
+    """
     pager of kind
-    '''
+    """
 
     def render(self, *args, **kwargs):
         kind = args[0]
@@ -908,9 +908,9 @@ class Admin_Post_pager(tornado.web.UIModule):
 
 
 class Admin_Page_pager(tornado.web.UIModule):
-    '''
+    """
     pager of kind
-    '''
+    """
 
     def render(self, *args, **kwargs):
         kind = args[0]
@@ -940,9 +940,9 @@ class Admin_Page_pager(tornado.web.UIModule):
 
 
 class Admin_reply_pager(tornado.web.UIModule):
-    '''
+    """
     pager of kind
-    '''
+    """
 
     def render(self, *args, **kwargs):
         current = int(args[0])
@@ -954,12 +954,12 @@ class Admin_reply_pager(tornado.web.UIModule):
 
         test_page_num = int(num_of_cat / config.CMS_CFG['list_num'])
 
-        '''
+        """
         原代码：
         page_num = (test_page_num if
                     abs(test_page_num - num_of_cat / config.CMS_CFG['list_num'])
                     < 0.1 else test_page_num + 1)
-        '''
+        """
         if abs(test_page_num - num_of_cat / config.CMS_CFG['list_num']) < 0.1:
             page_num = test_page_num
         else:
@@ -976,9 +976,9 @@ class Admin_reply_pager(tornado.web.UIModule):
 
 
 class Reply_pager(tornado.web.UIModule):
-    '''
+    """
     pager of kind
-    '''
+    """
 
     def render(self, *args, **kwargs):
         current = int(args[0])
@@ -990,12 +990,12 @@ class Reply_pager(tornado.web.UIModule):
 
         test_page_num = int(num_of_cat / config.CMS_CFG['list_num'])
 
-        '''
+        """
         原代码：
         page_num = (test_page_num if
                     abs(test_page_num - num_of_cat / config.CMS_CFG['list_num'])
                     < 0.1 else test_page_num + 1)
-        '''
+        """
         if abs(test_page_num - num_of_cat / config.CMS_CFG['list_num']) < 0.1:
             page_num = test_page_num
         else:
@@ -1012,9 +1012,9 @@ class Reply_pager(tornado.web.UIModule):
 
 
 class Reply_user_pager(tornado.web.UIModule):
-    '''
+    """
     pager of kind
-    '''
+    """
 
     def render(self, *args, **kwargs):
         current = int(args[0])
@@ -1027,12 +1027,12 @@ class Reply_user_pager(tornado.web.UIModule):
 
         test_page_num = int(num_of_cat / config.CMS_CFG['list_num'])
 
-        '''
+        """
         原代码：
         page_num = (test_page_num if
                     abs(test_page_num - num_of_cat / config.CMS_CFG['list_num'])
                     < 0.1 else test_page_num + 1)
-        '''
+        """
         if abs(test_page_num - num_of_cat / config.CMS_CFG['list_num']) < 0.1:
             page_num = test_page_num
         else:
@@ -1051,9 +1051,9 @@ class Reply_user_pager(tornado.web.UIModule):
 
 
 class Admin_user_pager(tornado.web.UIModule):
-    '''
+    """
     pager of kind
-    '''
+    """
 
     def render(self, *args, **kwargs):
         current = int(args[0])
@@ -1083,9 +1083,9 @@ class Admin_user_pager(tornado.web.UIModule):
 
 
 def get_page_position(current, page_num):
-    '''
+    """
     返回当面页面索引位置信息
-    '''
+    """
     return {
         'page_home': current > 1,
         'page_end': current < page_num,
@@ -1095,9 +1095,9 @@ def get_page_position(current, page_num):
 
 
 class Admin_log_pager(tornado.web.UIModule):
-    '''
+    """
     pager of log
-    '''
+    """
 
     def render(self, *args, **kwargs):
         user_id = args[0]
@@ -1127,9 +1127,9 @@ class Admin_log_pager(tornado.web.UIModule):
 
 
 class LogPager(tornado.web.UIModule):
-    '''
+    """
     pager of log
-    '''
+    """
 
     def render(self, *args, **kwargs):
         user_id = args[0]
@@ -1157,9 +1157,9 @@ class LogPager(tornado.web.UIModule):
 
 
 class LogPageviewPager(tornado.web.UIModule):
-    '''
+    """
     pager of log
-    '''
+    """
 
     def render(self, *args, **kwargs):
         current = int(args[0])
@@ -1194,9 +1194,9 @@ class LogPageviewCount(tornado.web.UIModule):
 
 
 class InfoNullify(tornado.web.UIModule):
-    '''
+    """
     将信息变为无效module
-    '''
+    """
 
     def render(self, *args, **kwargs):
         info_uid = kwargs.get('uid', '')
@@ -1212,9 +1212,9 @@ class InfoNullify(tornado.web.UIModule):
 
 
 class Nullify_pager(tornado.web.UIModule):
-    '''
+    """
     无效信息列表分页
-    '''
+    """
 
     def render(self, *args, **kwargs):
         current = int(args[0])
@@ -1240,9 +1240,9 @@ class Nullify_pager(tornado.web.UIModule):
 
 
 class Comment_pager(tornado.web.UIModule):
-    '''
+    """
     pager of Comment
-    '''
+    """
 
     def render(self, *args, **kwargs):
         current = int(args[0])
@@ -1268,9 +1268,9 @@ class Comment_pager(tornado.web.UIModule):
 
 
 class Comment_num(tornado.web.UIModule):
-    '''
+    """
     num of Comment
-    '''
+    """
 
     def render(self, *args, **kwargs):
         postid = args[0]

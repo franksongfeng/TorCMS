@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Some common function used by the CMS.
-'''
+"""
 
 import hashlib
 import logging
@@ -39,19 +39,19 @@ logger = logging
 
 
 def diff_table(rawinfo, newinfo):
-    '''
+    """
     Generate the difference as the table format.
     :param rawinfo:
     :param newinfo:
     :return:
-    '''
+    """
     return HtmlDiff.make_table(
         HtmlDiff(), rawinfo.split('\n'), newinfo.split('\n'), context=True, numlines=1
     )
 
 
 def check_username_valid(username):
-    '''
+    """
     Checking if the username if valid.
 
     >>> check_username_valid('/sadf')
@@ -62,14 +62,14 @@ def check_username_valid(username):
     False
     >>> check_username_valid(' ')
     False
-    '''
+    """
     if re.match('^[a-zA-Z][a-zA-Z0-9_]{3,19}', username) is not None:
         return True
     return False
 
 
 def check_email_valid(email_str):
-    '''
+    """
     Checking if the given Email is valid.
 
     >>> check_email_valid('')
@@ -78,8 +78,8 @@ def check_email_valid(email_str):
     False
     >>> check_email_valid('sadfsdfa@comaldfsdaf.cosdafj')
     False
-    '''
-    ck_str = "^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$"
+    """
+    ck_str = '^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$'
     if re.match(ck_str, email_str) is not None:
         return True
 
@@ -87,12 +87,12 @@ def check_email_valid(email_str):
 
 
 def check_pass_valid(pass_str):
-    '''
+    """
     Checking if the given password is valid.
     至少6-20个字符，至少1个大写字母，1个小写字母和1个数字，其他可以是任意字符
-    '''
+    """
 
-    ck_str = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d][\s\S]{6,20}$"
+    ck_str = r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d][\s\S]{6,20}$'
     if re.match(ck_str, pass_str) is not None:
         return True
 
@@ -100,91 +100,91 @@ def check_pass_valid(pass_str):
 
 
 def md5(instr):
-    '''
+    """
     md5
-    '''
+    """
     return hashlib.md5(instr.encode('utf-8')).hexdigest()
 
 
 def timestamp():
-    '''
+    """
     The timestamp of integer.
-    '''
+    """
     return int(time.time())
 
 
 def format_yr(indate):
-    '''
+    """
     date of yr
-    '''
+    """
     return indate.strftime('%m-%d')
 
 
 def format_date(indate):
-    '''
+    """
     date of date
-    '''
+    """
     return indate.strftime('%Y-%m-%d %H:%M:%S')
 
 
 def format_time(intime):
     timeArray = time.localtime(intime)
-    otherStyleTime = time.strftime("%Y-%m-%d  %H:%M:%S", timeArray)
+    otherStyleTime = time.strftime('%Y-%m-%d  %H:%M:%S', timeArray)
     return otherStyleTime
 
 
 def get_uuid():
-    '''
+    """
     Using python uuid
-    '''
+    """
     return str(uuid.uuid1())
 
 
 def get_uu8d():
-    '''
+    """
     Get ID of 8 digit.
-    '''
+    """
 
     # str(uuid.uuid1()).split('-', maxsplit=1)[0]
     return str(uuid.uuid1()).split('-', maxsplit=1)[0]
 
 
 def func_rand_arr(arr, length):
-    '''
+    """
     func_rand_arr = lambda arr, len: ''.join(random.sample(arr, len))
-    '''
+    """
     return ''.join(random.sample(arr, length))
 
 
 def get_uu4d_v2():
-    '''
+    """
     Get ID of 4 digit. version 2.
-    '''
+    """
     # sel_arr = [x for x in 'ghijklmnopqrstuvwxyz']
 
     return func_rand_arr(list('ghijklmnopqrstuvwxyz'), 4)
 
 
 def get_uu4d():
-    '''
+    """
     Get ID of 4 digit.
-    '''
+    """
 
     return func_rand_arr(list('0123456789abcdef'), 4)
 
 
 def get_uu5d():
-    '''
+    """
     Get ID of 5 digit.
-    '''
+    """
 
     return func_rand_arr(list('0123456789abcdef'), 5)
 
 
 def get_uudd(lenth):
-    '''
+    """
     随机获取给定位数的整数
-    '''
+    """
     sel_arr = list('0123456789')
     rarr = random.sample(sel_arr, lenth)
     while rarr[0] == '0':
@@ -193,17 +193,17 @@ def get_uudd(lenth):
 
 
 def get_uu6d():
-    '''
+    """
     Get ID of 6 digit.
-    '''
+    """
 
     return func_rand_arr(list('0123456789abcdef'), 6)
 
 
 def rst2html(rst_text):
-    '''
+    """
     convert restructuredtext to html.
-    '''
+    """
     # 创建beautifulsoup解析对象
     import docutils.core
     from bs4 import BeautifulSoup
@@ -219,7 +219,7 @@ def rst2html(rst_text):
     # soup.find("div", class_="document")
     # content = soup.select('.body')[0]
     content = soup.select('.document')[0]
-    for a in content.find_all(["h1", "h2", "h3", "p"]):
+    for a in content.find_all(['h1', 'h2', 'h3', 'p']):
         conz += str(a)
         conz += '\n'
 
@@ -228,11 +228,11 @@ def rst2html(rst_text):
 
 
 def markdown2html(markdown_text):
-    '''
+    """
     Convert markdown text to HTML. with extensions.
     :param markdown_text:   The markdown text.
     :return:  The HTML text.
-    '''
+    """
     html = markdown.markdown(
         markdown_text,
         extensions=[
@@ -250,18 +250,18 @@ def markdown2html(markdown_text):
 
 
 class ConfigDefault(object):
-    '''
+    """
     Class for the default configuration.
 
     ``DB_CFG`` 的配置：这个是用于 Travis 。如果没有配置，则使用 Travis 的设置。
     一般应用中都是要进行配置的。
-    '''
+    """
 
     SMTP_CFG = {
         'name': 'TorCMS',
-        'host': "",
-        'user': "",
-        'pass': "",
+        'host': '',
+        'user': '',
+        'pass': '',
         'postfix': 'yunsuan.org',
     }
 
@@ -288,9 +288,9 @@ class ConfigDefault(object):
 
 
 def get_cfg():
-    '''
+    """
     Get the configure value.
-    '''
+    """
 
     cfg_var = dir(cfg)
 
@@ -335,12 +335,12 @@ def get_cfg():
     else:
         site_cfg['DEBUG'] = False
 
-    '''
+    """
     默认情况下，Peewee的autocommit设置为True，这意味着每次数据库操作后都会自动提交事务。
     如果设置为False，则需要显式调用commit()来提交事务。
     默认情况下，Peewee的autorollback设置为False，意味着在发生错误时不会自动回滚事务。
     如果设置为True，则在发生错误时会自动回滚事务。
-    '''
+    """
     db_con = PostgresqlExtDatabase(
         db_cfg['db'],
         user=db_cfg.get('user', db_cfg['db']),

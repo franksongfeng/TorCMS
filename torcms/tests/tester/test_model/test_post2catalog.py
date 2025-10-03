@@ -164,7 +164,7 @@ class TestMPost2Catalog:
         assert b
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tt = MCategory.get_by_uid(self.tag_id)
         if tt:
             MCategory.delete(self.tag_id)

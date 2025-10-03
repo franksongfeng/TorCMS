@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Relationship between Posts.
-'''
+"""
 
 from torcms.core.base_handler import BaseHandler
 from torcms.model.post_model import MPost
@@ -21,9 +21,9 @@ class RelHandler(BaseHandler):
             return False
 
     def add_relation(self, url_arr):
-        '''
+        """
         Add relationship.
-        '''
+        """
         if MPost.get_by_uid(url_arr[1]):
             pass
         else:

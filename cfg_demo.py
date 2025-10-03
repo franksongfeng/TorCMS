@@ -1,15 +1,15 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 User defined Configuration for the application.
-'''
+"""
 
 # Used by Django
 DB_INFO = {
     'ENGINE': 'django.db.backends.postgresql',
-    "NAME": "torcms",
-    "USER": "torcms",
-    "PASSWORD": '111111',
+    'NAME': 'torcms',
+    'USER': 'torcms',
+    'PASSWORD': '111111',
     'HOST': '127.0.0.1',
     'CONN_MAX_AzGE': 7200,
 }
@@ -25,9 +25,9 @@ REDIS_CFG = {'host': '', 'port': '', 'pass': ''}
 
 SMTP_CFG = {
     'name': 'TorCMS',
-    'host': "smtp.ym.163.com",
-    'user': "admin@yunsuan.org",
-    'pass': "",
+    'host': 'smtp.ym.163.com',
+    'user': 'admin@yunsuan.org',
+    'pass': '',
     'postfix': 'yunsuan.org',
 }
 

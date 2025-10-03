@@ -1,8 +1,8 @@
 # -*- coding: utf-8
-'''
+"""
 Generate the dic of Python from xlsx file.
 Only using the first and the second row of the XLSX file.
-'''
+"""
 
 import os
 import sys
@@ -19,9 +19,9 @@ else:
 
 
 def __write_filter_dic(wk_sheet, column):
-    '''
+    """
     return filter dic for certain column
-    '''
+    """
     row1_val = wk_sheet['{0}1'.format(column)].value
     row2_val = wk_sheet['{0}2'.format(column)].value
     if row1_val and row1_val.strip() != '':
@@ -68,9 +68,9 @@ def __write_filter_dic(wk_sheet, column):
 
 
 def gen_html_dic():
-    '''
+    """
     生成 Filter .
-    '''
+    """
     html_dics = {}
 
     for XLSX_FILE in META_FILE_LIST:
@@ -93,10 +93,10 @@ def gen_html_dic():
 
 
 def gen_array_crud_tag():
-    '''
+    """
     Return the dictionay of the switcher form XLXS file.
     if valud of the column of the row is `1`,  it will be added to the array.
-    '''
+    """
 
     switch_dics = {}
     kind_dics = {}
@@ -144,9 +144,9 @@ def gen_array_crud_tag():
 
 
 def __get_switch_arr(work_sheet, row_num):
-    '''
+    """
     if valud of the column of the row is `1`,  it will be added to the array.
-    '''
+    """
 
     u_dic = []
     for col_idx in FILTER_COLUMNS:
@@ -158,10 +158,10 @@ def __get_switch_arr(work_sheet, row_num):
 
 
 def gen_array_crud():
-    '''
+    """
     Return the dictionay of the switcher form XLXS file.
     if valud of the column of the row is `1`,  it will be added to the array.
-    '''
+    """
     if WORK_BOOK:
         pass
     else:

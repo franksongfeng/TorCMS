@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Manage the posts by Administrator.
-'''
+"""
 
 from abc import ABCMeta, abstractmethod
 
@@ -19,9 +19,9 @@ from torcms.model.staff2role_model import MStaff2Role
 
 
 class EditHistoryHander(BaseHandler):
-    '''
+    """
     Manage the posts by Administrator.
-    '''
+    """
 
     __metaclass__ = ABCMeta
 
@@ -69,16 +69,16 @@ class EditHistoryHander(BaseHandler):
 
     @abstractmethod
     def update(self, uid):
-        '''
+        """
         update by buid
-        '''
+        """
         return
 
     @abstractmethod
     def to_edit(self, postid):
-        '''
+        """
         to edit
-        '''
+        """
         return
 
     # @abstractmethod
@@ -92,30 +92,30 @@ class EditHistoryHander(BaseHandler):
 
     @abstractmethod
     def delete(self, uid):
-        '''
+        """
         delete the post.
-        '''
+        """
         return
 
     @abstractmethod
     def view(self, uid):
-        '''
+        """
         view the post
-        '''
+        """
         return
 
     @abstractmethod
     def restore(self, hist_uid):
-        '''
+        """
         restore the history
-        '''
+        """
         return
 
 
 class PostHistoryHandler(EditHistoryHander):
-    '''
+    """
     Manage the posts by Administrator.
-    '''
+    """
 
     def initialize(self):
         super().initialize()

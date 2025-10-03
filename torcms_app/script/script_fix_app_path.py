@@ -56,11 +56,11 @@ def javascript2database(htmlfile, html_path, kind='s'):
 
 
 def test_valid(wfile):
-    '''
+    """
     Test the file in App HTML File.
     :param wfile:
     :return:
-    '''
+    """
     if wfile.endswith('.html'):
         pass
     else:

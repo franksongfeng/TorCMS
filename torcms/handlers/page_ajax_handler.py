@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Handler of Pages via Ajax.
-'''
+"""
 
 import json
 
@@ -17,9 +17,9 @@ from torcms.model.wiki_model import MWiki
 
 
 class PageAjaxHandler(PageHandler):
-    '''
+    """
     Handler of Pages via Ajax.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -44,9 +44,9 @@ class PageAjaxHandler(PageHandler):
             return '{}'
 
     def post(self, *args, **kwargs):
-        '''
+        """
         用户操作。
-        '''
+        """
         _ = kwargs
         url_str = args[0]
         url_arr = self.parse_url(url_str)
@@ -63,9 +63,9 @@ class PageAjaxHandler(PageHandler):
             self.json_view()
 
     def view(self, rec):
-        '''
+        """
         view the post.
-        '''
+        """
         out_json = {
             'uid': rec.uid,
             'time_update': rec.time_update,
@@ -80,10 +80,10 @@ class PageAjaxHandler(PageHandler):
         self.write(json.dumps({'code': citiao}))
 
     def p_list(self, kind, cur_p=''):
-        '''
+        """
         List the post .
         ToDo: 检查
-        '''
+        """
         current_page_number = 1
         if cur_p == '':
             current_page_number = 1
@@ -120,17 +120,17 @@ class PageAjaxHandler(PageHandler):
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def p_to_add(self):
-        '''
+        """
         To add the page.
-        '''
+        """
         self.render('admin/page_ajax/page_add.html', kwd={})
 
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def json_add(self):
-        '''
+        """
         Add new page.
-        '''
+        """
 
         post_data = self.get_request_arguments()
 
@@ -156,13 +156,13 @@ class PageAjaxHandler(PageHandler):
             return json.dump(output, self)
 
     def json_view(self):
-        '''
+        """
         When access with the slug, It will add the page if there is no record in database.
-        '''
+        """
 
         post_data = self.get_request_arguments()
         slug = post_data.get('slug', '')
-        print("*" * 50)
+        print('*' * 50)
         print(slug)
         rec_page = MWiki.get_by_uid(slug)
 
@@ -187,9 +187,9 @@ class PageAjaxHandler(PageHandler):
             return json.dump(out_json, self)
 
     def json_list(self):
-        '''
+        """
         View the list of the pages.
-        '''
+        """
         recs = MWiki.query_recent(kind=2)
         rec_arr = []
 
@@ -202,9 +202,9 @@ class PageAjaxHandler(PageHandler):
     @privilege.permission(action='assign_role')
     @tornado.web.authenticated
     def json_edit(self, slug):
-        '''
+        """
         Update the page.
-        '''
+        """
 
         post_data = self.get_request_arguments()
 

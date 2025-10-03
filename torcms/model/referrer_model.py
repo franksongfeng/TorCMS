@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Model for referrer.
-'''
+"""
 
 from torcms.core import tools
 from torcms.model.abc_model import MHelper
@@ -11,9 +11,9 @@ from torcms.model.core_tab import TabReferrer
 class MReferrer:
     @staticmethod
     def get_by_uid(uid):
-        '''
+        """
         return the record by uid
-        '''
+        """
         return MHelper.get_by_uid(TabReferrer, uid)
 
     @staticmethod
@@ -60,17 +60,17 @@ class MReferrer:
 
     @staticmethod
     def delete(uid):
-        '''
+        """
         Delete by uid
-        '''
+        """
 
         return MHelper.delete(TabReferrer, uid)
 
     @staticmethod
     def query_all():
-        '''
+        """
         query all the posts.
-        '''
+        """
         return TabReferrer.select()
 
     @staticmethod

@@ -22,14 +22,14 @@ class CommentHandler(BaseHandler):
     @tornado.web.authenticated
     @privilege.permission(action='assign_role')
     def list(self, list, **kwargs):
-        '''
+        """
         List the replies.
-        '''
+        """
 
         def get_pager_idx():
-            '''
+            """
             Get the pager index.
-            '''
+            """
             cur_p = kwargs.get('cur_p')
             current_page_number = 1
             if cur_p == '':

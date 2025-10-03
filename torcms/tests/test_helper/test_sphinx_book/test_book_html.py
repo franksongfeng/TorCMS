@@ -17,7 +17,7 @@ class TestFoo:
         print('setup 方法执行于本类中每条用例之前')
 
         self.uid = tools.get_uu4d()
-        self.fake = Faker(locale="zh_CN")
+        self.fake = Faker(locale='zh_CN')
         # self.ws_dir = Path(__file__).parent / 'book_eb1243/xx_build/html'
         # self.ws_dir = Path('/home/bk/book-rst/doculet/pt01_language_eb00kh')
         # self.ws_dir = Path('/home/bk/tmp/gislite-pub/pt01_language_eb00kh')
@@ -44,7 +44,7 @@ class TestFoo:
         # self.ch_dir.rmdir()
         # print('x' * 40)
         # self.ws_dir.rmdir()
-        print("function teardown .. ")
+        print('function teardown .. ')
 
     def test(self):
         if self.img_ws.exists():
@@ -74,7 +74,7 @@ class TestFoo:
         File = File.replace(
             'src="../../_images/', f'src="/static/xx_book_{self.book_sig.group()}/'
         )
-        Soup = bs4.BeautifulSoup(File, features="html.parser")
+        Soup = bs4.BeautifulSoup(File, features='html.parser')
         title = Soup.title.text.split('—')[0]
         content = Soup.select('.body')[0]
         conz = ''

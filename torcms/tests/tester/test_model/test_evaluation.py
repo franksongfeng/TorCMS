@@ -70,7 +70,7 @@ class TestMEvaluation:
         assert a
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tt = MPost.get_by_uid(self.post_id)
         if tt:
             MPost.delete(self.post_id)

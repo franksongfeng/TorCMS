@@ -37,7 +37,7 @@ class TestMWiki:
         assert tt.cnt_md == tornado.escape.xhtml_unescape(post_data['cnt_md'])
 
     def test_insert_2(self):
-        '''Wiki insert: Test invalid title'''
+        """Wiki insert: Test invalid title"""
         post_data = {
             'title': '',
             'user_name': 'Tome',
@@ -98,5 +98,5 @@ class TestMWiki:
         assert tf
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         self.uu.delete(self.uid)

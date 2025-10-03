@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Handler for wiki, and page.
-'''
+"""
 
 import json
 from concurrent.futures import ThreadPoolExecutor
@@ -22,9 +22,9 @@ from torcms.model.wiki_model import MWiki
 
 
 class WikiHandler(BaseHandler):
-    '''
+    """
     Handler for wiki, and page.
-    '''
+    """
 
     executor = ThreadPoolExecutor(2)
 
@@ -61,9 +61,9 @@ class WikiHandler(BaseHandler):
             self.show404()
 
     def recent(self):
-        '''
+        """
         List recent wiki.
-        '''
+        """
         kwd = {
             'pager': '',
             'title': 'Recent Pages',
@@ -77,9 +77,9 @@ class WikiHandler(BaseHandler):
         )
 
     def refresh(self):
-        '''
+        """
         List the wikis of dated.
-        '''
+        """
         kwd = {
             'pager': '',
             'title': '最近文档',
@@ -93,10 +93,10 @@ class WikiHandler(BaseHandler):
         )
 
     def view_or_add(self, title):
-        '''
+        """
         To judge if there is a post of the title.
         Then, to show, or to add.
-        '''
+        """
         postinfo = MWiki.get_by_wiki(title)
         if postinfo:
             if postinfo.kind == self.kind:
@@ -111,9 +111,9 @@ class WikiHandler(BaseHandler):
     @tornado.web.authenticated
     @tornado.gen.coroutine
     def update(self, uid):
-        '''
+        """
         Update the wiki.
-        '''
+        """
         postinfo = MWiki.get_by_uid(uid)
 
         post_data = self.get_request_arguments()
@@ -150,9 +150,9 @@ class WikiHandler(BaseHandler):
         )
 
     def view(self, view):
-        '''
+        """
         View the wiki.
-        '''
+        """
         kwd = {'pager': ''}
         MWiki.update_view_count(view.uid)
         if self.userinfo:
@@ -185,9 +185,9 @@ class WikiHandler(BaseHandler):
     @privilege.permission(action='can_add')
     @tornado.gen.coroutine
     def add(self, title=''):
-        '''
+        """
         Add wiki
-        '''
+        """
 
         post_data = self.get_request_arguments()
 

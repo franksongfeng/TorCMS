@@ -1,8 +1,9 @@
 # -*- encoding:utf-8 -*-
 
-'''
+"""
 自动生成根据进行转换的APP
-'''
+"""
+
 import os
 
 import yaml
@@ -22,7 +23,7 @@ def get_js(uu):
             # p = u.keys()
             # desc = u[p]
             desc = u[p]
-            tmp_str = '''var {0} =  parseFloat($('#{0}').val())'''.format(p)
+            tmp_str = """var {0} =  parseFloat($('#{0}').val())""".format(p)
             tmp_arr.append(tmp_str)
 
     return ';\n'.join(tmp_arr)
@@ -30,12 +31,12 @@ def get_js(uu):
 
 def get_momo(uu):
     # for key in uu.keys():
-    tpl_str = '''<div  class="form-group">
+    tpl_str = """<div  class="form-group">
         <label for="{0}" class="col-sm-2 control-label">{0}—{1}</label>
         <div class="col-sm-8">
         <input class="form-control" id="{0}" type="text" name="{0}" placeholder="{0}">
         </div></div>
-        '''
+        """
     ulist = uu['p']
     tmp_arr = []
     # (p, desc) = uu['res1'].split(':')
@@ -52,14 +53,14 @@ def get_momo(uu):
 
 def get_res_desc(uu):
     # for key in uu.keys():
-    tpl_str = '''{0}—{1}'''
+    tpl_str = """{0}—{1}"""
 
     # (p, desc) = uu['res1'].split(':')
     return ''  # tpl_str.format(p, desc)
 
 
 def get_fun_p(uu):
-    tpl_str = '''{0} = float(self.get_argument('{0}'))'''
+    tpl_str = """{0} = float(self.get_argument('{0}'))"""
     ulist = uu['p']
     tmp_arr = []
     for u in ulist:
@@ -69,9 +70,9 @@ def get_fun_p(uu):
 
 
 def get_result(uu):
-    res_tpl = '''<div class="form-group"><label for="nnnn" class="col-sm-2 control-label">zzzz</label>
+    res_tpl = """<div class="form-group"><label for="nnnn" class="col-sm-2 control-label">zzzz</label>
     <div class="col-sm-10"><input class="form-control" name="nnnn" id="nnnn" type="text" readonly></div></div>
-'''
+"""
     res_str = ''
     for vv in uu['res']:
         # print(vv)
@@ -85,8 +86,8 @@ def get_result(uu):
 
 
 def get_show_json(uu):
-    res_tpl = '''$("#aaaa").val(bbbb);
-'''
+    res_tpl = """$("#aaaa").val(bbbb);
+"""
     res_str = ''
     for vv in uu['res']:
         # print(vv)
@@ -100,9 +101,9 @@ def get_show_json(uu):
 
 
 def get_calc_it(uu):
-    equa_tpl = '''
+    equa_tpl = """
         bbbb = ffff
-            '''
+            """
     do_equa_str = ''
     # for vv, ww in zip(uu['py'], uu['res']):
     for xx in uu['res']:
@@ -117,7 +118,7 @@ def get_calc_it(uu):
             do_equa_str += ';'
 
     # 添加输出字典
-    out_dic = '''        '''
+    out_dic = """        """
     for ww in uu['res']:
         # mm, nn = ww.split(':')
         for mm in ww.keys():
@@ -130,8 +131,8 @@ def get_calc_it(uu):
 
 
 def get_rule(equa):
-    tpl_rule = '''dddd: {    required: true,  number: true    },
-        '''
+    tpl_rule = """dddd: {    required: true,  number: true    },
+        """
     rule_str = ''
 
     for uu in equa['p']:
@@ -149,9 +150,9 @@ def get_rule(equa):
 
 
 def get_message(equa):
-    tpl_message = '''dddd: {required: "<span class='red'>请输入变量的值</span>",
+    tpl_message = """dddd: {required: "<span class='red'>请输入变量的值</span>",
      number: "<span class='red'>变量必须为数字</span>" },
-    '''
+    """
 
     message_str = ''
     for uu in equa['p']:

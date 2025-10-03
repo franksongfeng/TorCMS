@@ -1,6 +1,6 @@
-'''
+"""
 导入科学数据集的元数据，以及数据实体
-'''
+"""
 
 import os
 import pathlib
@@ -48,9 +48,9 @@ def chuli_meta(sig, metafile):
 
 
 def get_meta(catid, sig, dataset_id):
-    '''
+    """
     Get metadata of dataset via ID.
-    '''
+    """
     meta_base = './static/dataset_list'
     if os.path.exists(meta_base):
         pass
@@ -112,9 +112,9 @@ def get_meta(catid, sig, dataset_id):
 
 
 def update_post(uid, post_data, cur_extinfo):
-    '''
+    """
     注意，不更新 title
-    '''
+    """
     entry = TabPost.update(
         # title=post_data['title'].strip(),
         # user_name=data_dic['user_name'],
@@ -134,9 +134,9 @@ def update_post(uid, post_data, cur_extinfo):
 
 
 def update_label(signature, post_data):
-    '''
+    """
     Update the label .
-    '''
+    """
     current_tag_infos = MPost2Label.get_by_uid(signature).objects()
     if 'tags' in post_data:
         pass
@@ -171,9 +171,9 @@ def update_label(signature, post_data):
 
 
 def check_ds(dataid):
-    '''
+    """
     检查数据集是否已有
-    '''
+    """
     inws = Path(__file__).parent / 'datasets'
     for wfile in os.listdir(inws):
         # print(wfile)
@@ -183,10 +183,10 @@ def check_ds(dataid):
 
 
 def fix_entity_path(data_id):
-    '''
+    """
     传入数据的 ID 。
     在指定的文件夹下面遍历查找 。 找到后返回路径。
-    '''
+    """
     # 新拷贝到的路径
     out_dir = Path(__file__).parent / 'datasets'
 
@@ -275,7 +275,7 @@ def test_import_meta():
                 continue
 
             if uid:
-                print("-" * 50)
+                print('-' * 50)
                 print(dataset_id)
                 pp_data = get_meta(catid, str(uid), dataset_id)
 

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Menu for category lists.
-'''
+"""
 
 import tornado.web
 
@@ -9,9 +9,9 @@ from torcms.model.category_model import MCategory
 
 
 class CategoryMenu(tornado.web.UIModule):
-    '''
+    """
     Menu for category lists.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         kind = kwargs.get('kind', '1')
@@ -21,9 +21,9 @@ class CategoryMenu(tornado.web.UIModule):
 
 
 class SecondaryCategoryMenu(tornado.web.UIModule):
-    '''
+    """
     Secondary Category Menu
-    '''
+    """
 
     def render(self, *args, **kwargs):
         kind = kwargs.get('kind', '1')
@@ -43,9 +43,9 @@ class SecondaryCategoryMenu(tornado.web.UIModule):
 
 
 class SecondaryCategoryList(tornado.web.UIModule):
-    '''
+    """
     Secondary Category List
-    '''
+    """
 
     def render(self, *args, **kwargs):
         catid = kwargs.get('catid', '')
@@ -77,7 +77,7 @@ class SecondaryCategoryList(tornado.web.UIModule):
 
 
 class CategoryName(tornado.web.UIModule):
-    ''' '''
+    """ """
 
     def render(self, *args, **kwargs):
         cat_id = args[0]

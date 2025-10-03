@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 
-'''
+"""
 Define the map module for TorCMS.
-'''
+"""
 
 import tornado.web
 
@@ -26,9 +26,9 @@ class MapAd(tornado.web.UIModule):
 
 
 class MapJson(tornado.web.UIModule):
-    '''
+    """
     List the jsons records for centain Map.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         app_id = args[0]
@@ -57,9 +57,9 @@ class MapJson(tornado.web.UIModule):
 
 
 class MapLayout(tornado.web.UIModule):
-    '''
+    """
     List the Layout of Map.
-    '''
+    """
 
     def render(self, *args, **kwargs):
         app_id = args[0]

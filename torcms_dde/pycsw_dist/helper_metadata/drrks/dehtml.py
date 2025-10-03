@@ -41,7 +41,7 @@ def dehtml(text):
 
 
 def main():
-    text = r'''
+    text = r"""
         <html>
             <body>
                 <b>Project:</b> DeHTML<br>
@@ -50,7 +50,7 @@ def main():
                 plain text.
             </body>
         </html>
-    '''
+    """
     print(dehtml(text))
 
 

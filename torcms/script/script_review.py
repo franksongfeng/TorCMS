@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 Check the difference of modification.
-'''
+"""
+
 import datetime
 import os
 
@@ -21,9 +22,9 @@ TIME_LIMIT = 6 * 60 * 60 + 60  # Every 6 house, plus 60 seconds.
 
 
 def __get_diff_recent():
-    '''
+    """
     Generate the difference of posts. recently.
-    '''
+    """
     diff_str = ''
 
     for key in post_cfg.keys():
@@ -40,11 +41,9 @@ def __get_diff_recent():
 
                 diff_str = (
                     diff_str
-                    + '''
+                    + """
                 <h2 style="color:red;font-size:larger;font-weight:70;">TITLE: {0}</h2>
-                '''.format(
-                        recent_post.title
-                    )
+                """.format(recent_post.title)
                     + infobox
                 )
 
@@ -62,17 +61,17 @@ def __get_diff_recent():
 
 
 def __get_wiki_review(email_cnt, idx):
-    '''
+    """
     Review for wikis.
-    '''
+    """
     recent_posts = MWiki.query_recent_edited(tools.timestamp() - TIME_LIMIT, kind='2')
     for recent_post in recent_posts:
         hist_rec = MWikiHist.get_last(recent_post.uid)
         if hist_rec:
-            foo_str = '''
+            foo_str = """
                     <tr><td>{0}</td><td>{1}</td><td class="diff_chg">Edit</td><td>{2}</td>
                     <td><a href="{3}">{3}</a></td></tr>
-                    '''.format(
+                    """.format(
                 idx,
                 recent_post.user_name,
                 recent_post.title,
@@ -80,10 +79,10 @@ def __get_wiki_review(email_cnt, idx):
             )
             email_cnt = email_cnt + foo_str
         else:
-            foo_str = '''
+            foo_str = """
                     <tr><td>{0}</td><td>{1}</td><td class="diff_add">New </td><td>{2}</td>
                     <td><a href="{3}">{3}</a></td></tr>
-                    '''.format(
+                    """.format(
                 idx,
                 recent_post.user_name,
                 recent_post.title,
@@ -96,17 +95,17 @@ def __get_wiki_review(email_cnt, idx):
 
 
 def __get_page_review(email_cnt, idx):
-    '''
+    """
     Review for pages.
-    '''
+    """
     recent_posts = MWiki.query_recent_edited(tools.timestamp() - TIME_LIMIT)
     for recent_post in recent_posts:
         hist_rec = MWikiHist.get_last(recent_post.uid)
         if hist_rec:
-            foo_str = '''
+            foo_str = """
                     <tr><td>{0}</td><td>{1}</td><td class="diff_chg">Edit</td><td>{2}</td>
                     <td><a href="{3}">{3}</a></td></tr>
-                    '''.format(
+                    """.format(
                 idx,
                 recent_post.user_name,
                 recent_post.title,
@@ -114,10 +113,10 @@ def __get_page_review(email_cnt, idx):
             )
             email_cnt = email_cnt + foo_str
         else:
-            foo_str = '''
+            foo_str = """
                     <tr><td>{0}</td><td>{1}</td><td class="diff_add">New </td><td>{2}</td>
                     <td><a href="{3}">{3}</a></td></tr>
-                    '''.format(
+                    """.format(
                 idx,
                 recent_post.user_name,
                 recent_post.title,
@@ -130,9 +129,9 @@ def __get_page_review(email_cnt, idx):
 
 
 def __get_post_review(email_cnt, idx):
-    '''
+    """
     Review for posts.
-    '''
+    """
     for key in post_cfg.keys():
         recent_posts = MPost.query_recent_edited(
             tools.timestamp() - TIME_LIMIT, kind=key
@@ -170,16 +169,16 @@ def __get_post_review(email_cnt, idx):
 
 
 def __get_comment_list():
-    '''
+    """
     Review for posts.
-    '''
+    """
 
     idx = 1
 
     comment_cnt = '<br><br><table border=1><tr><td colspan=5><center><h3>有评论的信息列表<h3></center></td></tr>'
     recent_posts = MComment.query_recent_edited(tools.timestamp() - TIME_LIMIT)
     for recent_post in recent_posts:
-        foo_str = '<tr><td>{0}</td> ' '<td>{1}</td><td><a href="{2}">{2}</a></td></tr>'
+        foo_str = '<tr><td>{0}</td> <td>{1}</td><td><a href="{2}">{2}</a></td></tr>'
 
         foo_str = foo_str.format(
             idx,
@@ -192,16 +191,16 @@ def __get_comment_list():
         )
         comment_cnt = comment_cnt + foo_str
         idx = idx + 1
-    comment_cnt = comment_cnt + '''</table>'''
+    comment_cnt = comment_cnt + """</table>"""
     return comment_cnt
 
 
 def run_review(*args):
-    '''
+    """
     Get the difference of recents modification, and send the Email.
     For: wiki, page, and post.
-    '''
-    email_cnt = '''<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    """
+    email_cnt = """<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
 <style type="text/css">
 table.diff {font-family:Courier; border:medium;}
@@ -211,7 +210,7 @@ td.diff_header {text-align:right}
 .diff_add {background-color:#aaffaa}
 .diff_chg {background-color:#ffff77}
 .diff_sub {background-color:#ffaaaa}
-</style></head><body>'''
+</style></head><body>"""
 
     idx = 1
 
@@ -232,11 +231,11 @@ td.diff_header {text-align:right}
     if len(diff_str) < 20000:
         # 如果太多了，则不放在 Email 内容中.
         email_cnt = email_cnt + diff_str
-    email_cnt = email_cnt + '''</body></html>'''
+    email_cnt = email_cnt + """</body></html>"""
 
     if idx > 1:
         send_mail(
             post_emails,
-            "{0}|{1}|{2}".format(SMTP_CFG['name'], '文档更新情况', DATE_STR),
+            '{0}|{1}|{2}'.format(SMTP_CFG['name'], '文档更新情况', DATE_STR),
             email_cnt,
         )

@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 For Roles
-'''
+"""
+
 from torcms.core import tools
 from torcms.model.abc_model import MHelper
 from torcms.model.core_tab import TabRole
@@ -10,31 +11,31 @@ from torcms.model.staff2role_model import MStaff2Role
 
 
 class MRole:
-    '''
+    """
     For friends links.
-    '''
+    """
 
     @staticmethod
     def get_counts():
-        '''
+        """
         The count in table.
-        '''
+        """
         # adding ``None`` to hide ``No value for argument 'database' in method call``
         return TabRole.select().count(None)
 
     @staticmethod
     def get_counts_by_pid():
-        '''
+        """
         The count in table.
-        '''
+        """
 
         return TabRole.select().where(TabRole.pid == '0000').count()
 
     @staticmethod
     def query_all_pager(current_page_num, perPage):
-        '''
+        """
         Return some of the records. Not all.
-        '''
+        """
         return (
             TabRole.select()
             .where(TabRole.pid == '0000')
@@ -44,16 +45,16 @@ class MRole:
 
     @staticmethod
     def query_all():
-        '''
+        """
         Return some of the records. Not all.
-        '''
+        """
         return TabRole.select()
 
     @staticmethod
     def get_by_uid(uid):
-        '''
+        """
         Get a link by ID.
-        '''
+        """
         return MHelper.get_by_uid(TabRole, uid)
 
     @staticmethod
@@ -70,9 +71,9 @@ class MRole:
 
     @staticmethod
     def delete(uid):
-        '''
+        """
         Delete by uid
-        '''
+        """
         per_recs = MRole2Permission.query_by_role(uid)
         for role_rec in per_recs:
             MRole2Permission.remove_relation(uid, role_rec.permission)
@@ -85,9 +86,9 @@ class MRole:
 
     @staticmethod
     def update(uid, post_data):
-        '''
+        """
         Updat the link.
-        '''
+        """
         raw_rec = TabRole.get(TabRole.uid == uid)
         entry = TabRole.update(
             name=post_data.get('name', raw_rec.name),
@@ -106,9 +107,9 @@ class MRole:
 
     @staticmethod
     def add_or_update(uid, post_data):
-        '''
+        """
         Add or update the data by the given ID of post.
-        '''
+        """
         catinfo = MRole.get_by_uid(uid)
         catinfo2 = MRole.get_by_name(post_data['name'])
         if catinfo:

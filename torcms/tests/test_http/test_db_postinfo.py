@@ -1,10 +1,10 @@
 # 针对导入的测试内容进行测试，当前测试页面时候能正常打开。
 # 测试添加的能容能否正确打开。
-'''
+"""
 测试报错信息：
 ERROR    tornado.general:web.py:3118 Could not open static file '/home/yubiao/gitee/TorCMS/static/f2elib/bootstrap-star-rating-master/css/star-rating.css'
 ERROR    tornado.general:web.py:3118 Could not open static file '/home/yubiao/gitee/TorCMS/static/f2elib/bootstrap-star-rating-master/js/star-rating.js'
-'''
+"""
 
 import os
 from datetime import datetime

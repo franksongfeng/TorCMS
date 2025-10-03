@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Data model for reply.
-'''
+"""
 
 import datetime
 
@@ -28,9 +28,9 @@ class MReply:
 
     @staticmethod
     def create_reply(post_data, extinfo=None):
-        '''
+        """
         Create the reply.
-        '''
+        """
         if extinfo:
             pass
         else:
@@ -53,9 +53,9 @@ class MReply:
 
     @staticmethod
     def query_by_post(postid, reply_count=''):
-        '''
+        """
         Get reply list of certain post.
-        '''
+        """
         if reply_count:
             return (
                 TabReply.select()
@@ -88,9 +88,9 @@ class MReply:
 
     @staticmethod
     def count_of_certain(ext_field=None, user_id=None):
-        '''
+        """
         Get the count of certain kind.
-        '''
+        """
         # adding ``None`` to hide ``No value for argument 'database' in method call``
         if user_id:
             if ext_field:
@@ -124,9 +124,9 @@ class MReply:
 
     @staticmethod
     def total_number(ext_field=''):
-        '''
+        """
         Return the number.
-        '''
+        """
         # adding ``None`` to hide ``No value for argument 'database' in method call``
         if ext_field:
             return (
@@ -142,9 +142,9 @@ class MReply:
 
     @staticmethod
     def query_pager(current_page_num=1, ext_field='', user_id=''):
-        '''
+        """
         Query pager
-        '''
+        """
         if user_id:
             cat_con = TabReply.user_id == user_id
 

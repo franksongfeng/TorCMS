@@ -83,7 +83,7 @@ class TestMWikiHist:
         assert aa
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tt = MUser.get_by_uid(self.user_uid)
         if tt:
             MUser.delete(self.user_uid)

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Handler for role.
-'''
+"""
 
 import json
 
@@ -14,9 +14,9 @@ from torcms.model.role_model import MRole
 
 
 class RoleHandler(BaseHandler):
-    '''
+    """
     Handler for role.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
@@ -67,21 +67,21 @@ class RoleHandler(BaseHandler):
             self.redirect('misc/html/404.html')
 
     def getpid(self):
-        dics = [{"label": "无", "value": "0000"}]
+        dics = [{'label': '无', 'value': '0000'}]
         recs = MRole.query_all()
 
         for rec in recs:
-            dic = {"label": rec.name, "value": rec.uid}
+            dic = {'label': rec.name, 'value': rec.uid}
 
             dics.append(dic)
-        out_dict = {"ok": True, "status": 0, 'data': dics}
+        out_dict = {'ok': True, 'status': 0, 'data': dics}
 
         return json.dump(out_dict, self, ensure_ascii=False)
 
     def chainedOptions(self):
-        '''
+        """
         Recent links.
-        '''
+        """
 
         post_data = self.request.arguments  # {'page': [b'1'], 'perPage': [b'10']}
 
@@ -92,26 +92,26 @@ class RoleHandler(BaseHandler):
         recs = MRole.get_by_pid(parentId)
 
         for rec in recs:
-            dic = {"label": rec.name, "value": rec.uid}
+            dic = {'label': rec.name, 'value': rec.uid}
 
             dics.append(dic)
-        out_dict = {"ok": True, "status": 0, 'data': dics}
+        out_dict = {'ok': True, 'status': 0, 'data': dics}
 
         return json.dump(out_dict, self, ensure_ascii=False)
 
     def recent(self):
-        '''
+        """
         Recent links.
-        '''
+        """
 
         post_data = self.request.arguments  # {'page': [b'1'], 'perPage': [b'10']}
         page = int(post_data['page'][0].decode('utf-8'))
         perPage = int(post_data['perPage'][0].decode('utf-8'))
 
         def get_pager_idx():
-            '''
+            """
             Get the pager index.
-            '''
+            """
 
             current_page_number = 1
             if page == '':
@@ -157,24 +157,24 @@ class RoleHandler(BaseHandler):
 
             dics.append(dic)
         out_dict = {
-            "ok": True,
-            "status": 0,
-            "msg": "ok",
-            "data": {"count": counts, "rows": dics},
+            'ok': True,
+            'status': 0,
+            'msg': 'ok',
+            'data': {'count': counts, 'rows': dics},
         }
 
         return json.dump(out_dict, self, ensure_ascii=False)
 
     def get_recs_dic(self, rec):
         rec = {
-            "uid": rec.uid,
-            "name": rec.name,
-            "status": rec.status,
-            "pid": rec.pid,
-            "time_create": tools.format_time(rec.time_create),
-            "time_update": tools.format_time(rec.time_update),
-            "permission": self.get_permission(rec.uid),
-            "pid_name": self.get_pid_name(rec.pid),
+            'uid': rec.uid,
+            'name': rec.name,
+            'status': rec.status,
+            'pid': rec.pid,
+            'time_create': tools.format_time(rec.time_create),
+            'time_update': tools.format_time(rec.time_update),
+            'permission': self.get_permission(rec.uid),
+            'pid_name': self.get_pid_name(rec.pid),
         }
         return rec
 
@@ -198,28 +198,28 @@ class RoleHandler(BaseHandler):
 
         dic = [
             {
-                "uid": rec.uid,
-                "name": rec.name,
-                "status": rec.status,
-                "pid": rec.pid,
-                "time_create": tools.format_time(rec.time_create),
-                "time_update": tools.format_time(rec.time_update),
+                'uid': rec.uid,
+                'name': rec.name,
+                'status': rec.status,
+                'pid': rec.pid,
+                'time_create': tools.format_time(rec.time_create),
+                'time_update': tools.format_time(rec.time_update),
             }
         ]
 
-        out_dict = {"title": "分组/角色详情", "rolemore_table": dic}
+        out_dict = {'title': '分组/角色详情', 'rolemore_table': dic}
 
         return json.dump(out_dict, self, ensure_ascii=False)
 
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def update(self, uid):
-        '''
+        """
         Update the link.
-        '''
+        """
 
         post_data = json.loads(self.request.body)
-        per_dics = post_data.get("permission").split(",")
+        per_dics = post_data.get('permission').split(',')
         per_recs = MRole2Permission.query_by_role(uid)
 
         for rec in per_recs:
@@ -245,24 +245,24 @@ class RoleHandler(BaseHandler):
                                     role_rec.uid, rec1.permission
                                 )
 
-            output = {"ok": True, "status": 0, "msg": "更新分组/角色成功"}
+            output = {'ok': True, 'status': 0, 'msg': '更新分组/角色成功'}
 
         else:
-            output = {"ok": False, "status": 404, "msg": "更新分组/角色失败"}
+            output = {'ok': False, 'status': 404, 'msg': '更新分组/角色失败'}
 
         return json.dump(output, self, ensure_ascii=False)
 
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def batch_edit(self):
-        '''
+        """
         Update the link.
-        '''
+        """
 
         post_data = json.loads(self.request.body)
 
-        ids = post_data.get("ids", "").split(",")
-        per_dics = post_data.get("permission", "").split(",")
+        ids = post_data.get('ids', '').split(',')
+        per_dics = post_data.get('permission', '').split(',')
         for uid in ids:
             recs = MRole2Permission.query_by_role(uid)
 
@@ -288,21 +288,21 @@ class RoleHandler(BaseHandler):
                                     role_rec.uid, rec1.permission
                                 )
 
-                output = {"ok": True, "status": 0, "msg": "更新分组/角色成功"}
+                output = {'ok': True, 'status': 0, 'msg': '更新分组/角色成功'}
 
             else:
-                output = {"ok": False, "status": 404, "msg": "批量更新分组/角色失败"}
+                output = {'ok': False, 'status': 404, 'msg': '批量更新分组/角色失败'}
         return json.dump(output, self, ensure_ascii=False)
 
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def role_add(self):
-        '''
+        """
         user add link.
-        '''
+        """
 
         post_data = json.loads(self.request.body)
-        per_dics = post_data.get("permission", "").split(",")
+        per_dics = post_data.get('permission', '').split(',')
 
         cur_uid = tools.get_uudd(2)
         while MRole.get_by_uid(cur_uid):
@@ -313,42 +313,42 @@ class RoleHandler(BaseHandler):
                 for per in per_dics:
                     print(per)
                     MRole2Permission.add_or_update(role_uid, per)
-            output = {"ok": True, "status": 0, "msg": "添加/更新分组/角色成功"}
+            output = {'ok': True, 'status': 0, 'msg': '添加/更新分组/角色成功'}
         else:
-            output = {"ok": False, "status": 404, "msg": "添加/更新分组/角色失败"}
+            output = {'ok': False, 'status': 404, 'msg': '添加/更新分组/角色失败'}
         return json.dump(output, self, ensure_ascii=False)
 
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def delete_by_id(self, del_id):
-        '''
+        """
         Delete a link by id.
-        '''
+        """
         del_roles = MRole2Permission.query_by_role(del_id)
         for del_role in del_roles:
             MRole2Permission.remove_relation(del_role.role, del_role.permission)
 
         if MRole.delete(del_id):
-            output = {"ok": True, "status": 0, "msg": "删除分组/角色成功"}
+            output = {'ok': True, 'status': 0, 'msg': '删除分组/角色成功'}
         else:
-            output = {"ok": False, "status": 404, "msg": "删除分组/角色失败"}
+            output = {'ok': False, 'status': 404, 'msg': '删除分组/角色失败'}
         return json.dump(output, self, ensure_ascii=False)
 
     @privilege.permission(action='assign_group')
     @tornado.web.authenticated
     def batch_delete(self, del_id):
-        '''
+        """
         Delete a link by id.
-        '''
+        """
 
-        del_uids = del_id.split(",")
+        del_uids = del_id.split(',')
         for del_id in del_uids:
             del_roles = MRole2Permission.query_by_role(del_id)
             for del_role in del_roles:
                 MRole2Permission.remove_relation(del_role.role, del_role.permission)
 
             if MRole.delete(del_id):
-                output = {"ok": True, "status": 0, "msg": "删除分组/角色成功"}
+                output = {'ok': True, 'status': 0, 'msg': '删除分组/角色成功'}
             else:
-                output = {"ok": False, "status": 404, "msg": "删除分组/角色失败"}
+                output = {'ok': False, 'status': 404, 'msg': '删除分组/角色失败'}
         return json.dump(output, self, ensure_ascii=False)

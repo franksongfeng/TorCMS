@@ -17,18 +17,18 @@ def get_xlsx():
     return lists
 
 
-uuuu = '''
+uuuu = """
 class TabGaoshi(BaseModel):    
     uid = peewee.CharField(null=False, index=True, unique=True, primary_key=True,help_text='主键', )            
-'''
-uadd = '''
+"""
+uadd = """
 class TabGaoshi():
     def __init__(self):
         super(TabGaoshi, self).__init__() 
     @staticmethod
     def add_rec(the_data):     
         TabGaoshi.create(       
-'''
+"""
 
 
 def echo_schema(fields):
@@ -93,7 +93,7 @@ def echo_schema(fields):
     #
     # print('            )')
 
-    print("index.html")
+    print('index.html')
     for field in fields:
         for field_slug, field_val in field.items():
             print(f"'tag_{field_slug}',")

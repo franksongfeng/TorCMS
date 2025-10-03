@@ -1,11 +1,12 @@
 # -*- coding: utf-8
 
-'''
+"""
 导入数据集的信息
 
  import_meta()从dataset_list调用信息生成数据集
  import_tables()从datacn_tables调用信息生成数据表
-'''
+"""
+
 import os
 import pathlib
 import re
@@ -25,9 +26,9 @@ logo_cache_dir = './static/cache'
 
 
 def update_category(uid, postdata, kwargs):
-    '''
+    """
     Update the category of the post.
-    '''
+    """
     catid = (
         kwargs['catid']
         if ('catid' in kwargs and MCategory.get_by_uid(kwargs['catid']))
@@ -214,18 +215,18 @@ def gen_thumb(img_path, sig):
     img.thumbnail((img_width, img_height), Image.ANTIALIAS)
     try:
         thum_file_path = os.path.join(logo_cache_dir, 'd' + sig[1:] + '.jpg')
-        img.save(thum_file_path, "JPEG")
+        img.save(thum_file_path, 'JPEG')
     except Exception as err:
         print(repr(err))
         thum_file_path = os.path.join(logo_cache_dir, 'd' + sig[1:] + '.png')
-        img.save(thum_file_path, "PNG")
+        img.save(thum_file_path, 'PNG')
     return thum_file_path
 
 
 def update_label(signature, post_data):
-    '''
+    """
     Update the label .
-    '''
+    """
     current_tag_infos = MPost2Label.get_by_uid(signature).objects()
     if 'tags' in post_data:
         pass

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Define the schema of Tables in TorCMS.
-'''
+"""
 
 import peewee
 from playhouse.postgres_ext import BinaryJSONField
@@ -119,9 +119,9 @@ class TabWiki(BaseModel):
 
 
 class TabPostHist(BaseModel):
-    '''
+    """
     Table for post history.
-    '''
+    """
 
     uid = peewee.CharField(
         null=False,
@@ -140,9 +140,9 @@ class TabPostHist(BaseModel):
 
 
 class TabWikiHist(BaseModel):
-    '''
+    """
     Table for wiki history.
-    '''
+    """
 
     uid = peewee.CharField(
         null=False,
@@ -160,7 +160,7 @@ class TabWikiHist(BaseModel):
 
 
 class TabMember(BaseModel):
-    '''
+    """
     role:  the index and value should not greater than 3.
     "0123"
     read,add,edit,delete,manage
@@ -174,7 +174,7 @@ class TabMember(BaseModel):
     1: for basic editing
     2: for management
     3:
-    '''
+    """
 
     uid = peewee.CharField(
         null=False,
@@ -198,12 +198,12 @@ class TabMember(BaseModel):
     role = peewee.CharField(
         null=False, default='1000', help_text='Member Privilege', max_length='4'
     )
-    '''
+    """
     进行审核的权限，与 role 配合使用。
     role 声明是否有权限， authority 声明对哪些 post 有权限。
     post 权限类型由二进制的 '1', '10', '100', '1000', ... 声明 ，成员的 authority 则根据二进制相加的结果来声明多种 post 的审核权限
     ToDo: 设计有问题。应该将采用RBAC进行解耦。
-    '''
+    """
     authority = peewee.CharField(
         null=False,
         default='0',
@@ -227,9 +227,9 @@ class TabMember(BaseModel):
 
 
 class TabEntity(BaseModel):
-    '''
+    """
     Table to store the entity information.
-    '''
+    """
 
     uid = peewee.CharField(
         null=False, index=True, unique=True, primary_key=True, max_length=36
@@ -243,9 +243,9 @@ class TabEntity(BaseModel):
 
 
 class TabPost2Tag(BaseModel):
-    '''
+    """
     Table of tag to the post.
-    '''
+    """
 
     uid = peewee.CharField(
         null=False,
@@ -264,9 +264,9 @@ class TabPost2Tag(BaseModel):
 
 
 class TabReply(BaseModel):
-    '''
+    """
     Table of the reply to the post.
-    '''
+    """
 
     uid = peewee.CharField(
         null=False,
@@ -289,9 +289,9 @@ class TabReply(BaseModel):
 
 
 class TabUser2Reply(BaseModel):
-    '''
+    """
     Table of the reply of the user.
-    '''
+    """
 
     uid = peewee.CharField(
         null=False,
@@ -307,9 +307,9 @@ class TabUser2Reply(BaseModel):
 
 
 class TabCollect(BaseModel):
-    '''
+    """
     用户收藏
-    '''
+    """
 
     uid = peewee.CharField(
         max_length=36, null=False, unique=True, help_text='', primary_key=True
@@ -320,9 +320,9 @@ class TabCollect(BaseModel):
 
 
 class TabEvaluation(BaseModel):
-    '''
+    """
     用户评价
-    '''
+    """
 
     uid = peewee.CharField(
         max_length=36, null=False, unique=True, help_text='', primary_key=True
@@ -333,9 +333,9 @@ class TabEvaluation(BaseModel):
 
 
 class TabRating(BaseModel):
-    '''
+    """
     Rating for App of each user.
-    '''
+    """
 
     uid = peewee.CharField(
         max_length=36, null=False, unique=True, help_text='', primary_key=True
@@ -349,10 +349,10 @@ class TabRating(BaseModel):
 
 
 class TabUsage(BaseModel):
-    '''
+    """
     记录用户访问 Post 的概括情况。
     包括数目，最后的访问时间。
-    '''
+    """
 
     uid = peewee.CharField(
         max_length=36, null=False, unique=True, help_text='', primary_key=True
@@ -366,10 +366,10 @@ class TabUsage(BaseModel):
 
 
 class TabRel(BaseModel):
-    '''
+    """
     相关应用
     相关性，并非是对称操作
-    '''
+    """
 
     uid = peewee.CharField(
         max_length=36, null=False, unique=True, help_text='', primary_key=True
@@ -380,7 +380,7 @@ class TabRel(BaseModel):
 
 
 class TabCorrelation(BaseModel):
-    '''
+    """
     Post之间的相关性
     `kind为`相关性的类别：
     1: 同小类
@@ -388,7 +388,7 @@ class TabCorrelation(BaseModel):
     3: 同类 (kind)
     4: 全系统
     5: 与文档
-    '''
+    """
 
     uid = peewee.CharField(
         max_length=36, null=False, unique=True, help_text='', primary_key=True
@@ -400,9 +400,9 @@ class TabCorrelation(BaseModel):
 
 
 class TabEntity2User(BaseModel):
-    '''
+    """
     The table for the entity to user.
-    '''
+    """
 
     uid = peewee.CharField(
         null=False, index=True, unique=True, primary_key=True, max_length=36
@@ -416,9 +416,9 @@ class TabEntity2User(BaseModel):
 
 
 class TabLog(BaseModel):
-    '''
+    """
     用户访问行为记录
-    '''
+    """
 
     uid = peewee.CharField(
         null=False, index=True, unique=True, primary_key=True, max_length=36
@@ -432,9 +432,9 @@ class TabLog(BaseModel):
 
 
 class TabReplyid(BaseModel):
-    '''
+    """
     用户评论回复。
-    '''
+    """
 
     uid = peewee.CharField(
         null=False,
@@ -450,9 +450,9 @@ class TabReplyid(BaseModel):
 
 
 class TabReferrer(BaseModel):
-    '''
+    """
     创建 访问来源 记录表
-    '''
+    """
 
     uid = peewee.CharField(
         null=False,
@@ -494,10 +494,10 @@ class TabReferrer(BaseModel):
 
 
 class TabRole(BaseModel):
-    '''
+    """
     后台人员分组表，或角色表
     角色和组两个概念可能会让人混淆，在这里做个区分：角色赋予的是主体，主体可以是用户，也可以是组；角色是权限的集合；组是用户的集合
-    '''
+    """
 
     uid = peewee.CharField(
         null=False,
@@ -519,7 +519,7 @@ class TabRole(BaseModel):
 
 
 class TabPermission(BaseModel):
-    '''
+    """
     后台人员权限表
     action, 缺省的值如下：
     * assign_group:分组
@@ -530,7 +530,7 @@ class TabPermission(BaseModel):
     * can_delete:删除
     * can_review:复查
     * can_verify:审核
-    '''
+    """
 
     uid = peewee.CharField(
         null=False,
@@ -550,18 +550,18 @@ class TabPermission(BaseModel):
 
 
 class TabStaff2Role(BaseModel):
-    '''
+    """
     人员、角色关联表
-    '''
+    """
 
     staff = peewee.ForeignKeyField(TabMember, backref='staff', help_text='后台人员id')
     role = peewee.ForeignKeyField(TabRole, backref='role', help_text='后台角色id')
 
 
 class TabRole2Permission(BaseModel):
-    '''
+    """
     角色、权限关联表
-    '''
+    """
 
     role = peewee.ForeignKeyField(TabRole, backref='role', help_text='后台角色id')
     permission = peewee.ForeignKeyField(

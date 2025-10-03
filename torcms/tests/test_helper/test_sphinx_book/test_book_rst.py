@@ -26,7 +26,7 @@ class TestFoo:
         print('setup 方法执行于本类中每条用例之前')
 
         self.uid = tools.get_uu4d()
-        self.fake = Faker(locale="zh_CN")
+        self.fake = Faker(locale='zh_CN')
         self.ws_dir = Path(__file__).parent / 'book_demo'
         self.re_pt = re.compile(r'/pt\d\d')
         self.re_ch = re.compile(r'/ch\d\d')
@@ -39,7 +39,7 @@ class TestFoo:
         # self.ch_dir.rmdir()
         # print('x' * 40)
         # self.ws_dir.rmdir()
-        print("function teardown .. ")
+        print('function teardown .. ')
 
     def test(self):
         # ToDo: 需要构建出来

@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Reply of users.
-'''
+"""
+
 import time
 
 from torcms.core import tools

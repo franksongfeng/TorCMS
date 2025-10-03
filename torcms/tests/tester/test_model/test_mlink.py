@@ -111,7 +111,7 @@ class TestMLink:
         assert tf
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         tt = MLink.get_by_uid(self.id)
         if tt:
             MLink.delete(tt.uid)

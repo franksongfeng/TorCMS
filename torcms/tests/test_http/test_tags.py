@@ -11,11 +11,11 @@ tags = MCategory.query_all()
 
 
 class TestTornado(AsyncHTTPTestCase):
-    '''
+    """
     标签的访问方式都是以 label/ 开头
     分类的访问方式数据以 filter/开头，文档以 list/开头
     目前只能根据固定kind值区分是数据还是分类。
-    '''
+    """
 
     def get_app(self):
         return APP

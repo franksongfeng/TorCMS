@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Model for user.
-'''
+"""
+
 import time
 
 from config import CMS_CFG
@@ -12,22 +13,22 @@ from torcms.model.staff2role_model import MStaff2Role
 
 
 class MUser:
-    '''
+    """
     Model for user.
-    '''
+    """
 
     @staticmethod
     def query_all(limit=50):
-        '''
+        """
         Return some of the records. Not all.
-        '''
+        """
         return TabMember.select().order_by(TabMember.time_create.desc()).limit(limit)
 
     @staticmethod
     def get_by_uid(uid):
-        '''
+        """
         Get the user's info by user ID.
-        '''
+        """
         try:
             return TabMember.get(TabMember.uid == uid)
         except Exception as err:
@@ -36,9 +37,9 @@ class MUser:
 
     @staticmethod
     def get_by_name(uname):
-        '''
+        """
         Get user by user_name.
-        '''
+        """
         try:
             return TabMember.get(user_name=uname)
         except Exception as err:
@@ -47,9 +48,9 @@ class MUser:
 
     @staticmethod
     def set_sendemail_time(uid):
-        '''
+        """
         Set the time that send E-mail to user.
-        '''
+        """
         entry = TabMember.update(
             time_email=tools.timestamp(),
         ).where(TabMember.uid == uid)
@@ -57,9 +58,9 @@ class MUser:
 
     @staticmethod
     def get_by_email(useremail):
-        '''
+        """
         Get User info by user's email.
-        '''
+        """
         try:
             return TabMember.get(user_email=useremail)
         except Exception as err:
@@ -68,9 +69,9 @@ class MUser:
 
     @staticmethod
     def check_user(user_id, u_pass):
-        '''
+        """
         Checking the password by user's ID.
-        '''
+        """
         user_count = TabMember.select().where(TabMember.uid == user_id).count()
         if user_count == 0:
             return -1
@@ -81,14 +82,14 @@ class MUser:
 
     @staticmethod
     def check_user_by_name(user_name, u_pass):
-        '''
+        """
         Checking the password by user's name.
 
         1: for success
         0: for failure
         2: for forbidden.
         -1: for no user
-        '''
+        """
         the_query = TabMember.select().where(TabMember.user_name == user_name)
         if the_query.count() == 0:
             return -1
@@ -136,9 +137,9 @@ class MUser:
 
     @staticmethod
     def update_pass(user_id, newpass):
-        '''
+        """
         Update the password of a user.
-        '''
+        """
 
         out_dic = {'success': False, 'code': '00'}
 
@@ -153,9 +154,9 @@ class MUser:
 
     @staticmethod
     def update_user_name(user_email, user_name):
-        '''
+        """
         Update the user_name of a user.
-        '''
+        """
 
         out_dic = {'success': False, 'code': '00'}
 
@@ -170,13 +171,13 @@ class MUser:
 
     @staticmethod
     def query_nologin():
-        '''
+        """
         Query the users who do not login recently (90 days).
         and not send email (120 days).
         time_model: num * month * hours * minite * second
         time_login: 3 * 30 * 24 * 60 * 60
         time_email: 4 * 30 * 24 * 60 * 60
-        '''
+        """
         time_now = tools.timestamp()
         return TabMember.select().where(
             ((time_now - TabMember.time_login) > 7776000)
@@ -185,11 +186,11 @@ class MUser:
 
     @staticmethod
     def update_info(user_id, newemail, extinfo=None):
-        '''
+        """
         Update the user info by user_id.
         21: standsfor invalide E-mail.
         91: standsfor unkown reson.
-        '''
+        """
 
         if extinfo is None:
             extinfo = {}
@@ -256,9 +257,9 @@ class MUser:
 
     @staticmethod
     def update_time_reset_passwd(user_name, the_time):
-        '''
+        """
         Update the time when user reset passwd.
-        '''
+        """
         entry = TabMember.update(
             time_reset_passwd=the_time,
         ).where(TabMember.user_name == user_name)
@@ -271,9 +272,9 @@ class MUser:
 
     @staticmethod
     def update_failed_info(user_name):
-        '''
+        """
         Update the time when user reset passwd.
-        '''
+        """
 
         # First: get the user.
         recs = TabMember.select().where(TabMember.user_name == user_name)
@@ -309,9 +310,9 @@ class MUser:
 
     @staticmethod
     def update_role(u_name, postdata):
-        '''
+        """
         Update the role of the usr.
-        '''
+        """
         role = postdata['role']
         authority = postdata.get('authority', '0')
         entry = TabMember.update(role=role, authority=authority).where(
@@ -326,9 +327,9 @@ class MUser:
 
     @staticmethod
     def update_permissions(u_name):
-        '''
+        """
         更新用户权限
-        '''
+        """
         userinfo = MUser.get_by_name(u_name)
         cur_extinfo = userinfo.extinfo
 
@@ -339,7 +340,7 @@ class MUser:
         perms = MStaff2Role.query_permissions(userinfo.uid)
         # 重新分配权限
         for key in perms:
-            cur_extinfo[f"_per_{key['permission']}"] = 1
+            cur_extinfo[f'_per_{key["permission"]}'] = 1
 
         entry = TabMember.update(extinfo=cur_extinfo).where(
             TabMember.uid == userinfo.uid
@@ -348,9 +349,9 @@ class MUser:
 
     @staticmethod
     def update_success_info(u_name):
-        '''
+        """
         Update the login time for user.
-        '''
+        """
         # Update permisson
 
         # cur_info = MUser.get_by_uid(user_id)
@@ -377,7 +378,7 @@ class MUser:
 
     @staticmethod
     def create_user(post_data, extinfo=None):
-        '''
+        """
         post_data = {
         'user_name': 'tester',
         'user_pass': 'Gg12345678',
@@ -390,13 +391,13 @@ class MUser:
         21: invalide E-mail.
         31: E-mail exists..
         91: unkown reason.
-        '''
+        """
         out_dic = {'success': False, 'code': '00'}
 
         if post_data['user_name'].startswith('_'):
-            '''
+            """
             the user_name startwith with ``_``, ONLY used for inner, not for login.
-            '''
+            """
             pass
         elif not tools.check_username_valid(post_data['user_name']):
             out_dic['code'] = '11'
@@ -447,24 +448,24 @@ class MUser:
 
     @staticmethod
     def get_by_keyword(par2):
-        '''
+        """
         Get Member by keyword
-        '''
+        """
 
         return TabMember.select().where(TabMember.user_name.contains(par2))
 
     @staticmethod
     def get_by_Email(par2):
-        '''
+        """
         Get Member by keyword
-        '''
+        """
         return TabMember.select().where(TabMember.user_email.contains(par2))
 
     @staticmethod
     def delete_by_user_name(user_name):
-        '''
+        """
         Delete user in the database by `user_name`.
-        '''
+        """
         try:
             del_count = TabMember.delete().where(TabMember.user_name == user_name)
             del_count.execute()
@@ -475,9 +476,9 @@ class MUser:
 
     @staticmethod
     def delete(user_id):
-        '''
+        """
         Delele the  user in the database by `user_id`.
-        '''
+        """
 
         staff_recs = MStaff2Role.query_by_staff(user_id)
         for staff_rec in staff_recs:
@@ -487,9 +488,9 @@ class MUser:
 
     @staticmethod
     def total_number():
-        '''
+        """
         Return the number of certian slug.
-        '''
+        """
         # adding ``None`` to hide ``No value for argument 'database' in method call``
         return TabMember.select().count(None)
 
@@ -497,9 +498,9 @@ class MUser:
     def query_pager_by_slug(
         current_page_num=1, type='', user_name='', num=CMS_CFG['list_num']
     ):
-        '''
+        """
         Query pager
-        '''
+        """
         if type:
             return (
                 TabMember.select()
@@ -518,9 +519,9 @@ class MUser:
 
     @staticmethod
     def query_by_time(recent=90):
-        '''
+        """
         Return some of the records. Not all.
-        '''
+        """
         time_that = int(time.time()) - recent * 24 * 3600
 
         return (
@@ -531,9 +532,9 @@ class MUser:
 
     @staticmethod
     def query_pager_by_time(current_page_num=1):
-        '''
+        """
         Query pager
-        '''
+        """
         return (
             TabMember.select()
             .where(TabMember.time_create)
@@ -542,7 +543,7 @@ class MUser:
 
     @staticmethod
     def count_of_certain(type=''):
-        ''' '''
+        """ """
         # adding ``None`` to hide ``No value for argument 'database' in method call``
         if type:
             return (
@@ -555,9 +556,9 @@ class MUser:
 
     @staticmethod
     def has_perm(user_id, kind='', action=''):
-        '''
+        """
         检查在APP中是否有某权限
-        '''
+        """
         userinfo = MUser.get_by_uid(user_id)
         if userinfo and userinfo.is_stuff():
             pass
@@ -568,9 +569,9 @@ class MUser:
 
     @staticmethod
     def has_perms(user_id, kind='', actions=[]):
-        '''
+        """
         检查在APP中是否有某一些权限
-        '''
+        """
         userinfo = MUser.get_by_uid(user_id)
         if userinfo and userinfo.is_stuff():
             pass

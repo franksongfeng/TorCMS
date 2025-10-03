@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 数据库操作，处理标签
-'''
+"""
 
 from config import CMS_CFG
 from torcms.core import tools
@@ -11,15 +11,15 @@ from torcms.model.core_tab import TabPost, TabPost2Tag, TabTag
 
 
 class MLabel:
-    '''
+    """
     For Label
-    '''
+    """
 
     @staticmethod
     def get_id_by_name(tag_name, kind='z'):
-        '''
+        """
         Get ID by tag_name of the label.
-        '''
+        """
         recs = TabTag.select().where((TabTag.name == tag_name) & (TabTag.kind == kind))
         logger.info('tag count of {0}: {1} '.format(tag_name, recs.count()))
         # the_id = ''
@@ -46,17 +46,17 @@ class MLabel:
 
     @staticmethod
     def get_by_slug(tag_slug):
-        '''
+        """
         Get label by slug.
-        '''
+        """
         label_recs = TabTag.select().where(TabTag.slug == tag_slug)
         return label_recs.get() if label_recs else False
 
     @staticmethod
     def create_tag(tag_name, kind='z'):
-        '''
+        """
         Create tag record by tag_name
-        '''
+        """
         cur_recs = TabTag.select().where(
             (TabTag.name == tag_name) & (TabTag.kind == kind)
         )
@@ -103,9 +103,9 @@ class MLabel:
 
 
 class MPost2Label:
-    '''
+    """
     For post 2 label
-    '''
+    """
 
     def __init__(self):
         super().__init__()
@@ -116,9 +116,9 @@ class MPost2Label:
 
     @staticmethod
     def remove_relation(post_id, tag_id):
-        '''
+        """
         Remove the relation of post and label.
-        '''
+        """
         entry = TabPost2Tag.delete().where(
             (TabPost2Tag.post_id == post_id) & (TabPost2Tag.tag_id == tag_id)
         )
@@ -137,9 +137,9 @@ class MPost2Label:
 
     @staticmethod
     def get_by_uid(post_id):
-        '''
+        """
         Get records by post id.
-        '''
+        """
         return (
             TabPost2Tag.select(
                 TabPost2Tag, TabTag.name.alias('tag_name'), TabTag.uid.alias('tag_uid')
@@ -161,9 +161,9 @@ class MPost2Label:
         )
 
         if tmp_recs.count() > 1:
-            '''
+            """
             Remove the rests if the count greater than 1.
-            '''
+            """
             out_rec = None
             for tmp_rec in tmp_recs:
                 if out_rec:
@@ -180,9 +180,9 @@ class MPost2Label:
 
     @staticmethod
     def add_record(post_id, tag_name, order=1, kind='z'):
-        '''
+        """
         Add the record.
-        '''
+        """
         logger.info('Add label kind: {0}'.format(kind))
         tag_id = MLabel.get_id_by_name(tag_name, 'z')
         labelinfo = MPost2Label.get_by_info(post_id, tag_id)
@@ -204,9 +204,9 @@ class MPost2Label:
 
     @staticmethod
     def total_number(slug, kind='1'):
-        '''
+        """
         Return the number of certian slug.
-        '''
+        """
         return (
             TabPost.select()
             .join(TabPost2Tag, on=(TabPost.uid == TabPost2Tag.post_id))
@@ -216,9 +216,9 @@ class MPost2Label:
 
     @staticmethod
     def query_pager_by_slug(slug, kind='1', current_page_num=1):
-        '''
+        """
         Query pager
-        '''
+        """
         return (
             TabPost.select()
             .join(TabPost2Tag, on=(TabPost.uid == TabPost2Tag.post_id))

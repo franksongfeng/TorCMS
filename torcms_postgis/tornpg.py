@@ -41,7 +41,7 @@ except ImportError:
     else:
         raise
 
-version = "0.1"
+version = '0.1'
 version_info = (0, 1, 2, 0)
 
 psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
@@ -80,7 +80,7 @@ class Connection(object):
         self.max_idle_time = float(max_idle_time)
 
         args = dict(
-            client_encoding="utf8", database=database, connect_timeout=connect_timeout
+            client_encoding='utf8', database=database, connect_timeout=connect_timeout
         )
         if user is not None:
             args['user'] = user
@@ -88,7 +88,7 @@ class Connection(object):
             args['password'] = password
 
         # We accept a path to a host(:port) string
-        pair = host.split(":")
+        pair = host.split(':')
         if len(pair) == 2:
             args['host'] = pair[0]
             args['port'] = port or int(pair[1])
@@ -105,7 +105,7 @@ class Connection(object):
             self.reconnect()
         except Exception:
             logging.error(
-                "Cannot connect to Postgresql on %s:%s", self.host, exc_info=True
+                'Cannot connect to Postgresql on %s:%s', self.host, exc_info=True
             )
 
     def __del__(self):
@@ -113,7 +113,7 @@ class Connection(object):
 
     def close(self):
         """Closes this database connection."""
-        if getattr(self, "_db", None) is not None:
+        if getattr(self, '_db', None) is not None:
             self._db.close()
             self._db = None
 
@@ -165,7 +165,7 @@ class Connection(object):
         if not rows:
             return None
         elif len(rows) > 1:
-            raise Exception("Multiple rows returned for Database.get() query")
+            raise Exception('Multiple rows returned for Database.get() query')
         else:
             return rows[0]
 
@@ -248,7 +248,7 @@ class Connection(object):
         try:
             return cursor.execute(query, kwparameters or parameters)
         except OperationalError:
-            logging.error("Error connecting to Postgresql on %s", self.host)
+            logging.error('Error connecting to Postgresql on %s', self.host)
             self.close()
             raise
 

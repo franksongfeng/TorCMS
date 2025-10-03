@@ -1,6 +1,6 @@
-'''
+"""
 Handler of Posts via Ajax.
-'''
+"""
 
 import json
 
@@ -21,21 +21,21 @@ from torcms.model.user_model import MUser
 
 
 def update_category(uid, post_data):
-    '''
+    """
     Update the category of the post.
     :param uid:  The ID of the post. Extra info would get by requests.
-    '''
+    """
 
     # deprecated
     # catid = kwargs['catid'] if MCategory.get_by_uid(kwargs.get('catid')) else None
     # post_data = self.get_request_arguments()
 
-    '''
+    """
     在前端，使用 `gcat0`，`gcat1`，`gcat2` 等，作为分类的参数。
     因为一个 post 可能会有多个分类，再定义第1分类的 key ：
         'def_cat_uid'： 第1分类
         'def_cat_pid' : 分1分类的父类
-    '''
+    """
     if 'gcat0' in post_data:
         pass
     else:
@@ -91,9 +91,9 @@ def update_category(uid, post_data):
 
 
 def update_label(post_id, post_data):
-    '''
+    """
     Update the label when updating.
-    '''
+    """
     current_tag_infos = MPost2Label.get_by_uid(post_id).objects()
     if 'tags' in post_data:
         pass
@@ -115,17 +115,17 @@ def update_label(post_id, post_data):
 
 
 class PostAjaxHandler(PostHandler):
-    '''
+    """
     Handler of Posts via Ajax.
-    '''
+    """
 
     def initialize(self, **kwargs):
         super().initialize()
 
     def set_default_headers(self):
-        print("setting headers!!!")
-        self.set_header("Access-Control-Allow-Origin", "*")
-        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        print('setting headers!!!')
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Headers', 'x-requested-with')
         self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
 
     def get(self, *args, **kwargs):
@@ -163,9 +163,9 @@ class PostAjaxHandler(PostHandler):
             self.json_recent()
 
     def viewinfo(self, postinfo):
-        '''
+        """
         View the info
-        '''
+        """
         out_json = {
             'uid': postinfo.uid,
             'time_update': postinfo.time_update,
@@ -175,9 +175,9 @@ class PostAjaxHandler(PostHandler):
         self.write(json.dumps(out_json))
 
     def p_recent(self, kind, cur_p='', with_catalog=True, with_date=True, **kwargs):
-        '''
+        """
         List posts that recent edited, partially.
-        '''
+        """
 
         post_data = self.get_request_arguments()
         num = post_data.get('num', 20)
@@ -223,9 +223,9 @@ class PostAjaxHandler(PostHandler):
     @tornado.web.authenticated
     @privilege.permission(action='can_delete')
     def j_delete(self, *args):
-        '''
+        """
         Delete the post, but return the JSON.
-        '''
+        """
 
         uid = args[0]
 
@@ -249,9 +249,9 @@ class PostAjaxHandler(PostHandler):
     @tornado.web.authenticated
     @privilege.permission(action='can_delete')
     def j_nullify(self, *args):
-        '''
+        """
         update valid, but return the JSON.
-        '''
+        """
 
         uid = args[0]
         current_infor = MPost.get_by_uid(uid)
@@ -275,9 +275,9 @@ class PostAjaxHandler(PostHandler):
     @privilege.permission(action='can_add')
     @tornado.web.authenticated
     def json_add(self):
-        '''
+        """
         in infor.
-        '''
+        """
 
         uid = self._gen_uid()
 
@@ -321,9 +321,9 @@ class PostAjaxHandler(PostHandler):
         return json.dump(output, self)
 
     def __parse_post_data(self):
-        '''
+        """
         fetch post accessed data. post_data, and ext_dic.
-        '''
+        """
         post_data = {}
         ext_dic = {}
         for key in self.request.arguments:
@@ -383,10 +383,10 @@ class PostAjaxHandler(PostHandler):
     @privilege.permission(action='can_edit')
     @tornado.web.authenticated
     def json_edit(self, uid):
-        '''
+        """
         in infor.
-        '''
-        print("/*" * 50)
+        """
+        print('/*' * 50)
         print(uid)
 
         postinfo = MPost.get_by_uid(uid)
@@ -440,9 +440,9 @@ class PostAjaxHandler(PostHandler):
         return json.dump(output, self)
 
     def json_recent(self):
-        '''
+        """
         List posts that recent edited, partially.
-        '''
+        """
 
         post_data = self.get_request_arguments()
         kind = post_data.get('kind', 1)

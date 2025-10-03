@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Export posts from database to Markdown files.
-'''
+"""
 
 import os
 import re
@@ -45,9 +45,9 @@ def do_for_cat(rec):
         postinfo = MPost.get_by_uid(post2tag_rec.post_id)
         markdown_cnt = postinfo.cnt_md
         md = markdown.Markdown(extensions=['meta'])
-        html = "{ " + md.convert(markdown_cnt) + " }"
+        html = '{ ' + md.convert(markdown_cnt) + ' }'
 
-        print("*" * 50)
+        print('*' * 50)
         print(md.Meta)
         stitle = md.Meta.get('s-title')
         if stitle:
@@ -165,7 +165,7 @@ def do_for_cat(rec):
             else:
                 fout_md.write(
                     'cnt_md: {}\n'.format(
-                        "{ " + markdown_cnt.replace('\r\n', '\n') + " }"
+                        '{ ' + markdown_cnt.replace('\r\n', '\n') + ' }'
                     )
                 )
             if md.Meta.get('cnt_html'):

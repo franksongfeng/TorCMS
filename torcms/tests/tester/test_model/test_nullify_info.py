@@ -44,6 +44,6 @@ class TestMNullifyInfo:
         assert bb == aa + 1
 
     def teardown_method(self):
-        print("function teardown")
+        print('function teardown')
         MPost.delete(self.post_id)
         self.uid = ''

@@ -1,8 +1,8 @@
 # -*- coding:utf8-*-
 
-'''
+"""
 导入 Jupyter 格式的文档
-'''
+"""
 
 import os
 import sys
@@ -36,7 +36,7 @@ def get_docker_name(the_str):
 
 
 def split_text(inws, in_text):
-    '''
+    """
     根据正则表达式，找到特殊的字符串。
     对原始字符串进行切分。
     返回切分的结果，以及用来切分的特殊字符串。def get_docker_name(the_str):
@@ -44,7 +44,7 @@ def split_text(inws, in_text):
     tt = regobj.search(the_str)
     print(tt)
 
-    '''
+    """
 
     # in_text = in_text.replace('{', '{{').replace('}', '}}')
 
@@ -107,9 +107,9 @@ rest_regs = [
 
 
 def do_for_chapter(cat_id, ch_path):
-    '''
+    """
     对章的“节”内容进行处理
-    '''
+    """
     idx = 1
     for jufile in Path(ch_path).rglob('sec*.ipynb'):
         print(jufile.name)
@@ -179,12 +179,12 @@ def get_appfile(uid):
 
 
 def get_meta(catid, idx, uid, docker_name):
-    '''
+    """
     Get metadata of dataset via ID.
-    '''
+    """
     html_file = '/tmp/xx.html'
     # File = open(str(the_file.resolve()))
-    Soup = bs4.BeautifulSoup(open(html_file).read(), features="html.parser")
+    Soup = bs4.BeautifulSoup(open(html_file).read(), features='html.parser')
     title = Soup.select('h1')[0].getText()
     content = Soup.select('#notebook-container')[0]
     print('========1111')
@@ -236,9 +236,9 @@ def get_catname(ch_path, filename):
         print(x.name)
 
         File = open(str(x.resolve()))
-        Soup = bs4.BeautifulSoup(File.read(), features="html.parser")
+        Soup = bs4.BeautifulSoup(File.read(), features='html.parser')
         content = Soup.select('.body')[0]
-        title = content.find_all("h1")[0].get_text()
+        title = content.find_all('h1')[0].get_text()
         return title
 
 
@@ -250,7 +250,7 @@ def test_bainli():
 
     # 对新插入的文章，重新进行编号。 因为只是相对序号，所以取了最大值后，再依序后排。
     max_order = max(recs_arr)
-    print("-" * 50)
+    print('-' * 50)
     print(max(recs_arr))
 
     for wroot, wdirs, wfiles in os.walk(inws):

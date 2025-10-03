@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Tempaltes for CRUD.
-'''
+"""
 
-TPL_ADD = '''
+TPL_ADD = """
     {% extends "../../tmpl_kkkk/tpl_add.html" %}
 
     {% block header %}
@@ -18,9 +18,9 @@ TPL_ADD = '''
     {% end %}
     {% block footer %}
     <p>{{ footer_text }}</p>
-    {% end %}'''
+    {% end %}"""
 
-TPL_EDIT = '''
+TPL_EDIT = """
     {% extends "../../tmpl_kkkk/tpl_edit.html" %}
 
     {% block header %}
@@ -35,9 +35,9 @@ TPL_EDIT = '''
     {% end %}
     {% block footer %}
     <p>{{ footer_text }}</p>
-    {% end %}'''
+    {% end %}"""
 
-TPL_LIST = '''
+TPL_LIST = """
     {% extends "../../tmpl_kkkk/tpl_list.html" %}
     {% block header %}
     {{ header_text }}
@@ -59,11 +59,11 @@ TPL_LIST = '''
     {% end %}
     {% block footer %}
     <p>{{ footer_text }}</p>
-    {% end %}'''
+    {% end %}"""
 
-TPL_LISTINFO = '''{% extends "../../tmpl_kkkk/tpl_listinfo.html" %}'''
+TPL_LISTINFO = """{% extends "../../tmpl_kkkk/tpl_listinfo.html" %}"""
 
-TPL_VIEW = '''{% extends "../../tmpl_kkkk/tpl_viewssss.html" %}
+TPL_VIEW = """{% extends "../../tmpl_kkkk/tpl_viewssss.html" %}
     {% block header %}
     <h1>{{ header_text }}</h1>
     {% end %}
@@ -78,9 +78,9 @@ TPL_VIEW = '''{% extends "../../tmpl_kkkk/tpl_viewssss.html" %}
 
     {% block footer %}
     <p>{{ footer_text }}</p>
-    {% end %}'''
+    {% end %}"""
 
-HTML_INPUT_EDIT_DOWNLOAD = '''
+HTML_INPUT_EDIT_DOWNLOAD = """
  <div class="form-group">
 <label  class="col-sm-2 control-label"  for="{sig_en}">
 <span><a class="glyphicon glyphicon-star" style="color: red;font-size: xx-small;">
@@ -92,8 +92,8 @@ value="{{{{ postinfo.extinfo.get('{sig_en}','') }}}}"
 type="{sig_type}"  class="form-control"> </div>
 <div class="col-sm-2"><a href="/entry/add" target="_blank" class="btn btn-primary" role="button">Upload</a></div>
 </div>
-'''
-HTML_INPUT_EDIT = '''
+"""
+HTML_INPUT_EDIT = """
  <div class="form-group">
 <label  class="col-sm-2 control-label"  for="{sig_en}">
 <span><a class="glyphicon glyphicon-star" style="color: red;font-size: xx-small;">
@@ -105,9 +105,9 @@ value="{{{{ postinfo.extinfo.get('{sig_en}','') }}}}"
 type="{sig_type}"  class="form-control"> </div>
 <div class="col-sm-1">{sig_dic}</div>
 </div>
-'''
+"""
 
-HTML_INPUT_ADD_DOWNLOAD = ''' <div class="form-group">
+HTML_INPUT_ADD_DOWNLOAD = """ <div class="form-group">
 <label class="col-sm-2 control-label" for="{sig_en}">
 <span><a class="glyphicon glyphicon-star" style="color: red;font-size: xx-small;">
 </a>{{{{_('{sig_zh}')}}}}</span>
@@ -119,8 +119,8 @@ class="form-control">
 <div class="col-sm-2">
 <a href="/entry/add" target="_blank" class="btn btn-primary" role="button">Upload</a>
 </div></div>
-'''
-HTML_INPUT_ADD = '''
+"""
+HTML_INPUT_ADD = """
  <div class="form-group">
 <label class="col-sm-2 control-label" for="{sig_en}">
 <span><a class="glyphicon glyphicon-star" style="color: red;font-size: xx-small;">
@@ -133,9 +133,9 @@ class="form-control">
 <div class="col-sm-1">
 {sig_dic}
 </div></div>
-'''
+"""
 
-HTML_INPUT_VIEW_DONWLOAD = '''<div class="row">
+HTML_INPUT_VIEW_DONWLOAD = """<div class="row">
 <div class="col-sm-4"><span class="des"><strong>{{{{_('{sig_zh}')}}}}</strong></span></div>
 <div class="col-sm-8">
 
@@ -154,22 +154,22 @@ HTML_INPUT_VIEW_DONWLOAD = '''<div class="row">
 <span class="btn btn-primary btn-xs"> {{{{ _('login in') }}}}</span>. </a>
 {{% end %}}
  </div></div>
-'''
+"""
 
-HTML_INPUT_VIEW_LINK = '''{{% if postinfo.extinfo.get('{0}') %}}<div class="row">
+HTML_INPUT_VIEW_LINK = """{{% if postinfo.extinfo.get('{0}') %}}<div class="row">
     <div class="col-sm-4"><span class="des"><strong>{{{{_('{1}')}}}}</strong></span></div>
     <div class="col-sm-8">
     <a class="val" target="_blank" href="{{{{ postinfo.extinfo.get('{0}','') }}}}
      {2}" style="cursor: pointer; color:#069">
      {{{{ postinfo.extinfo.get('{0}','') }}}}
      {2}</a></div></div>{{% end %}}
-    '''
-HTML_INPUT_VIEW = '''{{% if postinfo.extinfo.get('{0}') %}}<div class="row">
+    """
+HTML_INPUT_VIEW = """{{% if postinfo.extinfo.get('{0}') %}}<div class="row">
     <div class="col-sm-4"><span class="des"><strong>{{{{_('{1}')}}}}</strong></span></div>
     <div class="col-sm-8">
     <span class="val">{{{{ postinfo.extinfo.get('{0}','') }}}}
      {2}</span></div></div>{{% end %}}
-    '''
+    """
 HTML_TPL_DICT = {
     'input_add': HTML_INPUT_ADD,
     'input_add_download': HTML_INPUT_ADD_DOWNLOAD,

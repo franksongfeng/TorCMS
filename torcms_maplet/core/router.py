@@ -22,7 +22,7 @@ _urls = [
         dict(),
     ),  # Deprecated, repaled by `/overlay/` .
     ('/admin_map/(.*)', MapAdminHandler, dict()),
-    ("/map/(.*)", MapPostHandler, dict(kind='m')),
+    ('/map/(.*)', MapPostHandler, dict(kind='m')),
     # Using GeoJson.
     ('/geojson_v1/(.*)', geojson_control.GeoJsonHandler, dict()),
     ('/geojson_j_v1/(.*)', geojson_control.GeoJsonAjaxHandler, dict()),
@@ -34,5 +34,5 @@ _urls = [
     ('/mapdraw_v3/(.*)', geojson_v3.GeoJsonHandler, dict()),
     ('/mapdraw_j_v3/(.*)', geojson_v3.GeoJsonAjaxHandler, dict()),
     ('/layout/(.*)', MapLayoutHandler, dict()),
-    ("/map_log/(.*)", MapLogHandler, dict()),
+    ('/map_log/(.*)', MapLogHandler, dict()),
 ]

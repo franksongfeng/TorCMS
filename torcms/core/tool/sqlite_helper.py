@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Handle the usage of the info.
-'''
+"""
 
 import sqlite3
 import time
@@ -10,9 +10,9 @@ from torcms.core.tools import ts_helper
 
 
 class MAcces:
-    '''
+    """
     Handle the usage of the info.
-    '''
+    """
 
     @staticmethod
     def get_all():
@@ -20,9 +20,9 @@ class MAcces:
 
     @staticmethod
     def add(post_id):
-        '''
+        """
         Create the record.
-        '''
+        """
 
         ts30d = ts_helper()[2]
 
@@ -65,7 +65,7 @@ class MAcces:
             cursor.execute(sql, para)
 
         try:
-            sql = '''insert into TabAccess (uid, post_id) values (?,?)'''
+            sql = """insert into TabAccess (uid, post_id) values (?,?)"""
             para = (millis, post_id)
             cursor.execute(sql, para)
         except Exception as err:

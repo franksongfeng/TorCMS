@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
-'''
+"""
 Reply of users.
-'''
+"""
+
 import time
 
 from peewee import JOIN
@@ -13,16 +14,16 @@ from torcms.model.core_tab import TabPermission, TabRole, TabRole2Permission
 class MRole2Permission:
     @staticmethod
     def query_all():
-        '''
+        """
         Return some of the records. Not all.
-        '''
+        """
         return TabRole2Permission.select()
 
     @staticmethod
     def query_by_permission(per_id):
-        '''
+        """
         Query records by permission.
-        '''
+        """
         return TabRole2Permission.select().where(
             TabRole2Permission.permission == per_id
         )
@@ -45,16 +46,16 @@ class MRole2Permission:
 
     @staticmethod
     def query_by_role(role_id):
-        '''
+        """
         Query records by role.
-        '''
+        """
         return TabRole2Permission.select().where(TabRole2Permission.role == role_id)
 
     @staticmethod
     def remove_relation(role_id, per_id):
-        '''
+        """
         Delete the record of Role 2 Permission.
-        '''
+        """
         entry = TabRole2Permission.delete().where(
             (TabRole2Permission.role == role_id)
             & (TabRole2Permission.permission == per_id)
